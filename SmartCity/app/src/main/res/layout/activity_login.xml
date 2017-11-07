@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.henallux.smartcity.LoginActivity">
+    <!--<ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">-->
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/password"
+        android:layout_below="@+id/password"
+        android:layout_marginTop="28dp"
+        android:ems="10"
+        android:hint="@string/enter_your_e_mail_adress"
+        android:inputType="textEmailAddress"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="64dp" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="@string/password"
+        tools:layout_editor_absoluteY="143dp"
+        tools:layout_editor_absoluteX="94dp"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/login"
+        android:layout_alignStart="@+id/login" />
+
+    <EditText
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/login"
+        tools:layout_editor_absoluteY="64dp"
+        tools:layout_editor_absoluteX="85dp"
+        android:layout_marginTop="19dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/sign_in" />
+
+    <EditText
+        android:id="@+id/birthDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="datetime"
+        android:hint="@string/enter_your_birth_date"
+        tools:layout_editor_absoluteY="64dp"
+        tools:layout_editor_absoluteX="85dp"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/male"
+        android:layout_alignStart="@+id/male" />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register"
+        android:layout_marginBottom="13dp"
+        android:layout_above="@+id/sign_in"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/you_have_already_an_account_sign_in"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.967"
+        android:layout_marginBottom="11dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <CheckBox
+        android:id="@+id/male"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/male"
+        android:layout_alignBaseline="@+id/female"
+        android:layout_alignBottom="@+id/female"
+        android:layout_alignStart="@+id/email" />
+
+    <CheckBox
+        android:id="@+id/female"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/female"
+        android:layout_below="@+id/email"
+        android:layout_alignEnd="@+id/email"
+        android:layout_marginTop="26dp" />
+
+    <EditText
+        android:id="@+id/whereHeFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPostalAddress"
+        android:hint="@string/where_are_you_from"
+        android:layout_below="@+id/birthDate"
+        android:layout_alignStart="@+id/birthDate"
+        android:layout_marginTop="27dp" />
+
+
+
+     <!--   </RelativeLayout>
+    </ScrollView>-->
+
+</RelativeLayout>
