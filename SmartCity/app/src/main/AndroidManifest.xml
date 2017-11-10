@@ -16,6 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegisterActivity" />
         <activity android:name=".HomeActivity" />
         <activity
             android:name=".SettingsActivity"
@@ -25,8 +27,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.henallux.smartcity.HomeActivity" />
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegisterActivity"></activity>
+        <activity
+            android:name=".ShowGardensActivity"
+            android:label="@string/title_activity_show_gardens"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.henallux.smartcity.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

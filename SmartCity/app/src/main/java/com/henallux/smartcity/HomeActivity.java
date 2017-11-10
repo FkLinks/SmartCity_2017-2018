@@ -2,20 +2,24 @@ package com.henallux.smartcity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.DataSetObserver;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
-    private SharedPreferences preferences;
+
     private Boolean login;
-    private ListView listChoices;
 
     private String[] listItems={
             getString(R.string.home_menu_gardens),
@@ -32,18 +36,83 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         login = preferences.getBoolean("login", false);
 
-        listChoices = (ListView) findViewById(R.id.list);
-        listChoices.setAdapter(new ArrayAdapter<>(this, R.layout.activity_home, R.id.text1, listItems));
+        ListView listChoices = (ListView) findViewById(android.R.id.list);
+        /*listChoices.setAdapter(new ListAdapter() {            C nul
+            @Override
+            public boolean areAllItemsEnabled() {
+                return true;
+            }
+
+            @Override
+            public boolean isEnabled(int i) {
+                return true;
+            }
+
+            @Override
+            public void registerDataSetObserver(DataSetObserver dataSetObserver) {
+
+            }
+
+            @Override
+            public void unregisterDataSetObserver(DataSetObserver dataSetObserver) {
+
+            }
+
+            @Override
+            public int getCount() {
+                return listItems.length;
+            }
+
+            @Override
+            public Object getItem(int i) {
+                return null;
+            }
+
+            @Override
+            public long getItemId(int i) {
+                return 0;
+            }
+
+            @Override
+            public boolean hasStableIds() {
+                return false;
+            }
+
+            @Override
+            public View getView(int i, View view, ViewGroup viewGroup) {
+                view=getLayoutInflater().inflate(R.layout.activity_home,null);
+                ImageView imageView=(ImageView)view.findViewById(R.id.arrow);
+                TextView textView=(TextView)view.findViewById(R.id.txtChoixListView);
+                imageView.setImageResource(R.drawable.arrow);
+                textView.setText(listItems[i]);
+                return null;
+            }
+
+            @Override
+            public int getItemViewType(int i) {
+                return 0;
+            }
+
+            @Override
+            public int getViewTypeCount() {
+                return listItems.length;
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+        });*/
+        listChoices.setAdapter(new ArrayAdapter<>(this, R.layout.activity_home, R.id.txtChoixListView, listItems));
         listChoices.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch( position )
                 {
-                    case 0:  Intent garden = new Intent(HomeActivity.this, SettingsActivity.class);
+                    case 0:  Intent garden = new Intent(HomeActivity.this, ShowGardensActivity.class);
                         startActivity(garden);
                         break;
                     case 1:  Intent scan = new Intent(HomeActivity.this, SettingsActivity.class);

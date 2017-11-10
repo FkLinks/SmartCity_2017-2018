@@ -2,7 +2,6 @@ package com.henallux.smartcity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class LoginActivity extends AppCompatActivity {
+
     private Button logIn;
     private TextView register;
     private SharedPreferences preferences;
@@ -18,10 +18,10 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log_in);
+        setContentView(R.layout.activity_login);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        final Editor editor = preferences.edit();
+        final SharedPreferences.Editor editor = preferences.edit();
 
         logIn = (Button) findViewById(R.id.log_in);
         logIn.setOnClickListener(new View.OnClickListener(){
