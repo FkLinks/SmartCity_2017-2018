@@ -17,20 +17,13 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class HomeActivity extends AppCompatActivity {
 
     private Boolean login;
-
-    private String[] listItems={
-            getString(R.string.home_menu_gardens),
-            getString(R.string.home_menu_scan),
-            getString(R.string.home_menu_ask_questions),
-            getString(R.string.home_menu_events_inc),
-            getString(R.string.home_menu_my_profile),
-            getString(R.string.home_menu_prefs),
-            getString(R.string.home_menu_contact_us),
-            getString(R.string.home_menu_about)};
-
+    private ListView listChoices;
+    private ArrayList<String> listItems= new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,74 +32,17 @@ public class HomeActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         login = preferences.getBoolean("login", false);
 
-        ListView listChoices = (ListView) findViewById(android.R.id.list);
-        /*listChoices.setAdapter(new ListAdapter() {            C nul
-            @Override
-            public boolean areAllItemsEnabled() {
-                return true;
-            }
+        listItems.add(getString(R.string.home_menu_gardens));
+        listItems.add(getString(R.string.home_menu_scan));
+        listItems.add(getString(R.string.home_menu_ask_questions));
+        listItems.add(getString(R.string.home_menu_events_inc));
+        listItems.add(getString(R.string.home_menu_my_profile));
+        listItems.add(getString(R.string.home_menu_prefs));
+        listItems.add(getString(R.string.home_menu_contact_us));
+        listItems.add(getString(R.string.home_menu_about));
 
-            @Override
-            public boolean isEnabled(int i) {
-                return true;
-            }
-
-            @Override
-            public void registerDataSetObserver(DataSetObserver dataSetObserver) {
-
-            }
-
-            @Override
-            public void unregisterDataSetObserver(DataSetObserver dataSetObserver) {
-
-            }
-
-            @Override
-            public int getCount() {
-                return listItems.length;
-            }
-
-            @Override
-            public Object getItem(int i) {
-                return null;
-            }
-
-            @Override
-            public long getItemId(int i) {
-                return 0;
-            }
-
-            @Override
-            public boolean hasStableIds() {
-                return false;
-            }
-
-            @Override
-            public View getView(int i, View view, ViewGroup viewGroup) {
-                view=getLayoutInflater().inflate(R.layout.activity_home,null);
-                ImageView imageView=(ImageView)view.findViewById(R.id.arrow);
-                TextView textView=(TextView)view.findViewById(R.id.txtChoixListView);
-                imageView.setImageResource(R.drawable.arrow);
-                textView.setText(listItems[i]);
-                return null;
-            }
-
-            @Override
-            public int getItemViewType(int i) {
-                return 0;
-            }
-
-            @Override
-            public int getViewTypeCount() {
-                return listItems.length;
-            }
-
-            @Override
-            public boolean isEmpty() {
-                return false;
-            }
-        });*/
-        listChoices.setAdapter(new ArrayAdapter<>(this, R.layout.activity_home, R.id.txtChoixListView, listItems));
+        listChoices = (ListView) findViewById(android.R.id.list);
+        listChoices.setAdapter(new Custom_Home_Adapter(this, listItems));
         listChoices.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -139,6 +75,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     @Override

@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent home = new Intent(MainActivity.this, HomeActivity.class);
                 editor.putBoolean("logged", false);
-                editor.commit();
+                editor.apply();
                 startActivity(home);
             }
         });
