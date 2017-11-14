@@ -48,7 +48,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch( position )
                 {
-                    case 0:  Intent garden = new Intent(HomeActivity.this, ShowGardensActivity.class);
+                    case 0:  Intent garden = new Intent(HomeActivity.this, SettingsActivity.class);
                         startActivity(garden);
                         break;
                     case 1:  Intent scan = new Intent(HomeActivity.this, SettingsActivity.class);

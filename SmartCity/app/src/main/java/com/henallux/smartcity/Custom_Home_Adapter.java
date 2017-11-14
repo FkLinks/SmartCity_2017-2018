@@ -11,10 +11,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by Quentin on 11-11-17.
- */
-
 public class Custom_Home_Adapter extends ArrayAdapter<String> {
     public Custom_Home_Adapter(@NonNull Context context, @NonNull ArrayList<String> list_home_menu) {
         super(context, R.layout.list_view_home_menu, list_home_menu);
