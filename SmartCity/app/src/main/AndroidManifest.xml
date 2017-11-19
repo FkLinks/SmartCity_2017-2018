@@ -27,15 +27,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.henallux.smartcity.HomeActivity" />
         </activity>
-        <activity
-            android:name=".ShowGardensActivity"
-            android:label="@string/title_activity_show_gardens"
-            android:parentActivityName=".HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.henallux.smartcity.HomeActivity" />
-        </activity>
+        <activity android:name=".GardensActivity" />
     </application>
 
 </manifest>

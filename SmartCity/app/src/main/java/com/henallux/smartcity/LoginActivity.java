@@ -14,6 +14,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button logIn;
     private TextView register;
     private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +22,14 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        final SharedPreferences.Editor editor = preferences.edit();
+        editor = preferences.edit();
 
         logIn = (Button) findViewById(R.id.log_in);
         logIn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent home = new Intent(LoginActivity.this, HomeActivity.class);
-                editor.putBoolean("logged", true);
+                editor.putBoolean("login", true);
                 editor.commit();
                 startActivity(home);
             }

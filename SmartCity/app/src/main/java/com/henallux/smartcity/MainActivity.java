@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent home = new Intent(MainActivity.this, HomeActivity.class);
-                editor.putBoolean("logged", false);
-                editor.apply();
+                editor.putBoolean("login", false);
+                editor.commit();
                 startActivity(home);
             }
         });
