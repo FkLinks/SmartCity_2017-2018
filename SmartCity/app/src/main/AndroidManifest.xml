@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.henallux.smartcity">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -27,7 +29,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.henallux.smartcity.HomeActivity" />
         </activity>
-        <activity android:name=".GardensActivity" />
+        <activity android:name=".GardensActivity"
+            android:parentActivityName=".HomeActivity"/>
     </application>
-
 </manifest>
