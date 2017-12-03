@@ -3,10 +3,14 @@
     package="com.henallux.smartcity">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+<<<<<<< HEAD
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
+=======
+    
+>>>>>>> 837df40f86d054c444b86e9b21b4cce8c2a8fc82
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -32,7 +36,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.henallux.smartcity.HomeActivity" />
         </activity>
-        <activity android:name=".GardensActivity" />
+        <activity android:name=".GardensActivity"
+            android:parentActivityName=".HomeActivity"/>
     </application>
-
 </manifest>
