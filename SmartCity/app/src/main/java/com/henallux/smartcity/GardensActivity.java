@@ -2,19 +2,34 @@ package com.henallux.smartcity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TabHost;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import java.util.ArrayList;
 
-public class GardensActivity extends AppCompatActivity {
+public class GardensActivity extends AppCompatActivity implements OnMapReadyCallback{
     private TabHost tabHost;
     private TabHost.TabSpec spec;
     private Boolean login;
@@ -22,9 +37,11 @@ public class GardensActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private ListView listChoices;
     private ArrayList<String> listItems= new ArrayList<>();
+    private MapView mapView;
+    private GoogleMap googleMap;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    /*@Override*/
+    protected View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gardens);
 
@@ -79,6 +96,39 @@ public class GardensActivity extends AppCompatActivity {
                 }*/
             }
         });
+        View view = inflater.inflate(R.layout.activity_gardens, container, false);
+        mapView = (MapView) findViewById(R.id.map);
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(this);
+        /*googleMap.addMarker(new MarkerOptions()
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_flag))
+                .anchor(0.0f, 1.0f)
+                .position(new LatLng(55.854049, 13.661331)));*/
+        /*googleMap.getUiSettings().setMyLocationButtonEnabled(false);
+        if (ActivityCompat.checkSelfPermission(GardensActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return view;
+        }
+        googleMap.setMyLocationEnabled(true);
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
+        MapsInitializer.initialize(GardensActivity.this);
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        builder.include(new LatLng(55.854049, 13.661331));
+        LatLngBounds bounds = builder.build();
+        int padding = 0;
+        // Updates the location and zoom of the MapView
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+        googleMap.moveCamera(cameraUpdate);*/
+        return view;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);/*
+        googleMap.setMyLocationEnabled(true);*/
+        googleMap.setTrafficEnabled(true);
+        googleMap.setIndoorEnabled(true);
+        googleMap.setBuildingsEnabled(true);
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
     }
 
     @Override
