@@ -32,8 +32,8 @@
 
                 <RelativeLayout
                     android:id="@+id/tabListingGarden"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="443dp"
                     android:orientation="vertical">
 
                     <ListView
@@ -41,25 +41,28 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:layout_marginTop="59dp"
                         android:layout_alignParentTop="true"
-                        android:layout_alignParentStart="true" />
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="58dp" />
 
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/tabMappingGarden"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="443dp"
                     android:orientation="vertical">
 
                     <com.google.android.gms.maps.MapView
                         android:id="@+id/map"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="58dp"
+                        android:layout_alignParentStart="true" />
 
                 </RelativeLayout>
-
             </FrameLayout>
         </RelativeLayout>
     </TabHost>

@@ -48,7 +48,7 @@ public class HomeActivity extends AppCompatActivity {
                     case 0:  Intent garden = new Intent(HomeActivity.this, GardensActivity.class);
                         startActivity(garden);
                         break;
-                    case 1:  Intent scan = new Intent(HomeActivity.this, SettingsActivity.class);
+                    case 1:  Intent scan = new Intent(HomeActivity.this, ScanActivity.class);
                         startActivity(scan);
                         break;
                     case 2:  Intent question = new Intent(HomeActivity.this, SettingsActivity.class);

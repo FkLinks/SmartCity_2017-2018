@@ -1,8 +1,12 @@
 package com.henallux.smartcity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -15,10 +19,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -29,7 +35,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
-public class GardensActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class GardensActivity extends AppCompatActivity implements LocationListener {
     private TabHost tabHost;
     private TabHost.TabSpec spec;
     private Boolean login;
@@ -39,9 +45,10 @@ public class GardensActivity extends AppCompatActivity implements OnMapReadyCall
     private ArrayList<String> listItems= new ArrayList<>();
     private MapView mapView;
     private GoogleMap googleMap;
+    private LocationManager locationManager;
 
-    /*@Override*/
-    protected View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gardens);
 
@@ -96,39 +103,91 @@ public class GardensActivity extends AppCompatActivity implements OnMapReadyCall
                 }*/
             }
         });
-        View view = inflater.inflate(R.layout.activity_gardens, container, false);
+
         mapView = (MapView) findViewById(R.id.map);
-        mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(this);
-        /*googleMap.addMarker(new MarkerOptions()
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_flag))
-                .anchor(0.0f, 1.0f)
-                .position(new LatLng(55.854049, 13.661331)));*/
-        /*googleMap.getUiSettings().setMyLocationButtonEnabled(false);
-        if (ActivityCompat.checkSelfPermission(GardensActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return view;
-        }
-        googleMap.setMyLocationEnabled(true);
-        googleMap.getUiSettings().setZoomControlsEnabled(true);
-        MapsInitializer.initialize(GardensActivity.this);
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        builder.include(new LatLng(55.854049, 13.661331));
-        LatLngBounds bounds = builder.build();
-        int padding = 0;
-        // Updates the location and zoom of the MapView
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding);
-        googleMap.moveCamera(cameraUpdate);*/
-        return view;
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);/*
-        googleMap.setMyLocationEnabled(true);*/
-        googleMap.setTrafficEnabled(true);
-        googleMap.setIndoorEnabled(true);
-        googleMap.setBuildingsEnabled(true);
-        googleMap.getUiSettings().setZoomControlsEnabled(true);
+    protected void onResume() {
+        super.onResume();
+        verifPermission();
+        loadMap();
+    }
+
+    private void verifPermission()
+    {
+        //Sert à vérifier si on bénéficie bien des permissions de localisation !
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, this);
+        }
+        if(locationManager.isProviderEnabled(LocationManager.PASSIVE_PROVIDER))
+        {
+            locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 10000,0,this);
+        }
+        if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+        {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000,0,this);
+        }
+    }
+
+    @SuppressWarnings("MissingPermission")
+    private void loadMap()
+    {
+        mapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                GardensActivity.this.googleMap = googleMap;
+                googleMap.moveCamera(CameraUpdateFactory.zoomBy(15));
+                googleMap.setMyLocationEnabled(true);
+                googleMap.addMarker(new MarkerOptions().position(new LatLng(78.36436, 25.95733)).title("Premier Point"));
+            }
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if(locationManager != null)
+        {
+            locationManager.removeUpdates(this);
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+        double latitude = 50;
+        double longitude = 2;
+
+        Toast.makeText(this, latitude+" / "+ longitude, Toast.LENGTH_LONG).show();
+        if(googleMap != null)
+        {
+            LatLng googleLocation = new LatLng(latitude, longitude);
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(googleLocation));
+        }
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 
     @Override
