@@ -11,9 +11,11 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
+//URL de base pour db azur :
+//http://smartcity-jardin-20172018.azurewebsites.net/
 public class GardenDAO {
     public ArrayList<Garden> getAllGardens() throws Exception{
-        URL url = new URL("");
+        URL url = new URL("http://smartcity-jardin-20172018.azurewebsites.net/api/Gardens");
         URLConnection connection = url.openConnection();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         StringBuilder stringBuilder = new StringBuilder();

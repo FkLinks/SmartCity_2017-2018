@@ -14,16 +14,16 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.TextView;
 
-import com.google.android.gms.vision.CameraSource;
+/*import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
-import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.google.android.gms.vision.barcode.BarcodeDetector;*/
 
 import java.io.IOException;
 
 public class ScanActivity extends AppCompatActivity {
 
-    SurfaceView cameraPreview;
+    /*SurfaceView cameraPreview;
     TextView txtView;
     BarcodeDetector barcodeDetector;
     CameraSource cameraSource;
@@ -115,5 +115,5 @@ public class ScanActivity extends AppCompatActivity {
                 }
             }
         });
-    }
+    }*/
 }

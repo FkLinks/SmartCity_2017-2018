@@ -45,7 +45,8 @@
             android:name="com.google.android.gms.vision.DEPENCIES"
             android:value="barcode" />
 
-        <activity android:name=".ScanActivity"></activity>
+        <activity android:name=".ScanActivity" />
+        <activity android:name=".GardensInformationActivity"></activity>
     </application>
 
 </manifest>

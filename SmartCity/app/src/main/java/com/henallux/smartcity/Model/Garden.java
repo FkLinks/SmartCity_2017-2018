@@ -1,11 +1,14 @@
 package com.henallux.smartcity.Model;
 
+import java.util.ArrayList;
+
 public class Garden {
     private String name;
     private double surfaceArea;
     private String street;
     private int numStreet;
     private String description;
+    private ArrayList<String> comments;
     private double note;
     private String geographicalCoordinates;
 
