@@ -24,7 +24,7 @@ public class GardenDAO {
             stringBuilder.append(line);
         }
         bufferedReader.close();
-        stringJSON = stringJSON.toString();
+        stringJSON = stringBuilder.toString();
         return jsonToGardens(stringJSON);
     }
 

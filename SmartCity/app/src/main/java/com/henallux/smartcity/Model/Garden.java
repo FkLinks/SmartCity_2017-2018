@@ -1,19 +1,25 @@
 package com.henallux.smartcity.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Garden {
+public class Garden implements Serializable {
     private String name;
     private double surfaceArea;
     private String street;
     private int numStreet;
     private String description;
-    private ArrayList<String> comments;
     private double note;
     private String geographicalCoordinates;
 
-    public Garden(String name, double surfaceArea, String street, int numStreet, String description, double note,String geographicalCoordinates) {
-        
+    public Garden(String name, double surfaceArea, String street, int numStreet, String description, double note, String geographicalCoordinates) {
+        this.name = name;
+        this.surfaceArea = surfaceArea;
+        this.street = street;
+        this.numStreet = numStreet;
+        this.description = description;
+        this.note = note;
+        this.geographicalCoordinates = geographicalCoordinates;
     }
 
     public String getName() {

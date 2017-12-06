@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -32,16 +33,19 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.henallux.smartcity.DAO.GardenDAO;
+import com.henallux.smartcity.Model.Garden;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GardensActivity extends AppCompatActivity implements LocationListener {
+public class GardensActivity extends AppCompatActivity implements LocationListener{
     private TabHost tabHost;
     private TabHost.TabSpec spec;
     private Boolean login;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
-    private ListView listChoices;
+    private ListView gardenList;
     private ArrayList<String> listItems= new ArrayList<>();
     private MapView mapView;
     private GoogleMap googleMap;
@@ -71,36 +75,23 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
         spec.setIndicator("Mapping");
         tabHost.addTab(spec);
 
+        new LoadGarden().execute();
+
+        for(Garden garden:gardenList){
+            //ntm;
+        }
 
         listItems.add("Jean Chalon");
-        listItems.add("Jardin 2");
-        listItems.add("Jardin 3");
-        listItems.add("Jardin 4");
-        listItems.add("Jardin 5");
 
-        listChoices = (ListView) findViewById(android.R.id.list);
-        listChoices.setAdapter(new Custom_Home_Adapter(this, listItems));
-        listChoices.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gardenList = (ListView) findViewById(android.R.id.list);
+        gardenList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*switch( position )
-                {
-                    case 0:  Intent garden = new Intent(GardensActivity.this, GardensActivity.class);
-                        startActivity(garden);
-                        break;
-                    case 1:  Intent scan = new Intent(GardensActivity.this, SettingsActivity.class);
-                        startActivity(scan);
-                        break;
-                    case 2:  Intent question = new Intent(GardensActivity.this, SettingsActivity.class);
-                        startActivity(question);
-                        break;
-                    case 3:  Intent events = new Intent(GardensActivity.this, SettingsActivity.class);
-                        startActivity(events);
-                        break;
-                    case 4:  Intent profile = new Intent(GardensActivity.this, SettingsActivity.class);
-                        startActivity(profile);
-                        break;
-                }*/
+                Intent garden = new Intent(GardensActivity.this, GardensActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("garden", (Serializable)gardenList.getItemAtPosition(position));
+                garden.putExtras(bundle);
+                startActivity(garden);
             }
         });
 
@@ -188,6 +179,27 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
     @Override
     public void onProviderDisabled(String provider) {
 
+    }
+
+    private class LoadGarden extends AsyncTask<String, Void, ArrayList<Garden>>{
+        @Override
+        protected ArrayList<Garden> doInBackground(String... strings) {
+            GardenDAO gardenDAO = new GardenDAO();
+            ArrayList<Garden> gardens = new ArrayList<>();
+            try{
+                gardens = gardenDAO.getAllGardens();
+            }
+            catch (Exception e){
+
+            }
+            return gardens;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Garden> gardens) {
+            super.onPostExecute(gardens);
+            gardenList.setAdapter(new Custom_Home_Adapter(GardensActivity.this, listItems));
+        }
     }
 
     @Override
