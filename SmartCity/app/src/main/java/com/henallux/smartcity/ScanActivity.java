@@ -6,9 +6,9 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -19,11 +19,16 @@ import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;*/
 
+import com.google.android.gms.vision.CameraSource;
+import com.google.android.gms.vision.Detector;
+import com.google.android.gms.vision.barcode.Barcode;
+import com.google.android.gms.vision.barcode.BarcodeDetector;
+
 import java.io.IOException;
 
 public class ScanActivity extends AppCompatActivity {
 
-    /*SurfaceView cameraPreview;
+    SurfaceView cameraPreview;
     TextView txtView;
     BarcodeDetector barcodeDetector;
     CameraSource cameraSource;
@@ -115,5 +120,5 @@ public class ScanActivity extends AppCompatActivity {
                 }
             }
         });
-    }*/
+    }
 }

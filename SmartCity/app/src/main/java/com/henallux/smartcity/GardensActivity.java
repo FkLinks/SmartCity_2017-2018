@@ -77,9 +77,9 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
 
         new LoadGarden().execute();
 
-        for(Garden garden:gardenList){
+        /*for(Garden garden:gardenList){
             //ntm;
-        }
+        }*/
 
         listItems.add("Jean Chalon");
 
