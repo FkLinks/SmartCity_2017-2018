@@ -77,12 +77,6 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
 
         new LoadGarden().execute();
 
-        /*for(Garden garden:gardenList){
-            //ntm;
-        }*/
-
-        listItems.add("Jean Chalon");
-
         gardenList = (ListView) findViewById(android.R.id.list);
         gardenList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -188,6 +182,9 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
             ArrayList<Garden> gardens = new ArrayList<>();
             try{
                 gardens = gardenDAO.getAllGardens();
+                for(Garden garden:gardens){
+                    listItems.add(garden.getName());
+                }
             }
             catch (Exception e){
 

@@ -3,6 +3,7 @@ package com.henallux.smartcity;
 import android.*;
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
@@ -104,6 +105,7 @@ public class ScanActivity extends AppCompatActivity {
 
             }
 
+            //TO DO ON SCAN ITEM
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> qrcodes = detections.getDetectedItems();
@@ -115,6 +117,9 @@ public class ScanActivity extends AppCompatActivity {
                             Vibrator vibrator = (Vibrator)getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
                             vibrator.vibrate(1000);
                             txtView.setText(qrcodes.valueAt(0).displayValue);
+
+                            Intent plantInfo = new Intent(ScanActivity.this, PlantInformationActivity.class);
+                            startActivity(plantInfo);
                         }
                     });
                 }

@@ -46,7 +46,8 @@
             android:value="barcode" />
 
         <activity android:name=".ScanActivity" />
-        <activity android:name=".GardensInformationActivity"></activity>
+        <activity android:name=".GardensInformationActivity" />
+        <activity android:name=".PlantInformationActivity"></activity>
     </application>
 
 </manifest>
