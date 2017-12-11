@@ -46,7 +46,7 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private ListView gardenList;
-    private ArrayList<String> listItems= new ArrayList<>();
+    private ArrayList<Garden> listItems= new ArrayList<>();
     private MapView mapView;
     private GoogleMap googleMap;
     private LocationManager locationManager;
@@ -81,7 +81,7 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
         gardenList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent garden = new Intent(GardensActivity.this, GardensActivity.class);
+                Intent garden = new Intent(GardensActivity.this, GardensInformationActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("garden", (Serializable)gardenList.getItemAtPosition(position));
                 garden.putExtras(bundle);
@@ -183,7 +183,7 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
             try{
                 gardens = gardenDAO.getAllGardens();
                 for(Garden garden:gardens){
-                    listItems.add(garden.getName());
+                    listItems.add(garden);
                 }
             }
             catch (Exception e){
@@ -195,7 +195,7 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
         @Override
         protected void onPostExecute(ArrayList<Garden> gardens) {
             super.onPostExecute(gardens);
-            gardenList.setAdapter(new Custom_Home_Adapter(GardensActivity.this, listItems));
+            gardenList.setAdapter(new Custom_Gardens_Adapter(GardensActivity.this, listItems));
         }
     }
 

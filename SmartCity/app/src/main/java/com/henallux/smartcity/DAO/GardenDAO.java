@@ -34,7 +34,7 @@ public class GardenDAO {
         JSONArray jsonArray = new JSONArray(strinJSON);
         for(int i = 0; i<jsonArray.length();i++){
             JSONObject jsonGarden = jsonArray.getJSONObject(i);
-            garden = new Garden(jsonGarden.getString("name"),jsonGarden.getDouble("surfaceArea"),jsonGarden.getString("street"),jsonGarden.getInt("numStreet"),jsonGarden.getString("description"),jsonGarden.getDouble("note"),jsonGarden.getString("geographicalCoordinates"));
+            garden = new Garden(jsonGarden.getString("name"),jsonGarden.getDouble("superficie"),jsonGarden.getString("street"),jsonGarden.getInt("numStreet"),jsonGarden.getString("description"),jsonGarden.getDouble("note"),"2654,5165"/*,jsonGarden.getString("geographicalCoordinates")*/);
             gardens.add(garden);
         }
         return gardens;

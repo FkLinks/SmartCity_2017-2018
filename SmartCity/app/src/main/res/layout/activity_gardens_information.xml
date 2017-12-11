@@ -8,7 +8,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/mainPic"
         android:layout_width="110dp"
         android:layout_height="140dp"
         android:layout_alignParentStart="true"
@@ -18,112 +18,135 @@
         app:srcCompat="@color/colorAccent" />
 
     <TextView
-        android:id="@+id/editText"
+        android:id="@+id/nameGarden"
         android:layout_width="wrap_content"
         android:layout_height="37dp"
-        android:layout_alignTop="@+id/imageView"
+        android:layout_alignTop="@+id/mainPic"
         android:layout_marginStart="22dp"
-        android:layout_toEndOf="@+id/imageView"
+        android:layout_toEndOf="@+id/mainPic"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name garden"
         android:textSize="24dp"/>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/noteLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Note :"
-        android:layout_below="@+id/editText"
-        android:layout_alignStart="@+id/editText" />
+        android:layout_below="@+id/nameGarden"
+        android:layout_alignStart="@+id/nameGarden" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nameGarden"
+        android:layout_alignStart="@+id/mainPic3" />
+
+    <TextView
+        android:id="@+id/superficieLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Superficie :"
         android:layout_marginTop="11dp"
-        android:layout_below="@+id/textView"
-        android:layout_alignStart="@+id/textView" />
+        android:layout_below="@+id/noteLabel"
+        android:layout_alignStart="@+id/noteLabel" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/superficie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/superficieLabel"
+        android:layout_alignBottom="@+id/superficieLabel"
+        android:layout_alignStart="@+id/note" />
+
+    <TextView
+        android:id="@+id/adressLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Adresse :"
         android:layout_marginTop="12dp"
-        android:layout_below="@+id/textView2"
-        android:layout_alignStart="@+id/textView2" />
+        android:layout_below="@+id/superficieLabel"
+        android:layout_alignStart="@+id/superficieLabel" />
+
+    <TextView
+        android:id="@+id/adress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/adressLabel"
+        android:layout_alignBottom="@+id/adressLabel"
+        android:layout_alignStart="@+id/superficie" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/itineraireBtn"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:text="I"
-        android:layout_alignBottom="@+id/editText"
+        android:layout_alignBottom="@+id/nameGarden"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/descrLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Description"
         android:textSize="20dp"
-        android:layout_below="@+id/imageView"
-        android:layout_alignStart="@+id/imageView" />
+        android:layout_below="@+id/mainPic"
+        android:layout_alignStart="@+id/mainPic" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/descr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="All the descr"
-        android:layout_below="@+id/textView4"
-        android:layout_alignStart="@+id/textView4" />
+        android:layout_below="@+id/descrLabel"
+        android:layout_alignStart="@+id/descrLabel" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/picturesLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView5"
-        android:layout_below="@+id/textView5"
+        android:layout_alignStart="@+id/descr"
+        android:layout_below="@+id/descr"
         android:layout_marginTop="16dp"
         android:text="Photo"
         android:textSize="20dp" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/mainPic2"
         android:layout_width="100dp"
         android:layout_height="100dp"
         app:srcCompat="@color/colorAccent"
-        android:layout_alignTop="@+id/imageView4"
-        android:layout_toEndOf="@+id/imageView" />
+        android:layout_alignTop="@+id/mainPic4"
+        android:layout_toEndOf="@+id/mainPic" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/mainPic4"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_alignStart="@+id/textView7"
-        android:layout_below="@+id/textView7"
+        android:layout_alignStart="@+id/picturesLabel"
+        android:layout_below="@+id/picturesLabel"
         android:layout_marginTop="15dp"
         app:srcCompat="@color/colorAccent" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/mainPic3"
         android:layout_width="100dp"
         android:layout_height="100dp"
         app:srcCompat="@color/colorAccent"
-        android:layout_alignTop="@+id/imageView2"
-        android:layout_toStartOf="@+id/button2" />
+        android:layout_alignTop="@+id/mainPic2"
+        android:layout_toStartOf="@+id/itineraireBtn" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/comsLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/imageView4"
-        android:layout_below="@+id/imageView4"
+        android:layout_alignStart="@+id/mainPic4"
+        android:layout_below="@+id/mainPic4"
         android:layout_marginTop="16dp"
         android:text="Commentaires"
         android:textSize="20dp" />
