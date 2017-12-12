@@ -9,8 +9,9 @@
         android:layout_width="300dp"
         android:layout_height="450dp"
         android:background="@drawable/jardins_a_theme"
-        android:layout_marginTop="54dp"
-        android:layout_alignParentTop="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_above="@+id/log_in"
         android:layout_centerHorizontal="true" />
     <TextView
         android:id="@+id/enterAsGuest"

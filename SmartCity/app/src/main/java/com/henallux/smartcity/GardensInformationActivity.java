@@ -3,12 +3,14 @@ package com.henallux.smartcity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.henallux.smartcity.Model.Garden;
 
 public class GardensInformationActivity extends AppCompatActivity {
 
+    ImageView picture;
     TextView nameGarden, note, superficie, adress, descr;
 
     @Override

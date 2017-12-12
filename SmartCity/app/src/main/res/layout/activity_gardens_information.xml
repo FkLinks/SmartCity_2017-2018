@@ -106,49 +106,4 @@
         android:layout_below="@+id/descrLabel"
         android:layout_alignStart="@+id/descrLabel" />
 
-    <TextView
-        android:id="@+id/picturesLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/descr"
-        android:layout_below="@+id/descr"
-        android:layout_marginTop="16dp"
-        android:text="Photo"
-        android:textSize="20dp" />
-
-    <ImageView
-        android:id="@+id/mainPic2"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:srcCompat="@color/colorAccent"
-        android:layout_alignTop="@+id/mainPic4"
-        android:layout_toEndOf="@+id/mainPic" />
-
-    <ImageView
-        android:id="@+id/mainPic4"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignStart="@+id/picturesLabel"
-        android:layout_below="@+id/picturesLabel"
-        android:layout_marginTop="15dp"
-        app:srcCompat="@color/colorAccent" />
-
-    <ImageView
-        android:id="@+id/mainPic3"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:srcCompat="@color/colorAccent"
-        android:layout_alignTop="@+id/mainPic2"
-        android:layout_toStartOf="@+id/itineraireBtn" />
-
-    <TextView
-        android:id="@+id/comsLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/mainPic4"
-        android:layout_below="@+id/mainPic4"
-        android:layout_marginTop="16dp"
-        android:text="Commentaires"
-        android:textSize="20dp" />
-
 </RelativeLayout>

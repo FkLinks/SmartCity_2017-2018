@@ -45,9 +45,23 @@
             android:name="com.google.android.gms.vision.DEPENCIES"
             android:value="barcode" />
 
-        <activity android:name=".ScanActivity" />
-        <activity android:name=".GardensInformationActivity" />
-        <activity android:name=".PlantInformationActivity"></activity>
+        <activity android:name=".ScanActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.henallux.smartcity.HomeActivity" />
+        </activity>
+
+        <activity android:name=".GardensInformationActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.henallux.smartcity.GardensActivity" />
+        </activity>
+
+        <activity android:name=".PlantInformationActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.henallux.smartcity.ScanActivity" />
+        </activity>
     </application>
 
 </manifest>
