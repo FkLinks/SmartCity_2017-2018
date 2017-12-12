@@ -7,52 +7,53 @@
     tools:context="com.henallux.smartcity.PlantInformationActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/picturePlant"
         android:layout_width="110dp"
         android:layout_height="140dp"
-        android:layout_marginTop="15dp"
-        app:srcCompat="@color/colorAccent"
+        android:layout_marginTop="64dp"
+        android:layout_marginStart="17dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="15dp" />
+        android:layout_alignParentStart="true"/>
 
     <TextView
-        android:id="@+id/editText"
+        android:id="@+id/namePlant"
         android:layout_width="wrap_content"
         android:layout_height="37dp"
-        android:layout_alignTop="@+id/imageView"
-        android:layout_marginStart="22dp"
-        android:layout_toEndOf="@+id/imageView"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name plant"
-        android:textSize="24dp"/>
+        android:textSize="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/picturePlant"
+        android:layout_marginTop="16dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/audioGuide"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:text="A"
-        android:layout_alignBottom="@+id/editText"
+        android:layout_alignBottom="@+id/namePlant"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="11dp" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/descrLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Description"
         android:textSize="20dp"
-        android:layout_below="@+id/editText"
-        android:layout_alignStart="@+id/editText" />
+        android:layout_alignTop="@+id/picturePlant"
+        android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/descriptionPlant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:text="All the descr"
-        android:layout_below="@+id/textView4"
-        android:layout_alignStart="@+id/textView4" />
+        android:layout_below="@+id/descrLabel"
+        android:layout_alignStart="@+id/descrLabel"
+        android:layout_marginTop="10dp"
+        android:layout_alignBottom="@+id/picturePlant"
+        android:layout_alignEnd="@+id/audioGuide" />
 
 </RelativeLayout>

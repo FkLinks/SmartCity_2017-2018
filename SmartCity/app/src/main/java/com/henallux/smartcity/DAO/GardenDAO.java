@@ -28,10 +28,10 @@ public class GardenDAO {
         return jsonToGardens(stringJSON);
     }
 
-    private ArrayList<Garden> jsonToGardens(String strinJSON) throws Exception{
+    private ArrayList<Garden> jsonToGardens(String stringJSON) throws Exception{
         ArrayList<Garden> gardens = new ArrayList<>();
         Garden garden;
-        JSONArray jsonArray = new JSONArray(strinJSON);
+        JSONArray jsonArray = new JSONArray(stringJSON);
         for(int i = 0; i<jsonArray.length();i++){
             JSONObject jsonGarden = jsonArray.getJSONObject(i);
             garden = new Garden(jsonGarden.getString("name"),jsonGarden.getDouble("superficie"),jsonGarden.getString("street"),jsonGarden.getInt("numStreet"),jsonGarden.getString("description"),jsonGarden.getDouble("note"),"2654,5165"/*,jsonGarden.getString("geographicalCoordinates")*/);

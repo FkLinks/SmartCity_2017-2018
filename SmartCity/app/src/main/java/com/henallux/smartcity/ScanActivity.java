@@ -24,8 +24,11 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.henallux.smartcity.DAO.PlantDAO;
+import com.henallux.smartcity.Model.Plant;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 public class ScanActivity extends AppCompatActivity {
 
@@ -113,13 +116,25 @@ public class ScanActivity extends AppCompatActivity {
                     txtView.post(new Runnable(){
                         @Override
                         public void run(){
+                            PlantDAO plantDAO = new PlantDAO();
+
                             //Create vibrate
                             Vibrator vibrator = (Vibrator)getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-                            vibrator.vibrate(1000);
+                            vibrator.vibrate(500);
                             txtView.setText(qrcodes.valueAt(0).displayValue);
 
-                            Intent plantInfo = new Intent(ScanActivity.this, PlantInformationActivity.class);
-                            startActivity(plantInfo);
+                            try {
+                                Intent plantInfo = new Intent(ScanActivity.this, PlantInformationActivity.class);
+                                Plant plant = plantDAO.jsonToPlant(qrcodes.valueAt(0).displayValue);
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("plant", plant);
+                                plantInfo.putExtras(bundle);
+                                startActivity(plantInfo);
+                                //wait(2000);    //DO NOT WORK
+                            }
+                            catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     });
                 }

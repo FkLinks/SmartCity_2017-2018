@@ -4,4 +4,8 @@
     <string name="password">Mot de passe</string>
     <string name="login">Login</string>
     <string name="sign_in_or_register">Se connecter / s\'enregistrer</string>
+
+    <string name="scannerActivityLabel">Scanner</string>
+    <string name="registrationActivityLabel">Enregistrement</string>
+    <string name="loginActivityLabel">Connection</string>
 </resources>

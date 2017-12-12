@@ -14,8 +14,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="13dp"
-        app:srcCompat="@color/colorAccent" />
+        android:layout_marginTop="13dp" />
 
     <TextView
         android:id="@+id/nameGarden"
@@ -42,7 +41,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/nameGarden"
-        android:layout_alignStart="@+id/mainPic3" />
+        android:layout_toEndOf="@+id/superficieLabel"
+        android:layout_marginStart="25dp" />
 
     <TextView
         android:id="@+id/superficieLabel"

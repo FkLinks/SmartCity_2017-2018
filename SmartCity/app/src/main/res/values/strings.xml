@@ -107,4 +107,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_test">test</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="scannerActivityLabel">Scanner</string>
+    <string name="registrationActivityLabel">Registration</string>
+    <string name="loginActivityLabel">Login</string>
 </resources>
