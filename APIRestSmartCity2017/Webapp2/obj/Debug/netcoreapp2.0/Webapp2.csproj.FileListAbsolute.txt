@@ -1,0 +1,10 @@
+C:\Users\Thomas\Desktop\APIRestSmartCity2017\Webapp2\bin\Debug\netcoreapp2.0\Webapp2.deps.json
+C:\Users\Thomas\Desktop\APIRestSmartCity2017\Webapp2\bin\Debug\netcoreapp2.0\Webapp2.runtimeconfig.json
+C:\Users\Thomas\Desktop\APIRestSmartCity2017\Webapp2\bin\Debug\netcoreapp2.0\Webapp2.runtimeconfig.dev.json
+C:\Users\Thomas\Desktop\APIRestSmartCity2017\Webapp2\bin\Debug\netcoreapp2.0\Webapp2.dll
+C:\Users\Thomas\Desktop\APIRestSmartCity2017\Webapp2\bin\Debug\netcoreapp2.0\Webapp2.pdb
+C:\Users\Thomas\Desktop\APIRestSmartCity2017\Webapp2\obj\Debug\netcoreapp2.0\Webapp2.csproj.CoreCompileInputs.cache
+C:\Users\Thomas\Desktop\APIRestSmartCity2017\Webapp2\obj\Debug\netcoreapp2.0\Webapp2.AssemblyInfoInputs.cache
+C:\Users\Thomas\Desktop\APIRestSmartCity2017\Webapp2\obj\Debug\netcoreapp2.0\Webapp2.AssemblyInfo.cs
+C:\Users\Thomas\Desktop\APIRestSmartCity2017\Webapp2\obj\Debug\netcoreapp2.0\Webapp2.dll
+C:\Users\Thomas\Desktop\APIRestSmartCity2017\Webapp2\obj\Debug\netcoreapp2.0\Webapp2.pdb

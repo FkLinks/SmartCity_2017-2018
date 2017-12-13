@@ -1,0 +1,44 @@
+﻿<Page
+    x:Class="BackOffice_SmartCity.ModifierResponsable"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BackOffice_SmartCity"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding Source={StaticResource Locator}, Path=ModifierResponsable}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Height="80">
+            <AppBarButton Icon="Back" Command="{Binding NavigateToBefore}"></AppBarButton>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Height="500" Margin="0,-30" >
+            <StackPanel HorizontalAlignment="Left" >
+                <TextBlock HorizontalAlignment="Left" Margin="0, 15">Registre national*</TextBlock>
+                <TextBlock HorizontalAlignment="Left" Margin="0, 15">Login*</TextBlock>
+                <TextBlock HorizontalAlignment="Left" Margin="0, 15">Mot de passe*</TextBlock>
+                <TextBlock HorizontalAlignment="Left" Margin="0, 15">Age*</TextBlock>
+                <TextBlock HorizontalAlignment="Left" Margin="0, 15">Sexe*</TextBlock>
+                <TextBlock HorizontalAlignment="Left" Margin="0, 15">Telephone</TextBlock>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right" Orientation="Vertical">
+                <TextBox HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
+                <TextBox HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
+                <TextBox HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
+                <TextBox HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
+                <ComboBox HorizontalAlignment="Right" Width="200" Margin="50,10">
+                    <ComboBoxItem IsSelected="True">Homme</ComboBoxItem>
+                    <ComboBoxItem>Femme</ComboBoxItem>
+                </ComboBox>
+
+                <TextBox HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="200" Width="300" Orientation="Horizontal">
+            <Button HorizontalAlignment="Center" VerticalAlignment="Center" Margin="100,15" Command="{Binding NavigateToNextPage}">Confirmer</Button>
+        </StackPanel>
+    </Grid>
+</Page>
+

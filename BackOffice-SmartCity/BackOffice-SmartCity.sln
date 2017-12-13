@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackOffice-SmartCity", "BackOffice-SmartCity\BackOffice-SmartCity.csproj", "{40026ADC-90C7-491B-A564-FE07860AC8FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|ARM = Release|ARM
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{40026ADC-90C7-491B-A564-FE07860AC8FE}.Debug|ARM.ActiveCfg = Debug|ARM
+		{40026ADC-90C7-491B-A564-FE07860AC8FE}.Debug|ARM.Build.0 = Debug|ARM
+		{40026ADC-90C7-491B-A564-FE07860AC8FE}.Debug|ARM.Deploy.0 = Debug|ARM
+		{40026ADC-90C7-491B-A564-FE07860AC8FE}.Debug|x64.ActiveCfg = Debug|x64
+		{40026ADC-90C7-491B-A564-FE07860AC8FE}.Debug|x64.Build.0 = Debug|x64
+		{40026ADC-90C7-491B-A564-FE07860AC8FE}.Debug|x64.Deploy.0 = Debug|x64
+		{40026ADC-90C7-491B-A564-FE07860AC8FE}.Debug|x86.ActiveCfg = Debug|x86
+		{40026ADC-90C7-491B-A564-FE07860AC8FE}.Debug|x86.Build.0 = Debug|x86
+		{40026ADC-90C7-491B-A564-FE07860AC8FE}.Debug|x86.Deploy.0 = Debug|x86
+		{40026ADC-90C7-491B-A564-FE07860AC8FE}.Release|ARM.ActiveCfg = Release|ARM
+		{40026ADC-90C7-491B-A564-FE07860AC8FE}.Release|ARM.Build.0 = Release|ARM
+		{40026ADC-90C7-491B-A564-FE07860AC8FE}.Release|ARM.Deploy.0 = Release|ARM
+		{40026ADC-90C7-491B-A564-FE07860AC8FE}.Release|x64.ActiveCfg = Release|x64
+		{40026ADC-90C7-491B-A564-FE07860AC8FE}.Release|x64.Build.0 = Release|x64
+		{40026ADC-90C7-491B-A564-FE07860AC8FE}.Release|x64.Deploy.0 = Release|x64
+		{40026ADC-90C7-491B-A564-FE07860AC8FE}.Release|x86.ActiveCfg = Release|x86
+		{40026ADC-90C7-491B-A564-FE07860AC8FE}.Release|x86.Build.0 = Release|x86
+		{40026ADC-90C7-491B-A564-FE07860AC8FE}.Release|x86.Deploy.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DD87AA75-2981-4F86-8B91-B887EEE63A17}
+	EndGlobalSection
+EndGlobal

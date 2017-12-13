@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Roots >
+  <Roots.PropertyPathNames>
+    <RootPropertyPathName Name="Acceuil" />
+    <RootPropertyPathName Name="NavigateToUtilisateur" />
+    <RootPropertyPathName Name="NavigateToResponsable" />
+    <RootPropertyPathName Name="NavigateToJardin" />
+    <RootPropertyPathName Name="Connection" />
+    <RootPropertyPathName Name="NavigateToAcceuil" />
+    <RootPropertyPathName Name="CreationJardin" />
+    <RootPropertyPathName Name="NavigateToNextPage" />
+    <RootPropertyPathName Name="NavigateToBefore" />
+    <RootPropertyPathName Name="CreationResponsable" />
+    <RootPropertyPathName Name="ListJardin" />
+    <RootPropertyPathName Name="DeleteGardenCommand" />
+    <RootPropertyPathName Name="NavigateToEdit" />
+    <RootPropertyPathName Name="NavigateToNew" />
+    <RootPropertyPathName Name="Jardin" />
+    <RootPropertyPathName Name="SelectedGarden" />
+    <RootPropertyPathName Name="Name" />
+    <RootPropertyPathName Name="ListResponsables" />
+    <RootPropertyPathName Name="DeleteResponsableCommand" />
+    <RootPropertyPathName Name="Responsable" />
+    <RootPropertyPathName Name="SelectedResponsable" />
+    <RootPropertyPathName Name="Login" />
+    <RootPropertyPathName Name="ModifierJardin" />
+    <RootPropertyPathName Name="SelectedJardin" />
+    <RootPropertyPathName Name="Description" />
+    <RootPropertyPathName Name="Note" />
+    <RootPropertyPathName Name="GeographicalCoordinate" />
+    <RootPropertyPathName Name="NumStreet" />
+    <RootPropertyPathName Name="Street" />
+    <RootPropertyPathName Name="Superficie" />
+    <RootPropertyPathName Name="NumGarden" />
+    <RootPropertyPathName Name="ModifierResponsable" />
+    <RootPropertyPathName Name="SelectedRespon" />
+    <RootPropertyPathName Name="PhoneNumber" />
+    <RootPropertyPathName Name="Age" />
+    <RootPropertyPathName Name="Password" />
+    <RootPropertyPathName Name="RegistrationNumber" />
+    <RootPropertyPathName Name="Utilisateur" />
+    <RootPropertyPathName Name="DeleteUserCommand" />
+    <RootPropertyPathName Name="SelectedUser" />
+    <RootPropertyPathName Name="UserName" />
+  </Roots.PropertyPathNames>
+  <Roots.RootTypes>
+    <RootType FullName="Windows.UI.Xaml.Application">
+      <RootProperty Name="RequestedTheme" />
+      <RootProperty Name="Resources" />
+    </RootType>
+    <RootType FullName="BackOffice_SmartCity.ViewModel.ViewModelLocator" />
+    <RootType FullName="Windows.UI.Xaml.Controls.Page">
+      <RootProperty Name="DataContext" />
+      <RootProperty Name="Content" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Data.Binding">
+      <RootProperty Name="Source" />
+      <RootProperty Name="Path" />
+      <RootProperty Name="Mode" />
+    </RootType>
+    <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.StaticResourceExtension" />
+    <RootType FullName="Windows.UI.Xaml.Controls.Grid">
+      <RootProperty Name="Background" />
+      <RootProperty Name="Children" />
+    </RootType>
+    <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
+    <RootType FullName="Windows.UI.Xaml.Controls.StackPanel">
+      <RootProperty Name="Margin" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="Height" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="Children" />
+      <RootProperty Name="Padding" />
+      <RootProperty Name="Orientation" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.Button">
+      <RootProperty Name="Content" />
+      <RootProperty Name="Margin" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="Command" />
+      <RootProperty Name="Foreground" />
+      <RootProperty Name="BorderBrush" />
+      <RootProperty Name="Width" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.TextBlock">
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="TextAlignment" />
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="Inlines" />
+      <RootProperty Name="Margin" />
+      <RootProperty Name="FontFamily" />
+      <RootProperty Name="FontStyle" />
+      <RootProperty Name="FontSize" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="Foreground" />
+      <RootProperty Name="Text" />
+    </RootType>
+    <RootType FullName="BackOffice_SmartCity.Acceuil" />
+    <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
+      <RootProperty Name="Margin" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Height" />
+      <RootProperty Name="Text" />
+      <RootProperty Name="IsEnabled" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.PasswordBox">
+      <RootProperty Name="Margin" />
+      <RootProperty Name="Width" />
+    </RootType>
+    <RootType FullName="BackOffice_SmartCity.Connection" />
+    <RootType FullName="Windows.UI.Xaml.Controls.AppBarButton">
+      <RootProperty Name="Icon" />
+      <RootProperty Name="Command" />
+    </RootType>
+    <RootType FullName="BackOffice_SmartCity.CreationJardin" />
+    <RootType FullName="Windows.UI.Xaml.Controls.ComboBox">
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="Margin" />
+      <RootProperty Name="Items" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.ComboBoxItem">
+      <RootProperty Name="IsSelected" />
+      <RootProperty Name="Content" />
+    </RootType>
+    <RootType FullName="BackOffice_SmartCity.CreationResponsable" />
+    <RootType FullName="Windows.UI.Xaml.Controls.ListView">
+      <RootProperty Name="ItemsSource" />
+      <RootProperty Name="SelectedItem" />
+      <RootProperty Name="BorderBrush" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="ItemTemplate" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.DataTemplate">
+      <RootProperty Name="Template" />
+    </RootType>
+    <RootType FullName="BackOffice_SmartCity.ListJardin" />
+    <RootType FullName="BackOffice_SmartCity.ListResponsables" />
+    <RootType FullName="BackOffice_SmartCity.View.ModifierJardin" />
+    <RootType FullName="BackOffice_SmartCity.ModifierResponsable" />
+    <RootType FullName="BackOffice_SmartCity.Utilisateur" />
+  </Roots.RootTypes>
+</Roots>

@@ -1,0 +1,11 @@
+C:\Users\Thomas\Desktop\APIRestSmartCity2017\bin\Debug\netcoreapp2.0\APIRestSmartCity2017.deps.json
+C:\Users\Thomas\Desktop\APIRestSmartCity2017\bin\Debug\netcoreapp2.0\APIRestSmartCity2017.runtimeconfig.json
+C:\Users\Thomas\Desktop\APIRestSmartCity2017\bin\Debug\netcoreapp2.0\APIRestSmartCity2017.runtimeconfig.dev.json
+C:\Users\Thomas\Desktop\APIRestSmartCity2017\bin\Debug\netcoreapp2.0\APIRestSmartCity2017.dll
+C:\Users\Thomas\Desktop\APIRestSmartCity2017\bin\Debug\netcoreapp2.0\APIRestSmartCity2017.pdb
+C:\Users\Thomas\Desktop\APIRestSmartCity2017\obj\Debug\netcoreapp2.0\APIRestSmartCity2017.csproj.CoreCompileInputs.cache
+C:\Users\Thomas\Desktop\APIRestSmartCity2017\obj\Debug\netcoreapp2.0\APIRestSmartCity2017.AssemblyInfoInputs.cache
+C:\Users\Thomas\Desktop\APIRestSmartCity2017\obj\Debug\netcoreapp2.0\APIRestSmartCity2017.AssemblyInfo.cs
+C:\Users\Thomas\Desktop\APIRestSmartCity2017\obj\Debug\netcoreapp2.0\APIRestSmartCity2017.dll
+C:\Users\Thomas\Desktop\APIRestSmartCity2017\obj\Debug\netcoreapp2.0\APIRestSmartCity2017.pdb
+C:\Users\Thomas\Desktop\APIRestSmartCity2017\obj\Debug\netcoreapp2.0\APIRestSmartCity2017.csprojResolveAssemblyReference.cache

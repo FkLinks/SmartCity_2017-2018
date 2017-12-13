@@ -1,0 +1,14 @@
+﻿<Application
+    x:Class="BackOffice_SmartCity.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BackOffice_SmartCity"
+    xmlns:vm="using:BackOffice_SmartCity.ViewModel"
+    RequestedTheme="Light">
+
+    <Application.Resources>
+        <vm:ViewModelLocator x:Key="Locator"/>        <!-- On définit une clé 'locator' qui sera le raccourxi de ViewModelLocator-->
+    </Application.Resources>
+
+</Application>
+
