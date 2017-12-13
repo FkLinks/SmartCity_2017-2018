@@ -9,6 +9,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ import com.henallux.smartcity.Model.Garden;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+//https://www.youtube.com/watch?time_continue=3&v=uOKLUu1Jjco
 public class GardensActivity extends AppCompatActivity implements LocationListener{
     private TabHost tabHost;
     private TabHost.TabSpec spec;
@@ -50,6 +52,7 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
     private MapView mapView;
     private GoogleMap googleMap;
     private LocationManager locationManager;
+    private static final int PERMS_CALL_ID = 1234;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,15 +98,21 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
     @Override
     protected void onResume() {
         super.onResume();
+
         verifPermission();
-        loadMap();
+
     }
 
     private void verifPermission()
     {
         //Sert à vérifier si on bénéficie bien des permissions de localisation !
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+            }, PERMS_CALL_ID);
             return;
         }
 
@@ -119,6 +128,15 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
         if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
         {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000,0,this);
+        }
+        loadMap();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == PERMS_CALL_ID){
+            verifPermission();
         }
     }
 
@@ -148,9 +166,8 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
 
     @Override
     public void onLocationChanged(Location location) {
-
-        double latitude = 50;
-        double longitude = 2;
+        double latitude = 50;//location.getLatitude();
+        double longitude = 2;//location.getLongitude();
 
         Toast.makeText(this, latitude+" / "+ longitude, Toast.LENGTH_LONG).show();
         if(googleMap != null)
