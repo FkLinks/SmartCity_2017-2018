@@ -12,7 +12,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 
 //URL de base pour db azur :
-//http://smartcity-jardin-20172018.azurewebsites.net/
+//http://smartcity-jardin-20172018.azurewebsites.net/api/
 public class GardenDAO {
     public ArrayList<Garden> getAllGardens() throws Exception{
         URL url = new URL("http://smartcity-jardin-20172018.azurewebsites.net/api/Gardens");

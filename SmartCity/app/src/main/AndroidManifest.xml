@@ -26,7 +26,8 @@
         <activity android:name=".LoginActivity"
             android:label="@string/loginActivityLabel"/>
         <activity android:name=".RegisterActivity"
-            android:label="@string/registrationActivityLabel"/>
+            android:label="@string/registrationActivityLabel"
+            android:parentActivityName=".LoginActivity"/>
         <activity android:name=".HomeActivity" />
         <activity
             android:name=".SettingsActivity"
