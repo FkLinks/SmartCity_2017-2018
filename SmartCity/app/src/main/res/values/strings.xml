@@ -110,4 +110,6 @@
     <string name="scannerActivityLabel">Scanner</string>
     <string name="registrationActivityLabel">Registration</string>
     <string name="loginActivityLabel">Login</string>
+    <string name="gardensActivityName">The Gardens</string>
+    <string name="infosLabelActivity">Informations</string>
 </resources>

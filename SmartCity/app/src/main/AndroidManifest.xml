@@ -38,11 +38,12 @@
         </activity>
         <activity
             android:name=".GardensActivity"
+            android:label="@string/gardensActivityName"
             android:parentActivityName=".HomeActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD2BK-yCPB3e_Z26fwwJ8Pb0BOCWaczEQs" />
+            android:value="AIzaSyD_nlRp5JKykNjDJ2YyZgkO5fwhKjJZjoUs" />
         <meta-data
             android:name="com.google.android.gms.vision.DEPENCIES"
             android:value="barcode" />
@@ -54,13 +55,15 @@
                 android:value="com.henallux.smartcity.HomeActivity" />
         </activity>
 
-        <activity android:name=".GardensInformationActivity">
+        <activity android:name=".GardensInformationActivity"
+            android:label="@string/infosLabelActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.henallux.smartcity.GardensActivity" />
         </activity>
 
-        <activity android:name=".PlantInformationActivity">
+        <activity android:name=".PlantInformationActivity"
+            android:label="@string/infosLabelActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.henallux.smartcity.ScanActivity" />

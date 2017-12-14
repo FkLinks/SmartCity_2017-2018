@@ -8,4 +8,6 @@
     <string name="scannerActivityLabel">Scanner</string>
     <string name="registrationActivityLabel">Enregistrement</string>
     <string name="loginActivityLabel">Connection</string>
+    <string name="gardensActivityName">The Gardens</string>
+    <string name="infosLabelActivity">Informations</string>
 </resources>

@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -39,9 +40,11 @@ import com.henallux.smartcity.Model.Garden;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+//cle map : AIzaSyD_nlRp5JKykNjDJ2YyZgkO5fwhKjJZjoU
 //https://www.youtube.com/watch?time_continue=3&v=uOKLUu1Jjco
 public class GardensActivity extends AppCompatActivity implements LocationListener{
+    private static final int PERMS_CALL_ID = 1234;
+
     private TabHost tabHost;
     private TabHost.TabSpec spec;
     private Boolean login;
@@ -49,10 +52,10 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
     private SharedPreferences.Editor editor;
     private ListView gardenList;
     private ArrayList<Garden> listItems= new ArrayList<>();
-    private MapView mapView;
+    private ArrayList<String> mapMarkers= new ArrayList<>();
+    private MapFragment mapFragment;
     private GoogleMap googleMap;
     private LocationManager locationManager;
-    private static final int PERMS_CALL_ID = 1234;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +95,8 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
             }
         });
 
-        mapView = (MapView) findViewById(R.id.map);
+        FragmentManager fragmentManager = getFragmentManager();
+        mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.map);
     }
 
     @Override
@@ -143,13 +147,19 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
     @SuppressWarnings("MissingPermission")
     private void loadMap()
     {
-        mapView.getMapAsync(new OnMapReadyCallback() {
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 GardensActivity.this.googleMap = googleMap;
-                googleMap.moveCamera(CameraUpdateFactory.zoomBy(15));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(50.463335, 4.881568), 10.0f));
                 googleMap.setMyLocationEnabled(true);
-                googleMap.addMarker(new MarkerOptions().position(new LatLng(78.36436, 25.95733)).title("Premier Point"));
+                /*for(String marker:mapMarkers){
+                    String[]latLongAndName = marker.split(",");
+                    googleMap.addMarker(new MarkerOptions().position(new LatLng(Integer.parseInt(latLongAndName[0]), Integer.parseInt(latLongAndName[1])))
+                            .title(latLongAndName[2]));
+                }*/
+                googleMap.addMarker(new MarkerOptions().position(new LatLng(50.416068, 4.879343))
+                                                       .title("Jardin des petits fruits"));
             }
         });
     }
@@ -166,15 +176,15 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
 
     @Override
     public void onLocationChanged(Location location) {
-        double latitude = 50;//location.getLatitude();
-        double longitude = 2;//location.getLongitude();
+        double latitude = location.getLatitude(); //50.463335;//
+        double longitude = location.getLongitude(); //4.881568;//
 
-        Toast.makeText(this, latitude+" / "+ longitude, Toast.LENGTH_LONG).show();
-        if(googleMap != null)
+        /*Toast.makeText(this, latitude+" / "+ longitude, Toast.LENGTH_LONG).show();*/
+        /*if(googleMap != null)
         {
             LatLng googleLocation = new LatLng(latitude, longitude);
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(googleLocation));
-        }
+        }*/
     }
 
     @Override
@@ -201,6 +211,7 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
                 gardens = gardenDAO.getAllGardens();
                 for(Garden garden:gardens){
                     listItems.add(garden);
+                    mapMarkers.add(garden.getGeographicalCoordinates()+","+garden.getName());
                 }
             }
             catch (Exception e){
