@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText userName;
     private EditText password;
     private User user;
-    private UserDAO userDAO;
+    private UserDAO userDAO = new UserDAO();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +45,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 JSONObject toSend = new JSONObject();
-                TokenReceived tokenReceived= new TokenReceived();
+                TokenReceived tokenReceived = new TokenReceived();
                 try {
-                    toSend.put("UserName", userName);
-                    toSend.put("Password", password);
+                    toSend.put("UserName", userName.getText());
+                    toSend.put("Password", password.getText());
 
+                    /*tokenReceived = userDAO.checkUserExist(toSend.get("UserName").toString()+"_"+toSend.get("Password").toString(), tokenReceived);*/
                     tokenReceived = userDAO.checkUserExist(toSend.toString(), tokenReceived);
 
                     if(tokenReceived.getCode() == 202){

@@ -23,7 +23,7 @@ import java.util.Date;
 //http://smartcity-jardin-20172018.azurewebsites.net/api/
 public class UserDAO {
     public TokenReceived checkUserExist(String login_password, TokenReceived tokenReceivedCode) throws Exception{
-        URL url = new URL("http://smartcity-jardin-20172018.azurewebsites.net/api/jwt");
+        URL url = new URL("http://smartcity-jardin-20172018.azurewebsites.net/api/Jwt");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
         connection.setRequestMethod("POST");

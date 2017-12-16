@@ -27,15 +27,6 @@
         android:layout_alignStart="@+id/picturePlant"
         android:layout_marginTop="16dp" />
 
-    <Button
-        android:id="@+id/audioGuide"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:text="A"
-        android:layout_alignBottom="@+id/namePlant"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="11dp" />
-
     <TextView
         android:id="@+id/descrLabel"
         android:layout_width="wrap_content"

@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +21,7 @@ public class GardensInformationActivity extends AppCompatActivity {
 
     ImageView picture;
     TextView nameGarden, note, superficie, adress, descr;
+    Button audioGuid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,5 +51,18 @@ public class GardensInformationActivity extends AppCompatActivity {
 
         descr = (TextView) findViewById(R.id.descr);
         descr.setText(garden.getDescription());
+
+        audioGuid = (Button) findViewById(R.id.audioGuidBtn);
+        audioGuid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(audioGuid.getBackground()==getDrawable(R.drawable.ic_volume_up_black_24dp)){
+                    audioGuid.setBackground(getDrawable(R.drawable.ic_volume_off_black_24dp));
+                }
+                else{
+                    audioGuid.setBackground(getDrawable(R.drawable.ic_volume_up_black_24dp));
+                }
+            }
+        });
     }
 }
