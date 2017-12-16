@@ -106,13 +106,13 @@
         android:layout_below="@+id/descrLabel"
         android:layout_alignStart="@+id/descrLabel" />
 
-    <Button
+    <!--<Button
         android:id="@+id/routeBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Itineraire"
         android:layout_alignBaseline="@+id/descrLabel"
         android:layout_alignBottom="@+id/descrLabel"
-        android:layout_alignEnd="@+id/audioGuidBtn" />
+        android:layout_alignEnd="@+id/audioGuidBtn" />-->
 
 </RelativeLayout>

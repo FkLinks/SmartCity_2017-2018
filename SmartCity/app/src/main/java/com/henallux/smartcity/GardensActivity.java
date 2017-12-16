@@ -105,15 +105,29 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
                             }
                         });*/
 
-                        Marker m = googleMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(latLong[0]), Double.parseDouble(latLong[1])))
+                        googleMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(latLong[0]), Double.parseDouble(latLong[1])))
                                 .title(garden.getName()/*+iconGoToMarker*/));
-                        m.showInfoWindow();
 
-                        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
+                        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                            @Override
+                            public void onInfoWindowClick(Marker marker) {
+                                Intent gardenInfos = new Intent(GardensActivity.this, GardensInformationActivity.class);
+                                Bundle bundle = new Bundle();
+                                for(Garden garden : listItems) {
+                                    if(marker.getTitle().equals(garden.getName())){
+                                        bundle.putSerializable("garden", (Serializable)garden);
+                                    }
+                                }
+                                gardenInfos.putExtras(bundle);
+                                startActivity(gardenInfos);
+                            }
+                        });
+
+                        /*googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
                         {
                             @Override
                             public boolean onMarkerClick(Marker arg0) {
-                                /*if(arg0.getTitle().equals("MyHome")) // if marker source is clicked*/
+                                //if(arg0.getTitle().equals("MyHome")) // if marker source is clicked
                                 Intent gardenInfos = new Intent(GardensActivity.this, GardensInformationActivity.class);
                                 Bundle bundle = new Bundle();
                                 for(Garden garden : listItems) {
@@ -125,7 +139,7 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
                                 startActivity(gardenInfos);
                                 return true;
                             }
-                        });
+                        });*/
 
                     }
                 }
