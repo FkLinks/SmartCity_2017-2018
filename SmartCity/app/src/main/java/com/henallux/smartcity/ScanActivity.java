@@ -4,13 +4,17 @@ import android.*;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.TextView;
@@ -32,6 +36,9 @@ import java.io.Serializable;
 
 public class ScanActivity extends AppCompatActivity {
 
+    private Boolean login;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
     SurfaceView cameraPreview;
     TextView txtView;
     BarcodeDetector barcodeDetector;
@@ -62,6 +69,10 @@ public class ScanActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        login = preferences.getBoolean("login", false);
+        editor=preferences.edit();
 
         cameraPreview = (SurfaceView) findViewById(R.id.scanner);
         txtView = (TextView) findViewById(R.id.explanationQRDestination);
@@ -113,7 +124,7 @@ public class ScanActivity extends AppCompatActivity {
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> qrcodes = detections.getDetectedItems();
                 if(qrcodes.size() != 0){
-                    txtView.post(new Runnable(){
+                    txtView.postDelayed(new Runnable(){
                         @Override
                         public void run(){
                             PlantDAO plantDAO = new PlantDAO();
@@ -121,7 +132,6 @@ public class ScanActivity extends AppCompatActivity {
                             //Create vibrate
                             Vibrator vibrator = (Vibrator)getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
                             vibrator.vibrate(500);
-                            txtView.setText(qrcodes.valueAt(0).displayValue);
 
                             try {
                                 Intent plantInfo = new Intent(ScanActivity.this, PlantInformationActivity.class);
@@ -136,9 +146,39 @@ public class ScanActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
-                    });
+                    }, 1000);
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (login)
+            getMenuInflater().inflate(R.menu.menu_main_sign_out, menu);
+        else
+            getMenuInflater().inflate(R.menu.menu_main_sign_in, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        switch (item.getItemId())
+        {
+            case R.id.settings:
+                startActivity(new Intent(ScanActivity.this, SettingsActivity.class));
+                return true;
+            case R.id.sign_in:
+                startActivity(new Intent(ScanActivity.this, LoginActivity.class));
+                return true;
+            case R.id.sign_out:
+                editor.putBoolean("login", false);
+                editor.commit();
+                startActivity(new Intent(ScanActivity.this, MainActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

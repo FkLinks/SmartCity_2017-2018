@@ -11,8 +11,10 @@ public class Garden implements Serializable {
     private String description;
     private double note;
     private String geographicalCoordinates;
+    private String urlImg;
+    private String urlAudio;
 
-    public Garden(String name, double surfaceArea, String street, int numStreet, String description, double note, String geographicalCoordinates) {
+    public Garden(String name, double surfaceArea, String street, int numStreet, String description, double note, String geographicalCoordinates, String urlImg, String urlAudio) {
         this.name = name;
         this.surfaceArea = surfaceArea;
         this.street = street;
@@ -20,6 +22,8 @@ public class Garden implements Serializable {
         this.description = description;
         this.note = note;
         this.geographicalCoordinates = geographicalCoordinates;
+        this.urlImg = urlImg;
+        this.urlAudio = urlAudio;
     }
 
     public String getName() {
@@ -76,5 +80,21 @@ public class Garden implements Serializable {
 
     public void setGeographicalCoordinates(String geographicalCoordinates) {
         this.geographicalCoordinates = geographicalCoordinates;
+    }
+
+    public String getUrlImg() {
+        return urlImg;
+    }
+
+    public void setUrlImg(String urlImg) {
+        this.urlImg = urlImg;
+    }
+
+    public String getUrlAudio() {
+        return urlAudio;
+    }
+
+    public void setUrlAudio(String urlAudio) {
+        this.urlAudio = urlAudio;
     }
 }

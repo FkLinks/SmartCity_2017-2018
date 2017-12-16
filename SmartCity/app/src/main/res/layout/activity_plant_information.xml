@@ -44,7 +44,6 @@
         android:layout_below="@+id/descrLabel"
         android:layout_alignStart="@+id/descrLabel"
         android:layout_marginTop="10dp"
-        android:layout_alignBottom="@+id/picturePlant"
-        android:layout_alignEnd="@+id/audioGuide" />
+        android:layout_alignBottom="@+id/picturePlant" />
 
 </RelativeLayout>

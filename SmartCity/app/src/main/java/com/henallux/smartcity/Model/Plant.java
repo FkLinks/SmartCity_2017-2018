@@ -5,15 +5,13 @@ import java.io.Serializable;
 public class Plant implements Serializable {
     private String name;
     private String description;
-    private String urlAudioGuide;
 
     public Plant() {
     }
 
-    public Plant(String name, String description, String urlAudioGuide) {
+    public Plant(String name, String description) {
         this.name = name;
         this.description = description;
-        this.urlAudioGuide = urlAudioGuide;
     }
 
     public String getName() {
@@ -30,13 +28,5 @@ public class Plant implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getUrlAudioGuide() {
-        return urlAudioGuide;
-    }
-
-    public void setUrlAudioGuide(String urlAudioGuide) {
-        this.urlAudioGuide = urlAudioGuide;
     }
 }

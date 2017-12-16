@@ -15,7 +15,7 @@ public class PlantDAO {
 
         JSONArray jsonArray = new JSONArray(stringJSON);
         JSONObject jsonPlant = jsonArray.getJSONObject(0);
-        plant = new Plant(jsonPlant.getString("name"),jsonPlant.getString("description"),jsonPlant.getString("urlAudioGuide"));
+        plant = new Plant(jsonPlant.getString("name"),jsonPlant.getString("description"));
 
         return plant;
     }

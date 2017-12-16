@@ -59,7 +59,7 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
     private MapFragment mapFragment;
     private GoogleMap googleMap;
     private LocationManager locationManager;
-    private Button iconGoToMarker;
+    private Drawable iconGoToMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,20 +93,9 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
                     for (Garden garden : listItems) {
                         String[] latLong = garden.getGeographicalCoordinates().split(",");
 
-                        /*iconGoToMarker.setBackground(getDrawable(R.drawable.arrow));
-                        iconGoToMarker.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent garden = new Intent(GardensActivity.this, GardensInformationActivity.class);
-                                Bundle bundle = new Bundle();
-                                bundle.putSerializable("garden", (Serializable)garden);
-                                garden.putExtras(bundle);
-                                startActivity(garden);
-                            }
-                        });*/
-
+                        //iconGoToMarker = getDrawable(R.drawable.arrow);
                         googleMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(latLong[0]), Double.parseDouble(latLong[1])))
-                                .title(garden.getName()/*+iconGoToMarker*/));
+                                .title(garden.getName()));
 
                         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                             @Override

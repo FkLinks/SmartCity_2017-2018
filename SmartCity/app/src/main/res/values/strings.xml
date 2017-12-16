@@ -89,8 +89,8 @@
     <string name="female">Female</string>
     <string name="you_have_already_an_account_sign_in">You have already an account ?</string>
     <string name="sign_in">Sign in</string>
-    <string name="enter_your_e_mail_adress">Enter your e-mail adress</string>
-    <string name="enter_your_birth_date">Enter your birth date</string>
+    <string name="enter_your_e_mail_adress">Enter your e-mail address</string>
+    <string name="enter_your_birth_date">Birth date (yyyy-mm-dd)</string>
     <string name="where_are_you_from">Where are you from?</string>
     <string name="remember_me">Remember me</string>
     <string name="forgot_login">Forgot login ?</string>
