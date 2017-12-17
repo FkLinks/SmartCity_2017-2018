@@ -124,7 +124,7 @@ public class ScanActivity extends AppCompatActivity {
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> qrcodes = detections.getDetectedItems();
                 if(qrcodes.size() != 0){
-                    txtView.postDelayed(new Runnable(){
+                    txtView.post(new Runnable(){
                         @Override
                         public void run(){
                             PlantDAO plantDAO = new PlantDAO();
@@ -146,7 +146,7 @@ public class ScanActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
-                    }, 1000);
+                    });
                 }
             }
         });

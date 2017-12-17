@@ -50,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
                     toSend.put("UserName", userName.getText());
                     toSend.put("Password", password.getText());
 
-                    /*tokenReceived = userDAO.checkUserExist(toSend.get("UserName").toString()+"_"+toSend.get("Password").toString(), tokenReceived);*/
                     tokenReceived = userDAO.checkUserExist(toSend.toString(), tokenReceived);
 
                     if(tokenReceived.getCode() == 202){

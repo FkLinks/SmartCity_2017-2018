@@ -87,10 +87,10 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
         spec.setIndicator("Mapping");
         tabHost.addTab(spec);
 
-        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+        /*tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             public void onTabChanged(String tabId) {
                 if (tabHost.getCurrentTabTag().equals("Mapping")) {
-                    for (Garden garden : listItems) {
+                    *//*for (Garden garden : listItems) {
                         String[] latLong = garden.getGeographicalCoordinates().split(",");
 
                         //iconGoToMarker = getDrawable(R.drawable.arrow);
@@ -112,7 +112,7 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
                             }
                         });
 
-                        /*googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
+                        *//**//*googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
                         {
                             @Override
                             public boolean onMarkerClick(Marker arg0) {
@@ -128,12 +128,12 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
                                 startActivity(gardenInfos);
                                 return true;
                             }
-                        });*/
+                        });*//**//*
 
-                    }
+                    }*//*
                 }
             }
-        });
+        });*/
 
         gardenList = (ListView) findViewById(android.R.id.list);
         gardenList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -155,7 +155,6 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
     protected void onResume() {
         super.onResume();
 
-        verifPermission();
 
     }
 
@@ -206,7 +205,29 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
                 GardensActivity.this.googleMap = googleMap;
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(50.463335, 4.881568), 10.0f));
                 googleMap.setMyLocationEnabled(true);
+                for (Garden garden : listItems) {
+                    String[] latLong = garden.getGeographicalCoordinates().split(",");
 
+                    //iconGoToMarker = getDrawable(R.drawable.arrow);
+                    googleMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(latLong[0]), Double.parseDouble(latLong[1])))
+                            .title(garden.getName()));
+
+                    googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                        @Override
+                        public void onInfoWindowClick(Marker marker) {
+                            Intent gardenInfos = new Intent(GardensActivity.this, GardensInformationActivity.class);
+                            Bundle bundle = new Bundle();
+                            for(Garden garden : listItems) {
+                                if(marker.getTitle().equals(garden.getName())){
+                                    bundle.putSerializable("garden", (Serializable)garden);
+                                }
+                            }
+                            gardenInfos.putExtras(bundle);
+                            startActivity(gardenInfos);
+                        }
+                    });
+
+                }
                 /*for(Garden garden:listItems){
                     String[]latLong = garden.getGeographicalCoordinates().split(",");
                     googleMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(latLong[0]), Double.parseDouble(latLong[1])))
@@ -280,6 +301,7 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
         protected void onPostExecute(ArrayList<Garden> gardens) {
             super.onPostExecute(gardens);
             gardenList.setAdapter(new Custom_Gardens_Adapter(GardensActivity.this, listItems));
+            verifPermission();
         }
     }
 

@@ -51,23 +51,23 @@ public class HomeActivity extends AppCompatActivity {
                     case 1:  Intent scan = new Intent(HomeActivity.this, ScanActivity.class);
                         startActivity(scan);
                         break;
-                    case 2:  Intent question = new Intent(HomeActivity.this, SettingsActivity.class);
-                        startActivity(question);
+                    case 2:  /*Intent question = new Intent(HomeActivity.this, ChatActivity.class);
+                        startActivity(question);*/
                         break;
-                    case 3:  Intent events = new Intent(HomeActivity.this, SettingsActivity.class);
-                        startActivity(events);
+                    case 3:  /*Intent events = new Intent(HomeActivity.this, EventsActivity.class);
+                        startActivity(events);*/
                         break;
-                    case 4:  Intent profile = new Intent(HomeActivity.this, SettingsActivity.class);
-                        startActivity(profile);
+                    case 4:  /*Intent profile = new Intent(HomeActivity.this, ProfileActivity.class);
+                        startActivity(profile);*/
                         break;
                     case 5:  Intent settings = new Intent(HomeActivity.this, SettingsActivity.class);
                         startActivity(settings);
                         break;
-                    case 6:  Intent contact = new Intent(HomeActivity.this, SettingsActivity.class);
-                        startActivity(contact);
+                    case 6:  /*Intent contact = new Intent(HomeActivity.this, ContactActivity.class);
+                        startActivity(contact);*/
                         break;
-                    case 7:  Intent about = new Intent(HomeActivity.this, SettingsActivity.class);
-                        startActivity(about);
+                    case 7:  /*Intent about = new Intent(HomeActivity.this, AboutActivity.class);
+                        startActivity(about);*/
                         break;
                 }
             }
