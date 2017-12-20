@@ -51,7 +51,7 @@ public class UserDAO {
         tokenReceivedCode.setToken(tokenReceived.getString("access_token"));
 
         if(!tokenReceivedCode.getToken().equals("")){
-            tokenReceivedCode.setCode(202);
+            tokenReceivedCode.setCode(200);
         }
 
         return tokenReceivedCode;
@@ -60,5 +60,40 @@ public class UserDAO {
     private static String convertStreamToString(java.io.InputStream inputStream){
         java.util.Scanner scanner = new java.util.Scanner(inputStream).useDelimiter("\\A");
         return scanner.hasNext()? scanner.next():"";
+    }
+
+    public TokenReceived registerUser(String jsonUser, TokenReceived tokenReceivedCode) throws Exception{
+        URL url = new URL("http://smartcity-jardin-20172018.azurewebsites.net/api/Account");
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-type", "application/json");
+
+        connection.setDoOutput(true);
+        connection.setDoInput(true);
+
+        OutputStream outputStream = connection.getOutputStream();
+        OutputStreamWriter writer = new OutputStreamWriter(outputStream);
+
+        connection.connect();
+
+        writer.write(jsonUser);
+        writer.flush();
+        writer.close();
+
+        InputStream inputStream = new BufferedInputStream(connection.getInputStream());
+        String token = convertStreamToString(inputStream);
+
+        outputStream.close();
+        connection.disconnect();
+
+        JSONObject tokenReceived = new JSONObject(token);
+        tokenReceivedCode.setToken(tokenReceived.getString("access_token"));
+
+        if(!tokenReceivedCode.getToken().equals("")){
+            tokenReceivedCode.setCode(200);
+        }
+
+        return tokenReceivedCode;
     }
 }

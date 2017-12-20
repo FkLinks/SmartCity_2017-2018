@@ -87,54 +87,6 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
         spec.setIndicator("Mapping");
         tabHost.addTab(spec);
 
-        /*tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
-            public void onTabChanged(String tabId) {
-                if (tabHost.getCurrentTabTag().equals("Mapping")) {
-                    *//*for (Garden garden : listItems) {
-                        String[] latLong = garden.getGeographicalCoordinates().split(",");
-
-                        //iconGoToMarker = getDrawable(R.drawable.arrow);
-                        googleMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(latLong[0]), Double.parseDouble(latLong[1])))
-                                .title(garden.getName()));
-
-                        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-                            @Override
-                            public void onInfoWindowClick(Marker marker) {
-                                Intent gardenInfos = new Intent(GardensActivity.this, GardensInformationActivity.class);
-                                Bundle bundle = new Bundle();
-                                for(Garden garden : listItems) {
-                                    if(marker.getTitle().equals(garden.getName())){
-                                        bundle.putSerializable("garden", (Serializable)garden);
-                                    }
-                                }
-                                gardenInfos.putExtras(bundle);
-                                startActivity(gardenInfos);
-                            }
-                        });
-
-                        *//**//*googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
-                        {
-                            @Override
-                            public boolean onMarkerClick(Marker arg0) {
-                                //if(arg0.getTitle().equals("MyHome")) // if marker source is clicked
-                                Intent gardenInfos = new Intent(GardensActivity.this, GardensInformationActivity.class);
-                                Bundle bundle = new Bundle();
-                                for(Garden garden : listItems) {
-                                    if(arg0.getTitle().equals(garden.getName())){
-                                        bundle.putSerializable("garden", (Serializable)garden);
-                                    }
-                                }
-                                gardenInfos.putExtras(bundle);
-                                startActivity(gardenInfos);
-                                return true;
-                            }
-                        });*//**//*
-
-                    }*//*
-                }
-            }
-        });*/
-
         gardenList = (ListView) findViewById(android.R.id.list);
         gardenList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -228,14 +180,6 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
                     });
 
                 }
-                /*for(Garden garden:listItems){
-                    String[]latLong = garden.getGeographicalCoordinates().split(",");
-                    googleMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(latLong[0]), Double.parseDouble(latLong[1])))
-                            .title(garden.getName()));
-                }*/
-
-                //googleMap.addMarker(new MarkerOptions().position(new LatLng(50.416068, 4.879343))
-                  //                                     .title("Jardin des petits fruits"));
             }
 
         });

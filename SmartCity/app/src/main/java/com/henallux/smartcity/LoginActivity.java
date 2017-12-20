@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     tokenReceived = userDAO.checkUserExist(toSend.toString(), tokenReceived);
 
-                    if(tokenReceived.getCode() == 202){
+                    if(tokenReceived.getCode() == 200){
                         Intent home = new Intent(LoginActivity.this, HomeActivity.class);
                         editor.putBoolean("login", true);
                         editor.commit();

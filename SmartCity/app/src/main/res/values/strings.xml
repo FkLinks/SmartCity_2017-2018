@@ -112,4 +112,8 @@
     <string name="loginActivityLabel">Login</string>
     <string name="gardensActivityName">The Gardens</string>
     <string name="infosLabelActivity">Informations</string>
+    <string name="RequiredForm">Required</string>
+    <string name="errorMsgFormatEmail">Respectez le format exemple@ex.com</string>
+    <string name="errorMsgFormatBirthdate">Respectez le format yyyy-mm-dd</string>
+    <string name="errorMsgFormatPassword">Doit contenir au moins 6 caracteres</string>
 </resources>
