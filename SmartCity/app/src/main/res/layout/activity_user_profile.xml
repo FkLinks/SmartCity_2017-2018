@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.henallux.smartcity.UserProfileActivity">
+
+    <TextView
+        android:id="@+id/userNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="34dp"
+        android:text="@string/user_name_label" />
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/userNameLabel"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/sexLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/userNameLabel"
+        android:layout_below="@+id/userNameLabel"
+        android:layout_marginTop="25dp"
+        android:text="@string/userSexLabel" />
+
+    <TextView
+        android:id="@+id/sex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/userName"
+        android:layout_alignTop="@+id/sexLabel"/>
+
+    <TextView
+        android:id="@+id/emailLabelUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/sexLabel"
+        android:layout_below="@+id/sexLabel"
+        android:layout_marginTop="30dp"
+        android:text="@string/user_email_adress_label" />
+
+    <TextView
+        android:id="@+id/emailAdrUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/sex"
+        android:layout_alignTop="@+id/emailLabelUser"/>
+
+    <TextView
+        android:id="@+id/origins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/emailLabelUser"
+        android:layout_below="@+id/emailLabelUser"
+        android:layout_marginTop="30dp"
+        android:text="@string/user_origin_country_label" />
+
+    <TextView
+        android:id="@+id/originCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/emailAdrUser"
+        android:layout_alignTop="@+id/origins" />
+
+    <TextView
+        android:id="@+id/birthDateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/origins"
+        android:layout_below="@+id/origins"
+        android:layout_marginTop="31dp"
+        android:text="@string/user_birth_date_label" />
+
+    <TextView
+        android:id="@+id/birthDateUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/originCountry"
+        android:layout_alignTop="@+id/birthDateLabel" />
+</RelativeLayout>

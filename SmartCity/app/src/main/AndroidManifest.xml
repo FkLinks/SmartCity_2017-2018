@@ -23,12 +23,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"
+        <activity
+            android:name=".LoginActivity"
             android:label="@string/loginActivityLabel"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".RegisterActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".RegisterActivity"
             android:label="@string/registrationActivityLabel"
-            android:parentActivityName=".LoginActivity"/>
+            android:parentActivityName=".LoginActivity" />
         <activity android:name=".HomeActivity" />
         <activity
             android:name=".SettingsActivity"
@@ -50,26 +52,36 @@
             android:name="com.google.android.gms.vision.DEPENCIES"
             android:value="barcode" />
 
-        <activity android:name=".ScanActivity"
+        <activity
+            android:name=".ScanActivity"
             android:label="@string/scannerActivityLabel">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.henallux.smartcity.HomeActivity" />
         </activity>
-
-        <activity android:name=".GardensInformationActivity"
+        <activity
+            android:name=".GardensInformationActivity"
             android:label="@string/infosLabelActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.henallux.smartcity.GardensActivity" />
         </activity>
-
-        <activity android:name=".PlantInformationActivity"
+        <activity
+            android:name=".PlantInformationActivity"
             android:label="@string/infosLabelActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.henallux.smartcity.ScanActivity" />
         </activity>
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/about"
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".ContactActivity"
+            android:label="@string/gardensActivityName"
+            android:parentActivityName=".HomeActivity" />
+        <activity android:name=".UserProfileActivity"></activity>
     </application>
 
 </manifest>

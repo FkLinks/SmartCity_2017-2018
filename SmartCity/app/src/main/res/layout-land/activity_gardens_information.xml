@@ -27,7 +27,7 @@
         android:id="@+id/noteLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Note :"
+        android:text="@string/noteGarden"
         android:layout_alignTop="@+id/nameGarden"
         android:layout_toEndOf="@+id/nameGarden" />
 
@@ -44,7 +44,7 @@
         android:id="@+id/superficieLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Superficie :"
+        android:text="@string/superficieGarden"
         android:layout_alignBottom="@+id/nameGarden"
         android:layout_toEndOf="@+id/nameGarden" />
 
@@ -60,7 +60,7 @@
         android:id="@+id/adressLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Adresse :"
+        android:text="@string/adresseGarden"
         android:layout_alignTop="@+id/mainPic"
         android:layout_toEndOf="@+id/mainPic" />
 
@@ -77,7 +77,7 @@
         android:id="@+id/audioGuidBtn"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/ic_volume_off_black_24dp"
+        android:foreground="@drawable/ic_volume_off_black_24dp"
         android:layout_alignBottom="@+id/nameGarden"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp" />
@@ -87,7 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
-        android:text="Description"
+        android:text="@string/descriptionLabel"
         android:textSize="20sp"
         android:layout_below="@+id/adressLabel"
         android:layout_toEndOf="@+id/mainPic" />

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.henallux.smartcity.AboutActivity">
+
+
+    <TextView
+        android:id="@+id/nameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/name_of_the_app_label"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/cadre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/cadreLabel"
+        android:layout_below="@+id/nameLabel"
+        android:layout_alignStart="@+id/nameLabel" />
+
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:layout_alignBaseline="@+id/nameLabel"
+        android:layout_alignBottom="@+id/nameLabel"
+        android:layout_toEndOf="@+id/nameLabel"
+        android:layout_marginStart="13dp" />
+
+    <TextView
+        android:id="@+id/descrLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        android:text="@string/descriptionLabel"
+        android:layout_below="@+id/cadre"
+        android:layout_alignStart="@+id/cadre" />
+
+    <TextView
+        android:id="@+id/cadreContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cadre_explanation"
+        android:layout_alignBaseline="@+id/cadre"
+        android:layout_alignBottom="@+id/cadre"
+        android:layout_alignEnd="@+id/copyright"
+        android:layout_toEndOf="@+id/nameLabel"
+        android:layout_alignStart="@+id/appName" />
+
+    <TextView
+        android:id="@+id/descrApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:text="@string/descr_app"
+        android:layout_below="@+id/descrLabel"
+        android:layout_alignStart="@+id/descrLabel"
+        android:layout_alignEnd="@+id/cadreContent" />
+
+    <TextView
+        android:id="@+id/copyright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/copyright"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

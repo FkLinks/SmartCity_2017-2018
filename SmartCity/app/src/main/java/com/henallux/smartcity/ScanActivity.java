@@ -36,7 +36,7 @@ import java.io.Serializable;
 
 public class ScanActivity extends AppCompatActivity {
 
-    private Boolean login;
+    private String token;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     SurfaceView cameraPreview;
@@ -44,6 +44,58 @@ public class ScanActivity extends AppCompatActivity {
     BarcodeDetector barcodeDetector;
     CameraSource cameraSource;
     final int RequestCameraPermissionID = 1001;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_scan);
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        token = preferences.getString("token", "");
+        editor=preferences.edit();
+
+        cameraPreview = (SurfaceView) findViewById(R.id.scanner);
+        txtView = (TextView) findViewById(R.id.explanationQRDestination);
+
+        barcodeDetector = new BarcodeDetector.Builder(this)
+                .setBarcodeFormats(Barcode.QR_CODE)
+                .build();
+        cameraSource = new CameraSource
+                .Builder(this, barcodeDetector)
+                .setRequestedPreviewSize(640, 480)
+                .build();
+
+        //Add event
+        cameraPreview.getHolder().addCallback(cameraCallback);
+        barcodeDetector.setProcessor(scanDetector);
+    }
+
+    private SurfaceHolder.Callback cameraCallback = new SurfaceHolder.Callback() {
+        @Override
+        public void surfaceCreated(SurfaceHolder surfaceHolder) {
+            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                //Request permission
+                ActivityCompat.requestPermissions(ScanActivity.this,
+                        new String[]{Manifest.permission.CAMERA}, RequestCameraPermissionID);
+                return;
+            }
+            try {
+                cameraSource.start(cameraPreview.getHolder());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
+            cameraSource.stop();
+        }
+    };
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -65,96 +117,46 @@ public class ScanActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan);
+    private Detector.Processor<Barcode> scanDetector = new Detector.Processor<Barcode>() {
+        @Override
+        public void release() {
 
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        login = preferences.getBoolean("login", false);
-        editor=preferences.edit();
+        }
 
-        cameraPreview = (SurfaceView) findViewById(R.id.scanner);
-        txtView = (TextView) findViewById(R.id.explanationQRDestination);
+        //TO DO ON SCAN ITEM
+        @Override
+        public void receiveDetections(Detector.Detections<Barcode> detections) {
+            final SparseArray<Barcode> qrcodes = detections.getDetectedItems();
+            if(qrcodes.size() != 0){
+                txtView.post(new Runnable(){
+                    @Override
+                    public void run(){
+                        PlantDAO plantDAO = new PlantDAO();
 
-        barcodeDetector = new BarcodeDetector.Builder(this)
-                .setBarcodeFormats(Barcode.QR_CODE)
-                .build();
-        cameraSource = new CameraSource
-                .Builder(this, barcodeDetector)
-                .setRequestedPreviewSize(640, 480)
-                .build();
+                        //Create vibrate
+                        Vibrator vibrator = (Vibrator)getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+                        vibrator.vibrate(500);
 
-        //Add event
-        cameraPreview.getHolder().addCallback(new SurfaceHolder.Callback() {
-            @Override
-            public void surfaceCreated(SurfaceHolder surfaceHolder) {
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    //Request permission
-                    ActivityCompat.requestPermissions(ScanActivity.this,
-                            new String[]{Manifest.permission.CAMERA}, RequestCameraPermissionID);
-                    return;
-                }
-                try {
-                    cameraSource.start(cameraPreview.getHolder());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-                cameraSource.stop();
-            }
-        });
-
-        barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
-            @Override
-            public void release() {
-
-            }
-
-            //TO DO ON SCAN ITEM
-            @Override
-            public void receiveDetections(Detector.Detections<Barcode> detections) {
-                final SparseArray<Barcode> qrcodes = detections.getDetectedItems();
-                if(qrcodes.size() != 0){
-                    txtView.post(new Runnable(){
-                        @Override
-                        public void run(){
-                            PlantDAO plantDAO = new PlantDAO();
-
-                            //Create vibrate
-                            Vibrator vibrator = (Vibrator)getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-                            vibrator.vibrate(500);
-
-                            try {
-                                Intent plantInfo = new Intent(ScanActivity.this, PlantInformationActivity.class);
-                                Plant plant = plantDAO.jsonToPlant(qrcodes.valueAt(0).displayValue);
-                                Bundle bundle = new Bundle();
-                                bundle.putSerializable("plant", plant);
-                                plantInfo.putExtras(bundle);
-                                startActivity(plantInfo);
-                                //wait(2000);    //DO NOT WORK
-                            }
-                            catch (Exception e) {
-                                e.printStackTrace();
-                            }
+                        try {
+                            Intent plantInfo = new Intent(ScanActivity.this, PlantInformationActivity.class);
+                            Plant plant = plantDAO.jsonToPlant(qrcodes.valueAt(0).displayValue);
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("plant", plant);
+                            plantInfo.putExtras(bundle);
+                            startActivity(plantInfo);
                         }
-                    });
-                }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
-        });
-    }
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (login)
+        if (!token.equals(""))
             getMenuInflater().inflate(R.menu.menu_main_sign_out, menu);
         else
             getMenuInflater().inflate(R.menu.menu_main_sign_in, menu);
@@ -173,7 +175,8 @@ public class ScanActivity extends AppCompatActivity {
                 startActivity(new Intent(ScanActivity.this, LoginActivity.class));
                 return true;
             case R.id.sign_out:
-                editor.putBoolean("login", false);
+                editor.putString("token", "");
+                editor.putString("userName", "");
                 editor.commit();
                 startActivity(new Intent(ScanActivity.this, MainActivity.class));
                 return true;

@@ -2,6 +2,7 @@ package com.henallux.smartcity.DAO;
 
 import com.henallux.smartcity.Model.TokenReceived;
 import com.henallux.smartcity.Model.User;
+import com.henallux.smartcity.RegisterActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,43 +16,92 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
 //URL de base pour db azur :
 //http://smartcity-jardin-20172018.azurewebsites.net/api/
 public class UserDAO {
-    public TokenReceived checkUserExist(String login_password, TokenReceived tokenReceivedCode) throws Exception{
-        URL url = new URL("http://smartcity-jardin-20172018.azurewebsites.net/api/Jwt");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    public TokenReceived checkUserExist(String login_password) throws Exception{
+        TokenReceived tokenReceivedCode =new TokenReceived();
+        try{
+            URL url = new URL("http://smartcity-jardin-20172018.azurewebsites.net/api/Jwt");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-        connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-type", "application/json");
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-type", "application/json");
 
-        connection.setDoOutput(true);
-        connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
 
-        OutputStream outputStream = connection.getOutputStream();
-        OutputStreamWriter writer = new OutputStreamWriter(outputStream);
+            OutputStream outputStream = connection.getOutputStream();
+            OutputStreamWriter writer = new OutputStreamWriter(outputStream);
 
-        connection.connect();
+            connection.connect();
 
-        writer.write(login_password);
-        writer.flush();
-        writer.close();
+            writer.write(login_password);
+            writer.flush();
+            writer.close();
 
-        InputStream inputStream = new BufferedInputStream(connection.getInputStream());
-        String token = convertStreamToString(inputStream);
+            InputStream inputStream = new BufferedInputStream(connection.getInputStream());
+            String token = convertStreamToString(inputStream);
 
-        outputStream.close();
-        connection.disconnect();
+            outputStream.close();
+            connection.disconnect();
 
-        JSONObject tokenReceived = new JSONObject(token);
-        tokenReceivedCode.setToken(tokenReceived.getString("access_token"));
+            JSONObject tokenReceived = new JSONObject(token);
+            tokenReceivedCode.setToken(tokenReceived.getString("access_token"));
 
-        if(!tokenReceivedCode.getToken().equals("")){
+            if(!tokenReceivedCode.getToken().equals("")){
+                tokenReceivedCode.setCode(200);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return tokenReceivedCode;
+    }
+
+    //enlever token
+    public TokenReceived registerUser(String user) throws Exception{
+        TokenReceived tokenReceivedCode = new TokenReceived();
+        try{
+            URL url = new URL("http://smartcity-jardin-20172018.azurewebsites.net/api/Account");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-type", "application/json");
+            connection.setRequestProperty("Accept", "application/json");
+
+            connection.setDoOutput(true);
+            //connection.setDoInput(true);
+
+            OutputStream outputStream = connection.getOutputStream();
+            OutputStreamWriter writer = new OutputStreamWriter(outputStream);
+
+            connection.connect();
+
+            String i = connection.getResponseMessage();
+
+            writer.write(user);
+            writer.flush();
+            writer.close();
+
+            /*InputStream inputStream = new BufferedInputStream(connection.getInputStream());
+            String token = convertStreamToString(inputStream);*/
+
+            outputStream.close();
+            connection.disconnect();
+
+            /*JSONObject tokenReceived = new JSONObject(token);
+            tokenReceivedCode.setToken(tokenReceived.getString("ReasonPhrase"));
+
+            if(tokenReceivedCode.getToken().equals("OK")){
+                tokenReceivedCode.setCode(200);
+            }*/
             tokenReceivedCode.setCode(200);
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
 
         return tokenReceivedCode;
@@ -62,38 +112,29 @@ public class UserDAO {
         return scanner.hasNext()? scanner.next():"";
     }
 
-    public TokenReceived registerUser(String jsonUser, TokenReceived tokenReceivedCode) throws Exception{
-        URL url = new URL("http://smartcity-jardin-20172018.azurewebsites.net/api/Account");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    public User getUserByName(String userName) throws Exception{
+        String stringJSON = "";
 
-        connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-type", "application/json");
-
-        connection.setDoOutput(true);
-        connection.setDoInput(true);
-
-        OutputStream outputStream = connection.getOutputStream();
-        OutputStreamWriter writer = new OutputStreamWriter(outputStream);
-
-        connection.connect();
-
-        writer.write(jsonUser);
-        writer.flush();
-        writer.close();
-
-        InputStream inputStream = new BufferedInputStream(connection.getInputStream());
-        String token = convertStreamToString(inputStream);
-
-        outputStream.close();
-        connection.disconnect();
-
-        JSONObject tokenReceived = new JSONObject(token);
-        tokenReceivedCode.setToken(tokenReceived.getString("access_token"));
-
-        if(!tokenReceivedCode.getToken().equals("")){
-            tokenReceivedCode.setCode(200);
+        try {
+            URL url = new URL("http://smartcity-jardin-20172018.azurewebsites.net/api/Account/" + userName);
+            URLConnection connection = url.openConnection();
+            InputStream inputStream = new BufferedInputStream(connection.getInputStream());
+            stringJSON = convertStreamToString(inputStream);
         }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return jsonToUser(stringJSON);
+    }
 
-        return tokenReceivedCode;
+    private User jsonToUser(String stringJSON) throws Exception{
+        User user;
+
+        JSONArray jsonArray = new JSONArray(stringJSON);
+        JSONObject jsonUser = jsonArray.getJSONObject(0);
+
+        user = new User(jsonUser.getString("UserName"),jsonUser.getString("Password"), jsonUser.getString("Email"), jsonUser.getString("Sex"), jsonUser.getString("BirthDate"), jsonUser.getString("GeographicOrigins"));
+
+        return user;
     }
 }

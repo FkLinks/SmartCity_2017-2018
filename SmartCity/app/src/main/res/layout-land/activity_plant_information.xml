@@ -17,9 +17,8 @@
         android:layout_width="wrap_content"
         android:layout_height="37dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:text="Name plant"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:layout_alignTop="@+id/picturePlant"
         android:layout_alignStart="@+id/descrLabel" />
 
@@ -27,8 +26,8 @@
         android:id="@+id/descrLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Description"
-        android:textSize="20dp"
+        android:text="@string/descriptionLabel"
+        android:textSize="20sp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="11dp"
         android:layout_below="@+id/namePlant"

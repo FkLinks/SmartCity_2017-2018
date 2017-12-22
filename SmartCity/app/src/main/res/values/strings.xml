@@ -89,7 +89,7 @@
     <string name="female">Female</string>
     <string name="you_have_already_an_account_sign_in">You have already an account ?</string>
     <string name="sign_in">Sign in</string>
-    <string name="enter_your_e_mail_adress">e-mail (example@mail.com)</string>
+    <string name="enter_your_e_mail_adress">example@email.ex</string>
     <string name="enter_your_birth_date">Birth date (yyyy-mm-dd)</string>
     <string name="where_are_you_from">Native country</string>
     <string name="remember_me">Remember me</string>
@@ -116,4 +116,28 @@
     <string name="errorMsgFormatEmail">Respectez le format exemple@ex.com</string>
     <string name="errorMsgFormatBirthdate">Respectez le format yyyy-mm-dd</string>
     <string name="errorMsgFormatPassword">Doit contenir au moins 6 caracteres</string>
+    <string name="name_of_the_app_label">Name of the app :</string>
+    <string name="descriptionLabel">Description</string>
+    <string name="cadre_explanation">Fait dans le cadre du projet SmartCity 2017</string>
+    <string name="descr_app"><![CDATA[N&Garden permet aux visiteurs de découvrir les jardins à thème d\'une manière plus dynamique et ludique tout en apprenant des choses sur les éléments qui le composent.]]></string>
+    <string name="copyright"><![CDATA[©copyright 2017-2017, N&Gardenis a registered trademark.]]></string>
+    <string name="about">About</string>
+    <string name="noteGarden">Note :</string>
+    <string name="superficieGarden">Superficie :</string>
+    <string name="adresseGarden">Adresse :</string>
+    <string name="textScanExplain">Scan the qr code near a plant to display his informations</string>
+    <string name="cadreLabel">Cadre</string>
+    <string name="findUsOnSentence">Vous pouvez nous retrouver sur ces différents réseaux sociaux :</string>
+    <string name="facebookLabel">Facebook :</string>
+    <string name="facebookLink">https://www.facebook.com/Animaland-379469422498868/</string>
+    <string name="twitterLabel">Twitter :</string>
+    <string name="twitterLink">https://twitter.com/_AnimaLanD</string>
+    <string name="mailLabel">Ou nous contacter par mail via :</string>
+    <string name="mailAdr">exemple@email.ext</string>
+    <string name="user_name_label">User name :</string>
+    <string name="userSexLabel">Sex :</string>
+    <string name="user_email_adress_label">Email adress :</string>
+    <string name="user_origin_country_label">Origin country :</string>
+    <string name="user_birth_date_label">Birth date :</string>
+    <string name="connection_toast">Connectez-vous pour voir cette page</string>
 </resources>

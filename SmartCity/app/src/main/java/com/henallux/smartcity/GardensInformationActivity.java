@@ -29,14 +29,15 @@ import static android.media.AudioAttributes.USAGE_MEDIA;
 
 public class GardensInformationActivity extends AppCompatActivity {
 
-    private Boolean login;
+    private String token;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
-    ImageView picture;
-    TextView nameGarden, note, superficie, adress, descr;
-    Button audioGuid;
-    MediaPlayer mPlayer = new MediaPlayer();
-    AudioAttributes audioAttributes;
+    private ImageView picture;
+    private TextView nameGarden, note, superficie, adress, descr;
+    private Button audioGuid;
+    private MediaPlayer mPlayer = new MediaPlayer();
+    private AudioAttributes audioAttributes;
+    private Garden garden;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +45,11 @@ public class GardensInformationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gardens_information);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        login = preferences.getBoolean("login", false);
+        token = preferences.getString("token", "");
         editor=preferences.edit();
 
         Bundle bundle = this.getIntent().getExtras();
-        final Garden garden = (Garden)bundle.getSerializable("garden");
+        garden = (Garden)bundle.getSerializable("garden");
 
         picture = (ImageView) findViewById(R.id.mainPic);
         Picasso
@@ -72,32 +73,32 @@ public class GardensInformationActivity extends AppCompatActivity {
         descr.setText(garden.getDescription());
 
         audioGuid = (Button) findViewById(R.id.audioGuidBtn);
-        audioGuid.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(audioGuid.getBackground().equals(getDrawable(R.drawable.ic_volume_up_black_24dp))){
-                    audioGuid.setBackground(getDrawable(R.drawable.ic_volume_off_black_24dp));
-                    mPlayer.stop();
-                }
-                else{
-                    audioGuid.setBackground(getDrawable(R.drawable.ic_volume_up_black_24dp));
-
-                    //String url = "http://res.cloudinary.com/vnckcloud/video/upload/v1513403728/Blankets_-_The_hanging_tree_xfuze6.mp3";
-                    String url = garden.getUrlAudio();
-                    //mPlayer.setAudioAttributes(audioAttributes);
-                    try {
-                        mPlayer.setDataSource(url);
-                        mPlayer.prepare();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    mPlayer.start();
-                }
-            }
-        });
+        audioGuid.setOnClickListener(launchStopAudioClickListener);
     }
 
-    @Override
+    private View.OnClickListener launchStopAudioClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if(audioGuid.getForeground().getConstantState() == getDrawable(R.drawable.ic_volume_up_black_24dp).getConstantState()){
+                audioGuid.setForeground(getDrawable(R.drawable.ic_volume_off_black_24dp));
+                mPlayer.stop();
+            }
+            else{
+                audioGuid.setForeground(getDrawable(R.drawable.ic_volume_up_black_24dp));
+                String url = garden.getUrlAudio();
+                //mPlayer.setAudioAttributes(audioAttributes);
+                try {
+                    mPlayer.setDataSource(url);
+                    mPlayer.prepare();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                mPlayer.start();
+            }
+        }
+    };
+
+    /*@Override
     protected void onDestroy() {
         super.onDestroy();
         mPlayer.stop();
@@ -113,11 +114,11 @@ public class GardensInformationActivity extends AppCompatActivity {
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
         mPlayer.stop();
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (login)
+        if (!token.equals(""))
             getMenuInflater().inflate(R.menu.menu_main_sign_out, menu);
         else
             getMenuInflater().inflate(R.menu.menu_main_sign_in, menu);
@@ -136,7 +137,8 @@ public class GardensInformationActivity extends AppCompatActivity {
                 startActivity(new Intent(GardensInformationActivity.this, LoginActivity.class));
                 return true;
             case R.id.sign_out:
-                editor.putBoolean("login", false);
+                editor.putString("token", "");
+                editor.putString("userName", "");
                 editor.commit();
                 startActivity(new Intent(GardensInformationActivity.this, MainActivity.class));
                 return true;

@@ -51,7 +51,7 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
 
     private TabHost tabHost;
     private TabHost.TabSpec spec;
-    private Boolean login;
+    private String token;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private ListView gardenList;
@@ -59,7 +59,6 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
     private MapFragment mapFragment;
     private GoogleMap googleMap;
     private LocationManager locationManager;
-    private Drawable iconGoToMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +68,7 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
         new LoadGarden().execute();
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        login = preferences.getBoolean("login", false);
+        token = preferences.getString("token", "");
         editor=preferences.edit();
 
         tabHost = (TabHost)findViewById(R.id.showGardensTabHost);
@@ -113,7 +112,6 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
     private void verifPermission()
     {
         //Sert à vérifier si on bénéficie bien des permissions de localisation !
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{
@@ -197,10 +195,10 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
 
     @Override
     public void onLocationChanged(Location location) {
-        double latitude = location.getLatitude(); //50.463335;//
-        double longitude = location.getLongitude(); //4.881568;//
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
 
-        /*Toast.makeText(this, latitude+" / "+ longitude, Toast.LENGTH_LONG).show();*/
+        /*remet l'ecran sur l'emplacement*/
         /*if(googleMap != null)
         {
             LatLng googleLocation = new LatLng(latitude, longitude);
@@ -235,7 +233,7 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
                 }
             }
             catch (Exception e){
-
+                Toast.makeText(GardensActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
 
             return gardens;
@@ -251,7 +249,7 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (login)
+        if (!token.equals(""))
             getMenuInflater().inflate(R.menu.menu_main_sign_out, menu);
         else
             getMenuInflater().inflate(R.menu.menu_main_sign_in, menu);
@@ -270,7 +268,8 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
                 startActivity(new Intent(GardensActivity.this, LoginActivity.class));
                 return true;
             case R.id.sign_out:
-                editor.putBoolean("login", false);
+                editor.putString("token", "");
+                editor.putString("userName", "");
                 editor.commit();
                 startActivity(new Intent(GardensActivity.this, MainActivity.class));
                 return true;

@@ -1,73 +1,70 @@
 package com.henallux.smartcity.Model;
 
-import java.util.Date;
-import java.util.StringTokenizer;
-
 public class User {
-    private String userName;
-    private String email;
-    private char sex;
-    private Date birthdate;
-    private String geoOrigin;
-    private String phoneNumber;
+    private String UserName;
+    private String Password;
+    private String Email;
+    private String Sex;
+    private String BirthDate;
+    private String GeographicOrigins;
 
     public User() {
     }
 
-    public User(String userName, String email, char sex, Date birthdate, String geoOrigin, String phoneNumber) {
-        this.userName = userName;
-        this.email = email;
-        this.sex = sex;
-        this.birthdate = birthdate;
-        this.geoOrigin = geoOrigin;
-        this.phoneNumber = phoneNumber;
+    public User(String userName, String password, String email, String birthDate, String sex, String GeographicOrigins) {
+        this.UserName = userName;
+        this.Password = password;
+        this.Email = email;
+        this.BirthDate = birthDate;
+        this.Sex = sex;
+        this.GeographicOrigins = GeographicOrigins;
     }
 
     public String getUserName() {
-        return userName;
+        return UserName;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.UserName = userName;
     }
 
     public String getEmail() {
-        return email;
+        return Email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.Email = email;
     }
 
-    public char getSex() {
-        return sex;
+    public String getSex() {
+        return Sex;
     }
 
-    public void setSex(char sex) {
-        this.sex = sex;
+    public void setSex(String sex) {
+        this.Sex = sex;
     }
 
-    public Date getBirthdate() {
-        return birthdate;
+    public String getBirthDate() {
+        return BirthDate;
     }
 
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
+    public void setBirthDate(String birthDate) {
+        this.BirthDate = birthDate;
     }
 
-    public String getGeoOrigin() {
-        return geoOrigin;
+    public String getGeographicOrigins() {
+        return GeographicOrigins;
     }
 
-    public void setGeoOrigin(String geoOrigin) {
-        this.geoOrigin = geoOrigin;
+    public void setGeographicOrigins(String geographicOrigins) {
+        this.GeographicOrigins = geographicOrigins;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPassword() {
+        return Password;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPassword(String password) {
+        this.Password = password;
     }
 }

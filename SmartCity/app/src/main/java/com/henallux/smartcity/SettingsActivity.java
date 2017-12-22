@@ -4,6 +4,7 @@ package com.henallux.smartcity;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -18,6 +19,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
 import java.util.List;
@@ -34,6 +36,11 @@ import java.util.List;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
+
+    //for the menu
+    private String token;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
@@ -120,6 +127,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupActionBar();
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        token = preferences.getString("token", "");
+        editor=preferences.edit();
     }
 
     /**
@@ -261,6 +272,34 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 return true;
             }
             return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (!token.equals(""))
+            getMenuInflater().inflate(R.menu.menu_settings_page_sign_out, menu);
+        else
+            getMenuInflater().inflate(R.menu.menu_settings_page_sign_in, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        switch (item.getItemId())
+        {
+            case R.id.sign_in:
+                startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
+                return true;
+            case R.id.sign_out:
+                editor.putString("token", "");
+                editor.putString("userName", "");
+                editor.commit();
+                startActivity(new Intent(SettingsActivity.this, MainActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

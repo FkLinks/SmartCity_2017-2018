@@ -67,7 +67,8 @@ public class PlantInformationActivity extends AppCompatActivity {
                 startActivity(new Intent(PlantInformationActivity.this, LoginActivity.class));
                 return true;
             case R.id.sign_out:
-                editor.putBoolean("login", false);
+                editor.putString("token", "");
+                editor.putString("userName", "");
                 editor.commit();
                 startActivity(new Intent(PlantInformationActivity.this, MainActivity.class));
                 return true;

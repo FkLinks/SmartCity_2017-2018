@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.henallux.smartcity.ContactActivity">
+
+    <TextView
+        android:id="@+id/findUsOnSentence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp"
+        android:text="@string/findUsOnSentence"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/facebookLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="34dp"
+        android:text="@string/facebookLabel"
+        android:layout_below="@+id/findUsOnSentence"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/facebookLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/facebookLink"
+        android:layout_alignBaseline="@+id/facebookLabel"
+        android:layout_alignBottom="@+id/facebookLabel"
+        android:layout_toEndOf="@+id/facebookLabel"
+        android:layout_marginStart="33dp" />
+
+    <TextView
+        android:id="@+id/twitterLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/facebookLabel"
+        android:layout_below="@+id/facebookLink"
+        android:layout_marginTop="41dp"
+        android:text="@string/twitterLabel" />
+
+    <TextView
+        android:id="@+id/twitterLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/twitterLink"
+        android:layout_alignBaseline="@+id/twitterLabel"
+        android:layout_alignBottom="@+id/twitterLabel"
+        android:layout_alignStart="@+id/facebookLink" />
+
+    <TextView
+        android:id="@+id/emailLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp"
+        android:text="@string/mailLabel"
+        android:layout_below="@+id/twitterLink"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/emailAdr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mailAdr"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/twitterLabel" />
+</RelativeLayout>
