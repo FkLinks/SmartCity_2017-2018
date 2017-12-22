@@ -54,7 +54,7 @@ public class UserProfileActivity extends AppCompatActivity {
             UserDAO userDAO = new UserDAO();
             User user = new User();
             try{
-                user = userDAO.getUserByName(userName);
+                user = userDAO.getUserByName(userName, token);
             }
             catch (Exception e){
                 Toast.makeText(UserProfileActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();

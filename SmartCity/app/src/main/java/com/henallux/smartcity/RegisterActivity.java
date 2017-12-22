@@ -23,7 +23,6 @@ import org.json.JSONObject;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private Boolean login;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private Button register;
@@ -37,8 +36,6 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText birthdate;
     private EditText geographicalOrigins;
     private UserDAO userDAO = new UserDAO();
-    private TokenReceived tokenReceived = new TokenReceived();
-    private JSONObject toSend = new JSONObject();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
     private View.OnClickListener registerBtnListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            JSONObject toSend = new JSONObject();
             if(checkValidation()) {
                 try {
                     toSend.put("UserName", userName.getText());
@@ -96,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
             else{
-                Toast.makeText(RegisterActivity.this, "Erreurs recontrées", Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this, R.string.errorsInFormEncountered, Toast.LENGTH_LONG).show();
             }
         }
     };
@@ -137,14 +135,57 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(TokenReceived tokenReceived) {
             super.onPostExecute(tokenReceived);
+            JSONObject toSend = new JSONObject();
 
             if(tokenReceived.getCode() == 200){
-                Intent home = new Intent(RegisterActivity.this, LoginActivity.class);
+
+                try {
+                    toSend.put("UserName", userName.getText());
+                    toSend.put("Password", password.getText());
+
+                    new CheckUser().execute(toSend.toString());
+
+                } catch (Exception e) {
+                    Toast.makeText(RegisterActivity.this, R.string.connectionError, Toast.LENGTH_LONG).show();
+                }
+                /*Intent home = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(home);
-                Toast.makeText(RegisterActivity.this, "Enregistrement réussi ! Connectez-vous ...", Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this, R.string.registerSuccessful, Toast.LENGTH_LONG).show();*/
             }
             else{
-                Toast.makeText(RegisterActivity.this, "Enregistrement failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this, R.string.registerFailed, Toast.LENGTH_LONG).show();
+            }
+        }
+
+        private class CheckUser extends AsyncTask<String, Void, TokenReceived> {
+            @Override
+            protected TokenReceived doInBackground(String... userParams) {
+                TokenReceived tokenReceived = new TokenReceived();
+
+                try {
+                    tokenReceived = userDAO.checkUserExist(userParams[0]);
+
+                }
+                catch (Exception e) {
+                    Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+                return tokenReceived;
+            }
+
+            @Override
+            protected void onPostExecute(TokenReceived tokenReceived) {
+                super.onPostExecute(tokenReceived);
+
+                if(tokenReceived.getCode() == 200){
+                    Intent home = new Intent(RegisterActivity.this, HomeActivity.class);
+                    editor.putString("token", tokenReceived.getToken());
+                    editor.putString("userName", userName.getText().toString());
+                    editor.commit();
+                    startActivity(home);
+                }
+                else{
+                    Toast.makeText(RegisterActivity.this, R.string.registerFailed, Toast.LENGTH_LONG).show();
+                }
             }
         }
     }

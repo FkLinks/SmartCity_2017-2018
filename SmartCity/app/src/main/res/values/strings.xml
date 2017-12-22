@@ -140,4 +140,9 @@
     <string name="user_origin_country_label">Origin country :</string>
     <string name="user_birth_date_label">Birth date :</string>
     <string name="connection_toast">Connectez-vous pour voir cette page</string>
+    <string name="profileActivityName">Profile</string>
+    <string name="registerFailed">Enregistrement failed</string>
+    <string name="connectionError">Erreur de connexion</string>
+    <string name="registerSuccessful">Enregistrement réussi ! Connectez-vous ...</string>
+    <string name="errorsInFormEncountered">Erreurs recontrées</string>
 </resources>
