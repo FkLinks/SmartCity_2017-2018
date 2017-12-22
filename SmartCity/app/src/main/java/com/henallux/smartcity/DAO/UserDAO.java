@@ -136,7 +136,7 @@ public class UserDAO {
             stringJSON = string;*/
         }
         catch (Exception e){
-            e.printStackTrace();
+            e.getStackTrace();
         }
         return jsonToUser(stringJSON);
     }

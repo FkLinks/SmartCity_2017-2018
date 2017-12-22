@@ -83,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
                     new SubmitRegistration().execute(toSend.toString());
                 }
                 catch (Exception e) {
-                    Toast.makeText(RegisterActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
                 /*User user = new User(userName.getText().toString(),
                         password.getText().toString(),
@@ -127,7 +127,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
             catch (Exception e) {
-                Toast.makeText(RegisterActivity.this, e.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
             return tokenReceived;
         }
@@ -140,6 +140,8 @@ public class RegisterActivity extends AppCompatActivity {
             if(tokenReceived.getCode() == 200){
 
                 try {
+                    Toast.makeText(RegisterActivity.this, R.string.registerSuccessful, Toast.LENGTH_LONG).show();
+
                     toSend.put("UserName", userName.getText());
                     toSend.put("Password", password.getText());
 
