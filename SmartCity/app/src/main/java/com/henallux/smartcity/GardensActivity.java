@@ -86,7 +86,7 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
         spec.setIndicator("Mapping");
         tabHost.addTab(spec);
 
-        gardenList = (ListView) findViewById(android.R.id.list);
+        gardenList = (ListView) findViewById(R.id.listGardens);
         gardenList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

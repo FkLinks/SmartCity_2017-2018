@@ -78,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
                     toSend.put("Email", email.getText());
                     toSend.put("BirthDate", birthdate.getText());
                     toSend.put("Sex", ((sex.getCheckedRadioButtonId() == R.id.male)? "M" : "F"));
-                    toSend.put("GeographicOrigins", geographicalOrigins.getText());
+                    toSend.put("GeographicOrigins", (geographicalOrigins.getText().toString().equals(""))?null:geographicalOrigins.getText());
 
                     new SubmitRegistration().execute(toSend.toString());
                 }

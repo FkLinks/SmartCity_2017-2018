@@ -145,4 +145,7 @@
     <string name="connectionError">Erreur de connexion</string>
     <string name="registerSuccessful">Enregistrement réussi ! Connectez-vous ...</string>
     <string name="errorsInFormEncountered">Erreurs recontrées</string>
+    <string name="dateStartEventLabel">Aura lieu à partir du</string>
+    <string name="auEventTimeLabel">jusqu\'au</string>
+    <string name="moreInfosEventLabel">Plus d\'infos sur le site ci dessous :</string>
 </resources>

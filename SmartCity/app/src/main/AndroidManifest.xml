@@ -81,10 +81,15 @@
             android:name=".ContactActivity"
             android:label="@string/gardensActivityName"
             android:parentActivityName=".HomeActivity" />
-
-        <activity android:name=".UserProfileActivity"
+        <activity
+            android:name=".UserProfileActivity"
             android:label="@string/profileActivityName"
             android:parentActivityName=".HomeActivity" />
+        <activity android:name=".EventsActivity"
+            android:parentActivityName=".HomeActivity" />
+
+        <activity android:name=".EventsInformationActivity"
+            android:parentActivityName=".EventsActivity"/>
     </application>
 
 </manifest>

@@ -24,7 +24,6 @@
         android:layout_marginStart="22dp"
         android:layout_toEndOf="@+id/mainPic"
         android:ems="10"
-        android:text="Name garden"
         android:textSize="24sp"/>
 
     <TextView
@@ -101,17 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="All the descr"
         android:layout_below="@+id/descrLabel"
         android:layout_alignStart="@+id/descrLabel" />
-
-    <!--<Button
-        android:id="@+id/routeBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Itineraire"
-        android:layout_alignBaseline="@+id/descrLabel"
-        android:layout_alignBottom="@+id/descrLabel"
-        android:layout_alignEnd="@+id/audioGuidBtn" />-->
 
 </RelativeLayout>

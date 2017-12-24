@@ -41,8 +41,8 @@ public class HomeActivity extends AppCompatActivity {
     private void addItemsToHomeMenu(){
         listItems.add(getString(R.string.home_menu_gardens));
         listItems.add(getString(R.string.home_menu_scan));
-        /*listItems.add(getString(R.string.home_menu_ask_questions));
-        listItems.add(getString(R.string.home_menu_events_inc));*/
+        /*listItems.add(getString(R.string.home_menu_ask_questions));*/
+        listItems.add(getString(R.string.home_menu_events_inc));
         listItems.add(getString(R.string.home_menu_my_profile));
         listItems.add(getString(R.string.home_menu_prefs));
         listItems.add(getString(R.string.home_menu_contact_us));
@@ -63,10 +63,10 @@ public class HomeActivity extends AppCompatActivity {
                 /*case 2:  Intent question = new Intent(HomeActivity.this, ChatActivity.class);
                         startActivity(question);
                     break;*/
-                /*case 3:  Intent events = new Intent(HomeActivity.this, EventsActivity.class);
+                case 2:  Intent events = new Intent(HomeActivity.this, EventsActivity.class);
                         startActivity(events);
-                    break;*/
-                case 2:
+                    break;
+                case 3:
                     if(!token.equals("")) {
                         Intent profile = new Intent(HomeActivity.this, UserProfileActivity.class);
                         startActivity(profile);
@@ -75,13 +75,13 @@ public class HomeActivity extends AppCompatActivity {
                         Toast.makeText(HomeActivity.this, R.string.connection_toast, Toast.LENGTH_LONG).show();
                     }
                     break;
-                case 3:  Intent settings = new Intent(HomeActivity.this, SettingsActivity.class);
+                case 4:  Intent settings = new Intent(HomeActivity.this, SettingsActivity.class);
                     startActivity(settings);
                     break;
-                case 4:  Intent contact = new Intent(HomeActivity.this, ContactActivity.class);
+                case 5:  Intent contact = new Intent(HomeActivity.this, ContactActivity.class);
                         startActivity(contact);
                     break;
-                case 5:  Intent about = new Intent(HomeActivity.this, AboutActivity.class);
+                case 6:  Intent about = new Intent(HomeActivity.this, AboutActivity.class);
                         startActivity(about);
                     break;
             }
