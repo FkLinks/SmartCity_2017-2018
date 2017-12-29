@@ -1,7 +1,10 @@
 package com.henallux.smartcity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +28,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private ConnectivityManager connectivityManager;
+    private NetworkInfo activeNetwork;
+    private boolean isConnected;
     private Button register;
     private TextView goToLogin;
     private EditText userName;
@@ -44,6 +50,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         preferences= PreferenceManager.getDefaultSharedPreferences(this);
         editor = preferences.edit();
+
+        connectivityManager = (ConnectivityManager) RegisterActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         userName = (EditText) findViewById(R.id.login);
         password = (EditText) findViewById(R.id.password);
@@ -71,27 +79,39 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             JSONObject toSend = new JSONObject();
+            activeNetwork = connectivityManager.getActiveNetworkInfo();
+            isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
             if(checkValidation()) {
-                try {
-                    toSend.put("UserName", userName.getText());
-                    toSend.put("Password", password.getText());
-                    toSend.put("Email", email.getText());
-                    toSend.put("BirthDate", birthdate.getText());
-                    toSend.put("Sex", ((sex.getCheckedRadioButtonId() == R.id.male)? "M" : "F"));
-                    toSend.put("GeographicOrigins", (geographicalOrigins.getText().toString().equals(""))?null:geographicalOrigins.getText());
+                if(isConnected) {
+                    try {
+                        toSend.put("UserName", userName.getText());
+                        toSend.put("Password", password.getText());
+                        toSend.put("Email", email.getText());
+                        toSend.put("BirthDate", birthdate.getText());
+                        toSend.put("Sex", ((sex.getCheckedRadioButtonId() == R.id.male) ? "M" : "F"));
+                        toSend.put("GeographicOrigins", (geographicalOrigins.getText().toString().equals("")) ? null : geographicalOrigins.getText());
 
-                    new SubmitRegistration().execute(toSend.toString());
-                }
-                catch (Exception e) {
-                    Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                }
+                        User user = new User(userName.getText().toString(),
+                                password.getText().toString(),
+                                email.getText().toString(),
+                                birthdate.getText().toString(),
+                                ((sex.getCheckedRadioButtonId() == R.id.male) ? "M" : "F"),
+                                (geographicalOrigins.getText().toString().equals("")) ? null : geographicalOrigins.getText().toString());
+
+                        new SubmitRegistration().execute(user);
+                    } catch (Exception e) {
+                        Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 /*User user = new User(userName.getText().toString(),
                         password.getText().toString(),
                         email.getText().toString(),
                         birthdate.getText().toString(),
                         ((sex.getCheckedRadioButtonId() == R.id.male)? "M" : "F"),
                         geographicalOrigins.getText().toString());*/
-
+                }
+                else{
+                    Toast.makeText(RegisterActivity.this, R.string.errorMissInternetCo, Toast.LENGTH_LONG).show();
+                }
             }
             else{
                 Toast.makeText(RegisterActivity.this, R.string.errorsInFormEncountered, Toast.LENGTH_LONG).show();
@@ -118,34 +138,45 @@ public class RegisterActivity extends AppCompatActivity {
         return valid;
     }
 
-    private class SubmitRegistration extends AsyncTask<String, Void, TokenReceived> {
+    private class SubmitRegistration extends AsyncTask<User, Void, Integer> {
         @Override
-        protected TokenReceived doInBackground(String... userParams) {
-            TokenReceived tokenReceived = new TokenReceived();
-            try {
-                tokenReceived = userDAO.registerUser(userParams[0]);
+        protected Integer doInBackground(User... userParams) {
 
-            }
-            catch (Exception e) {
+            int codeReceived = 0;
+            try {
+                codeReceived = userDAO.registerUser(userParams[0]);
+
+            } catch (Exception e) {
                 Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
-            return tokenReceived;
+            return codeReceived;
         }
 
         @Override
-        protected void onPostExecute(TokenReceived tokenReceived) {
-            super.onPostExecute(tokenReceived);
+        protected void onPostExecute(Integer codeReceived) {
+            super.onPostExecute(codeReceived);
             JSONObject toSend = new JSONObject();
 
-            if(tokenReceived.getCode() == 200){
-
+            TokenReceived tokenReceived;
+            if(codeReceived == 200){
                 try {
                     Toast.makeText(RegisterActivity.this, R.string.registerSuccessful, Toast.LENGTH_LONG).show();
 
                     toSend.put("UserName", userName.getText());
                     toSend.put("Password", password.getText());
 
-                    new CheckUser().execute(toSend.toString());
+                    tokenReceived = userDAO.checkUserExist(toSend.toString());
+
+                    if(tokenReceived.getCode() == 200){
+                        Intent home = new Intent(RegisterActivity.this, HomeActivity.class);
+                        editor.putString("token", tokenReceived.getToken());
+                        editor.putString("userName", userName.getText().toString());
+                        editor.commit();
+                        startActivity(home);
+                    }
+                    else{
+                        Toast.makeText(RegisterActivity.this, R.string.connectionError, Toast.LENGTH_LONG).show();
+                    }
 
                 } catch (Exception e) {
                     Toast.makeText(RegisterActivity.this, R.string.connectionError, Toast.LENGTH_LONG).show();
@@ -156,38 +187,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
             else{
                 Toast.makeText(RegisterActivity.this, R.string.registerFailed, Toast.LENGTH_LONG).show();
-            }
-        }
-
-        private class CheckUser extends AsyncTask<String, Void, TokenReceived> {
-            @Override
-            protected TokenReceived doInBackground(String... userParams) {
-                TokenReceived tokenReceived = new TokenReceived();
-
-                try {
-                    tokenReceived = userDAO.checkUserExist(userParams[0]);
-
-                }
-                catch (Exception e) {
-                    Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-                return tokenReceived;
-            }
-
-            @Override
-            protected void onPostExecute(TokenReceived tokenReceived) {
-                super.onPostExecute(tokenReceived);
-
-                if(tokenReceived.getCode() == 200){
-                    Intent home = new Intent(RegisterActivity.this, HomeActivity.class);
-                    editor.putString("token", tokenReceived.getToken());
-                    editor.putString("userName", userName.getText().toString());
-                    editor.commit();
-                    startActivity(home);
-                }
-                else{
-                    Toast.makeText(RegisterActivity.this, R.string.registerFailed, Toast.LENGTH_LONG).show();
-                }
             }
         }
     }

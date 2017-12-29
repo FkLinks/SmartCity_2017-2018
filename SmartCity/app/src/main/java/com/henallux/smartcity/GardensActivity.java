@@ -1,6 +1,7 @@
 package com.henallux.smartcity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -9,6 +10,8 @@ import android.graphics.drawable.Icon;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -25,6 +28,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -54,18 +58,34 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
     private String token;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private ConnectivityManager connectivityManager;
+    private NetworkInfo activeNetwork;
+    private boolean isConnected;
     private ListView gardenList;
     private ArrayList<Garden> listItems= new ArrayList<>();
     private MapFragment mapFragment;
     private GoogleMap googleMap;
     private LocationManager locationManager;
+    private TextView errorMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gardens);
 
-        new LoadGarden().execute();
+        connectivityManager = (ConnectivityManager) GardensActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        errorMessage = (TextView) findViewById(R.id.errorMessageGarden);
+
+        activeNetwork = connectivityManager.getActiveNetworkInfo();
+        isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        if(isConnected) {
+            new LoadGarden().execute();
+        }
+        else{
+            Toast.makeText(GardensActivity.this, R.string.errorMissInternetCo, Toast.LENGTH_LONG).show();
+            errorMessage.setText(R.string.connectionMessage);
+        }
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         token = preferences.getString("token", "");

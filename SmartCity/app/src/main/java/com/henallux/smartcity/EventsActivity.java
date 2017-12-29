@@ -1,8 +1,11 @@
 package com.henallux.smartcity;
 
 import android.app.usage.UsageEvents;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.henallux.smartcity.DAO.EventDAO;
@@ -25,20 +29,36 @@ public class EventsActivity extends AppCompatActivity {
     private String token;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private ConnectivityManager connectivityManager;
+    private NetworkInfo activeNetwork;
+    private boolean isConnected;
     private ListView eventList;
+    private TextView errorMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
 
-        new LoadEvent().execute();
+        connectivityManager = (ConnectivityManager) EventsActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        eventList = (ListView) findViewById(R.id.listEvents);
+        errorMessage = (TextView) findViewById(R.id.errorMessage);
+
+        activeNetwork = connectivityManager.getActiveNetworkInfo();
+        isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        if(isConnected) {
+            new LoadEvent().execute();
+        }
+        else{
+            Toast.makeText(EventsActivity.this, R.string.errorMissInternetCo, Toast.LENGTH_LONG).show();
+            errorMessage.setText(R.string.connectionMessage);
+        }
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         token = preferences.getString("token", "");
         editor=preferences.edit();
 
-        eventList = (ListView) findViewById(R.id.listEvents);
         eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

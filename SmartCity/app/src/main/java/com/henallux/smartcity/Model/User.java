@@ -12,12 +12,12 @@ public class User {
     }
 
     public User(String userName, String password, String email, String birthDate, String sex, String GeographicOrigins) {
-        this.UserName = userName;
-        this.Password = password;
-        this.Email = email;
-        this.BirthDate = birthDate;
-        this.Sex = sex;
-        this.GeographicOrigins = GeographicOrigins;
+        setUserName(userName);
+        setPassword(password);
+        setEmail(email);
+        setBirthDate(birthDate);
+        setSex(sex);
+        setGeographicOrigins(GeographicOrigins);
     }
 
     public String getUserName() {
@@ -41,7 +41,9 @@ public class User {
     }
 
     public void setSex(String sex) {
-        this.Sex = sex;
+        if(sex.equals("M") || sex.equals("F")) {
+            this.Sex = sex;
+        }
     }
 
     public String getBirthDate() {
@@ -65,6 +67,8 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.Password = password;
+        if(password.length() >= 6) {
+            this.Password = password;
+        }
     }
 }

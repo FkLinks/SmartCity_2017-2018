@@ -2,6 +2,8 @@ package com.henallux.smartcity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +21,9 @@ public class HomeActivity extends AppCompatActivity {
     private String token;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private ConnectivityManager connectivityManager;
+    private NetworkInfo activeNetwork;
+    private boolean isConnected;
     private ListView listChoices;
     private ArrayList<String> listItems= new ArrayList<>();
     @Override

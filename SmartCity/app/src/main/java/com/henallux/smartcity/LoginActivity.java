@@ -1,7 +1,10 @@
 package com.henallux.smartcity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -13,14 +16,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.henallux.smartcity.DAO.UserDAO;
+import com.henallux.smartcity.Exceptions.LoginUserException;
 import com.henallux.smartcity.Model.TokenReceived;
-import com.henallux.smartcity.Model.User;
 
 import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private ConnectivityManager connectivityManager;
+    private NetworkInfo activeNetwork;
+    private boolean isConnected;
 
     private Button logIn;
     private TextView register;
@@ -36,6 +42,8 @@ public class LoginActivity extends AppCompatActivity {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = preferences.edit();
+
+        connectivityManager = (ConnectivityManager) LoginActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         userName = (EditText) findViewById(R.id.login);
         password = (EditText) findViewById(R.id.password);
@@ -55,14 +63,20 @@ public class LoginActivity extends AppCompatActivity {
     private View.OnClickListener loggingInListener = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-            try {
-                toSend.put("UserName", userName.getText());
-                toSend.put("Password", password.getText());
+            activeNetwork = connectivityManager.getActiveNetworkInfo();
+            isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+            if(isConnected) {
+                try {
+                    toSend.put("UserName", userName.getText());
+                    toSend.put("Password", password.getText());
 
-                new CheckUser().execute(toSend.toString());
+                    new CheckUser().execute(toSend.toString());
+                } catch (Exception e) {
+                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
             }
-            catch (Exception e){
-                Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            else{
+                Toast.makeText(LoginActivity.this, R.string.errorMissInternetCo, Toast.LENGTH_LONG).show();
             }
         }
     };
@@ -76,7 +90,10 @@ public class LoginActivity extends AppCompatActivity {
                 tokenReceived = userDAO.checkUserExist(userParams[0]);
 
             }
-            catch (Exception e) {
+            catch (LoginUserException e){
+                Toast.makeText(LoginActivity.this, getString(R.string.errorCheckingUser), Toast.LENGTH_LONG).show();
+            }
+            catch (Exception e){
                 Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
             return tokenReceived;
