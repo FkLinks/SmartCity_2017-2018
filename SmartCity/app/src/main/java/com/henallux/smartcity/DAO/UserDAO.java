@@ -186,10 +186,9 @@ public class UserDAO {
         try {
             JSONArray jsonArray = new JSONArray(stringJSON);
             JSONObject jsonUser = jsonArray.getJSONObject(0);
+
             Gson object = new GsonBuilder().create();
-
             user = object.fromJson(jsonUser.toString(), User.class); //new User(jsonUser.getString("UserName"), jsonUser.getString("Password"), jsonUser.getString("Email"), jsonUser.getString("Sex"), jsonUser.getString("BirthDate"), jsonUser.getString("GeographicOrigins"));
-
         }
         catch (Exception e) {
             e.printStackTrace();

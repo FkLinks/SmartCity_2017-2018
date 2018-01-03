@@ -4,18 +4,18 @@ public class User {
     private String UserName;
     private String Password;
     private String Email;
-    private String Sex;
-    private String BirthDate;
-    private String GeographicOrigins;
+    private String sex;
+    private String birthdate;
+    private String geographicOrigins;
 
     public User() {
     }
 
-    public User(String userName, String password, String email, String birthDate, String sex, String GeographicOrigins) {
+    public User(String userName, String password, String email, String birthdate, String sex, String GeographicOrigins) {
         setUserName(userName);
         setPassword(password);
         setEmail(email);
-        setBirthDate(birthDate);
+        setBirthDate(birthdate);
         setSex(sex);
         setGeographicOrigins(GeographicOrigins);
     }
@@ -37,29 +37,29 @@ public class User {
     }
 
     public String getSex() {
-        return Sex;
+        return sex;
     }
 
     public void setSex(String sex) {
         if(sex.equals("M") || sex.equals("F")) {
-            this.Sex = sex;
+            this.sex = sex;
         }
     }
 
     public String getBirthDate() {
-        return BirthDate;
+        return birthdate;
     }
 
-    public void setBirthDate(String birthDate) {
-        this.BirthDate = birthDate;
+    public void setBirthDate(String birthdate) {
+        this.birthdate = birthdate;
     }
 
     public String getGeographicOrigins() {
-        return GeographicOrigins;
+        return geographicOrigins;
     }
 
     public void setGeographicOrigins(String geographicOrigins) {
-        this.GeographicOrigins = geographicOrigins;
+        this.geographicOrigins = geographicOrigins;
     }
 
     public String getPassword() {
