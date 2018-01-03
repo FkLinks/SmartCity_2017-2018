@@ -1,49 +1,73 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using BackOffice_SmartCity.Model;
+using BackOffice_SmartCity.Service;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Popups;
 
 namespace BackOffice_SmartCity.ViewModel
 {
-    public class ConnectionViewModel
+    public class ConnectionViewModel : ViewModelBase
     {
         private INavigationService navigationService;
-        private ICommand navigateToResponsable;
+        private Login _admin;
+
+        public Login AdminUWP
+        {
+            get
+            {
+                return _admin;
+            }
+            set
+            {
+                if (value == _admin)
+                {
+                    return;
+                }
+                _admin = value;
+                RaisePropertyChanged("AdminUWP");
+            }
+        }
 
         public ConnectionViewModel(INavigationService navigationService)
         {
             this.navigationService = navigationService;
+            AdminUWP = new Login();
         }
 
-        public ICommand NavigateToAcceuil                                              //Le getter de "l'action event"
+        public ICommand NavigateToAcceuil                                       
         {
             get
             {
-                if (this.navigateToResponsable == null)
-                    this.navigateToResponsable = new RelayCommand(() => GoToChoix());       //On lui attribue la méthode EditStudent qui lui permet de naviguer la 2ème page !
-                return this.navigateToResponsable;
+                return new RelayCommand(async () => await GetTokens());
             }
-        }
+        }    
 
-        private void GoToChoix()
+        private void GoToAcceuil()
         {
             navigationService.NavigateTo("Acceuil");
-        }      
+        }
         
-        /*public async Task<String> getTokens()                               //POUR LA CONNECTION
+        public async Task GetTokens()
         {
-            var webClient = new HttpClient();
-            var admin = await webClient.GetStringAsync(new Uri("http://smartcity-jardin-20172018.azurewebsites.net/api/Account/AdminUWP"));
-            //webClient.DefaultRequestHeaders.Accept.Clear();
-            //webClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("/application/json"));
-            
-            
-        }*/
+            var service = new AccountController();
+            Constantes.TOKEN_ADMIN_PROP = await service.GetTokenAdmin(AdminUWP);
+
+            if(Constantes.TOKEN_ADMIN_PROP != null)
+            {
+                navigationService.NavigateTo("Acceuil");
+            }
+            else
+            {
+                var messageDialog = new MessageDialog(Constantes.BAD_CONNECTION)
+                {
+                    Title = Constantes.TITRE_ERREUR_CONNECTION
+                };
+                var res = messageDialog.ShowAsync();
+            }
+        }
     }
 }

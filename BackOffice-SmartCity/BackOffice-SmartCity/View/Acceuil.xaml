@@ -14,9 +14,11 @@
             <TextBlock Margin="0,50" FontFamily="Times new Roman" FontStyle="Italic" FontSize="24" Width="230" HorizontalAlignment="Center" VerticalAlignment="Center">Application Smart City</TextBlock>
         </StackPanel>
 
-        <StackPanel Padding="60" Width="450" Height="450" Margin="0,40" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Padding="60" Width="350" Height="380" Margin="0,40" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button x:Name="deleteJardin" 
                       Content="Jardins"
+                      Width="150"
+                      Height="50"
                       Margin="-30,30"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
@@ -25,6 +27,8 @@
 
             <Button x:Name="editJardin"
                       Content="Responsables"
+                      Width="150"
+                      Height="50"
                       Margin="-30,30"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
@@ -34,14 +38,16 @@
 
             <Button x:Name="createJardin"
                       Content="Utilisateurs"
+                      Width="150"
+                      Height="50"
                       Margin="-30,30"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
                       Command="{Binding NavigateToUtilisateur}" 
                       Foreground="Black"/>
-
-            <TextBlock HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom">3IG - 2017-2018</TextBlock>
-
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <AppBarButton Icon="Admin" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,15" Command="{Binding NavigateToInfo}"/>
         </StackPanel>
     </Grid>
 </Page>

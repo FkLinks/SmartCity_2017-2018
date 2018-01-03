@@ -5,9 +5,13 @@
     xmlns:local="using:BackOffice_SmartCity.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local1="using:BackOffice_SmartCity.Service"
     mc:Ignorable="d"
     DataContext="{Binding Source={StaticResource Locator}, Path=ModifierJardin}">
 
+    <Page.Resources>
+        <local1:StringToDecimalConverter x:Key="Converter"></local1:StringToDecimalConverter>
+    </Page.Resources>
 
     <Grid Background="White">
 
@@ -15,33 +19,37 @@
             <AppBarButton Icon="Back" Command="{Binding NavigateToBefore}"></AppBarButton>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="500" >
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Width="360" Height="530">
             <StackPanel HorizontalAlignment="Left" >
                 <TextBlock HorizontalAlignment="Left" Margin="0, 15">Numéro Jardin</TextBlock>
-                <TextBlock HorizontalAlignment="Left" Margin="0, 15">Nom</TextBlock>
-                <TextBlock HorizontalAlignment="Left" Margin="0, 15">Superficie</TextBlock>
-                <TextBlock HorizontalAlignment="Left" Margin="0, 15">Rue</TextBlock>
-                <TextBlock HorizontalAlignment="Left" Margin="0, 15">Numéro</TextBlock>
-                <TextBlock HorizontalAlignment="Left" Margin="0, 15">Coordonées</TextBlock>
-                <TextBlock HorizontalAlignment="Left" Margin="0, 15">Note</TextBlock>
-                <TextBlock HorizontalAlignment="Left" Margin="0, 50">Description</TextBlock>
+                <TextBlock HorizontalAlignment="Left" Margin="0, 10">Nom</TextBlock>
+                <TextBlock HorizontalAlignment="Left" Margin="0, 10">Superficie (m²)*</TextBlock>
+                <TextBlock HorizontalAlignment="Left" Margin="0, 10">Rue</TextBlock>
+                <TextBlock HorizontalAlignment="Left" Margin="0, 10">Numéro</TextBlock>
+                <TextBlock HorizontalAlignment="Left" Margin="0, 10">Coordonées</TextBlock>
+                <TextBlock HorizontalAlignment="Left" Margin="0, 10">Url Audio</TextBlock>
+                <TextBlock HorizontalAlignment="Left" Margin="0, 10">Url Image</TextBlock>
+                <TextBlock HorizontalAlignment="Left" Margin="0, 10">Note (0-5)</TextBlock>
+                <TextBlock HorizontalAlignment="Left" Margin="0, 15">Description</TextBlock>
             </StackPanel>
             <StackPanel HorizontalAlignment="Right">
-                <TextBox Text="{Binding SelectedJardin.NumGarden}" IsEnabled="False" HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
-                <TextBox Text="{Binding SelectedJardin.Name}" HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
-                <TextBox Text="{Binding SelectedJardin.Superficie}" HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
-                <TextBox Text="{Binding SelectedJardin.Street}" HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
-                <TextBox Text="{Binding SelectedJardin.NumStreet}" HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
-                <TextBox Text="{Binding SelectedJardin.GeographicalCoordinate}" HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
-                <TextBox Text="{Binding SelectedJardin.Note}" HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
+                <TextBox Text="{Binding SelectedJardin.NumGarden, Mode=TwoWay, Converter={StaticResource Converter}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" HorizontalAlignment="Right" Width="200" Margin="50,10"/>
+                <TextBox Text="{Binding SelectedJardin.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,0"/>
+                <TextBox Text="{Binding SelectedJardin.Superficie, Mode=TwoWay, Converter={StaticResource Converter}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,10"/>
+                <TextBox Text="{Binding SelectedJardin.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,0"/>
+                <TextBox Text="{Binding SelectedJardin.NumStreet, Mode=TwoWay, Converter={StaticResource Converter}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,10"/>
+                <TextBox Text="{Binding SelectedJardin.GeographicalCoordinate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,0"/>
+                <TextBox Text="{Binding SelectedJardin.UrlAudio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,5"/>
+                <TextBox Text="{Binding SelectedJardin.UrlImg, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,5"/>
+                <TextBox Text="{Binding SelectedJardin.Note, Mode=TwoWay, Converter={StaticResource Converter}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,5"/>
             </StackPanel>
-            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="-380,20">
-                <TextBox Text="{Binding SelectedJardin.Description}" HorizontalAlignment="Center" Width="300" Height="50"></TextBox>
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="-320,70">
+                <TextBox Text="{Binding SelectedJardin.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Width="200" Height="40"></TextBox>
             </StackPanel>
         </StackPanel>
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="200" Width="300" Orientation="Horizontal">
-            <Button HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="100,15" Command="{Binding NavigateToNextPage}">Confirmer</Button>
+            <AppBarButton Icon="Accept" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="120,5" Command="{Binding ConfirmChange}"></AppBarButton>
         </StackPanel>
     </Grid>
 </Page>

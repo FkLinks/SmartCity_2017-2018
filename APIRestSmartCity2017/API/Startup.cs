@@ -14,6 +14,7 @@ using APIRestSmartCity2017.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using APIRestSmartCity2017.Model;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace APIRestSmartCity2017
 {
@@ -34,7 +35,7 @@ namespace APIRestSmartCity2017
         {
             string connectionString = Configuration.GetConnectionString("BD-Connection");            
             services.AddDbContext<Jardin_BDContext>((options) =>
-                options.UseSqlServer("Server = tcp:jardin-bd.database.windows.net,1433; Initial Catalog = Jardin-BD; User ID = etu30759; Password = Ct519hOt"));
+                options.UseSqlServer("Server=jardin-bd.database.windows.net; Database=Jardin-BD; User Id=etu30759; Password=Ct519hOt;"));
 
             services
                     .AddIdentity<ApplicationUser, IdentityRole>()
@@ -82,6 +83,37 @@ namespace APIRestSmartCity2017
                 options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];                
                 options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
             });
+
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)],
+
+                ValidateAudience = true,
+                ValidAudience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)],
+
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = _signingKey,
+
+                RequireExpirationTime = true,
+                ValidateLifetime = true,
+
+                ClockSkew = TimeSpan.Zero
+            };
+
+            services
+                .AddAuthentication(
+                    options =>
+                    {
+                        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                    })
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+                {
+                    options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
+                    options.ClaimsIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
+                    options.TokenValidationParameters = tokenValidationParameters;
+                    options.SaveToken = true;
+                });
 
             services.AddMvc();
         }

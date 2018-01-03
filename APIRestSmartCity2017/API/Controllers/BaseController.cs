@@ -35,5 +35,11 @@ namespace APIRestSmartCity2017.Controllers
             var view = this.HttpContext.User.Claims;
             return roleClaim != null;
         }
+
+        public async Task<IList<String>> GetUsersRoles()
+        {
+            ApplicationUser applicationUser = await GetCurrentUserAsync();
+            return await _uMgr.GetRolesAsync(applicationUser);
+        }
     }
 }

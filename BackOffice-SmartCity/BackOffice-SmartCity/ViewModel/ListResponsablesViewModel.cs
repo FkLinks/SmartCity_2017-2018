@@ -10,13 +10,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Popups;
 
 namespace BackOffice_SmartCity.ViewModel
 {
     public class ListResponsablesViewModel : ViewModelBase
     {
         private INavigationService navigationService;
-        private ICommand navigateToChoix, navigateToNew, navigateToAcceuil, delete;
         private Responsable _selectedResponsable;
 
         public ListResponsablesViewModel(INavigationService navigationService)
@@ -25,13 +25,11 @@ namespace BackOffice_SmartCity.ViewModel
             InitializeAsync();
         }
 
-        public ICommand NavigateToEdit                                              //Le getter de "l'action event"
+        public ICommand NavigateToEdit
         {
             get
             {
-                if (this.navigateToChoix == null)
-                    this.navigateToChoix = new RelayCommand(() => GoToEdit());       //On lui attribue la méthode EditStudent qui lui permet de naviguer la 2ème page !
-                return this.navigateToChoix;
+                return new RelayCommand(() => GoToEdit());
             }
         }
 
@@ -43,13 +41,11 @@ namespace BackOffice_SmartCity.ViewModel
             }            
         }
 
-        public ICommand NavigateToNew                                              //Le getter de "l'action event"
+        public ICommand NavigateToNew
         {
             get
             {
-                if (this.navigateToNew == null)
-                    this.navigateToNew = new RelayCommand(() => GoToNew());       //On lui attribue la méthode EditStudent qui lui permet de naviguer la 2ème page !
-                return this.navigateToNew;
+                return new RelayCommand(() => GoToNew());
             }
         }
 
@@ -62,9 +58,7 @@ namespace BackOffice_SmartCity.ViewModel
         {
             get
             {
-                if (this.navigateToAcceuil == null)
-                    this.navigateToAcceuil = new RelayCommand(() => GoToAcceuil());
-                return this.navigateToAcceuil;
+                return new RelayCommand(() => GoToAcceuil());
             }
         }
 
@@ -86,7 +80,7 @@ namespace BackOffice_SmartCity.ViewModel
             {
                 if (_responsible == value)
                 {
-                    return;                 //On ne le fait que si la valeur a change pour evite de passer au RaisePropertyChanged pour ne pas perturber les ecouteurs 
+                    return;
                 }
                 _responsible = value;
                 RaisePropertyChanged("Responsable");
@@ -100,13 +94,11 @@ namespace BackOffice_SmartCity.ViewModel
             Responsable = new ObservableCollection<Responsable>(listeResponsable);
         }
 
-        public ICommand DeleteResponsableCommand                                            //Le getter de "l'action event"
+        public ICommand DeleteResponsableCommand
         {
             get
             {
-                if (this.delete == null)
-                    this.delete = new RelayCommand(() => DeleteResponsable());       //On lui attribue la méthode qui lui permet de supprimer le responsable !
-                return this.delete;
+                return new RelayCommand(async () => await DeleteResponsable());
             }
 
         }
@@ -119,7 +111,7 @@ namespace BackOffice_SmartCity.ViewModel
                 _selectedResponsable = value;
                 if (_selectedResponsable != null)
                 {
-                    RaisePropertyChanged("SelectedResponsable");                            //Permet ici de détecter qu'un responsable a été coché dans la liste
+                    RaisePropertyChanged("SelectedResponsable");
                 }
             }
         }
@@ -129,13 +121,34 @@ namespace BackOffice_SmartCity.ViewModel
             if(CanExecute())
             {
                 var service = new ResponsibleController();
-                var delResp = service.DeleteRespon(SelectedResponsable.RegistrationNumber);
+
+                var messageDialog = new MessageDialog(Constantes.MESSAGE_SUPPRESSION + SelectedResponsable.Login + " ?")
+                {
+                    Title = Constantes.TITRE_SUPPRESSION
+                };
+                messageDialog.Commands.Add(new UICommand { Label = "Oui", Id = 0 });
+                messageDialog.Commands.Add(new UICommand { Label = "Non", Id = 1 });
+                var res = await messageDialog.ShowAsync();
+
+                if ((int)res.Id == 0)
+                {
+                    var delResp = service.DeleteRespon(SelectedResponsable.RegistrationNumber);
+                    await InitializeAsync();
+                }
             }
         }
 
         private bool CanExecute()
         {
             return SelectedResponsable != null;
+        }
+
+        public ICommand Actualiser
+        {
+            get
+            {
+                return new RelayCommand(async () => await InitializeAsync());
+            }
         }
 
     }

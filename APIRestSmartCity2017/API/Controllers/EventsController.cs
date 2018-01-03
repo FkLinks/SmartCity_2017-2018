@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using APIRestSmartCity2017;
 using APIRestSmartCity2017.Model;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace APIRestSmartCity2017.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Produces("application/json")]
     [Route("api/Events")]
     public class EventsController : Controller
@@ -22,6 +25,7 @@ namespace APIRestSmartCity2017.Controllers
         }
 
         // GET: api/Events
+        [AllowAnonymous]
         [HttpGet]
         public IEnumerable<Event> GetEvent()
         {

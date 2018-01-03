@@ -1,0 +1,38 @@
+﻿<Page
+    x:Class="BackOffice_SmartCity.InfosAdmin"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BackOffice_SmartCity"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding Source={StaticResource Locator}, Path=InfosAdmin}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Height="80">
+            <AppBarButton Icon="Back" Command="{Binding NavigateToAccueil}"></AppBarButton>
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Width="280" Height="100">
+            <TextBlock HorizontalAlignment="Center" Margin="30" FontFamily="Times New Roman" FontSize="20" FontWeight="Black">Application Smart-City</TextBlock>
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Width="250" Height="400" Margin="40" >
+            <TextBlock HorizontalAlignment="Left" Margin="40" FontFamily="Times New Roman" FontSize="14" >Nombre d'utilisateurs :</TextBlock>
+            <TextBlock HorizontalAlignment="Left" Margin="40" FontFamily="Times New Roman" FontSize="14" >Nombre de jardins : </TextBlock>
+            <TextBlock HorizontalAlignment="Left" Margin="40" FontFamily="Times New Roman" FontSize="14" >Nombre de responsables : </TextBlock>
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Width="180" Height="400" Margin="20">                                              
+            <TextBlock Text="{Binding NbUsers, Mode=TwoWay}" HorizontalAlignment="Center" Margin="30" FontFamily="Times New Roman" FontSize="24"></TextBlock>
+            <TextBlock Text="{Binding NbGardens, Mode=TwoWay}" HorizontalAlignment="Center" Margin="38" FontFamily="Times New Roman" FontSize="24"></TextBlock>
+            <TextBlock Text="{Binding NbRespon, Mode=TwoWay}" HorizontalAlignment="Center" Margin="40" FontFamily="Times New Roman" FontSize="24"></TextBlock>
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="100" Height="100" Margin="60">
+            <AppBarButton Icon="Upload" Command="{Binding Actualiser}" HorizontalAlignment="Center" Margin="25"></AppBarButton>
+        </StackPanel>
+        
+    </Grid>
+</Page>
+

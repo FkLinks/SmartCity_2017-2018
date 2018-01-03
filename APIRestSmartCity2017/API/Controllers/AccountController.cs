@@ -8,9 +8,11 @@ using APIRestSmartCity2017.DTO;
 using APIRestSmartCity2017.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace APIRestSmartCity2017.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     public class AccountController : BaseController
     {
@@ -23,14 +25,28 @@ namespace APIRestSmartCity2017.Controllers
             this._context = _context;
         }
 
+                                     
         [HttpGet]
         public IEnumerable<ApplicationUser> GetApplicationUsers()
         {
             return _context.ApplicationUser.ToList();
         }
 
+        [HttpGet]
+        [Route("Count/Users")]
+        public async Task<int> CountApplicationUsersAsync()
+        {
+            IList<String> role = await GetUsersRoles();
+            if (role.Contains("Admin"))
+            {
+                return _context.ApplicationUser.Count();
+            }
+            return 0;
+        }
+
         // GET: api/ApplicationUsers/5
         [HttpGet("{username}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetApplicationUser([FromRoute] string username)
         {
             if (!ModelState.IsValid)
@@ -53,56 +69,75 @@ namespace APIRestSmartCity2017.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]NewUserDTO dto)
         {
-            var newUser = new ApplicationUser
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                Birthdate = dto.Birthdate,
-                Sex = dto.Sex,
-                GeographicOrigins = dto.GeographicOrigins
-            };
+                IdentityResult result = null;
 
-            IdentityResult result = await _userManager.CreateAsync(newUser, dto.Password);
-            if(result.Succeeded)
-            {
-                ApplicationUser current = await _userManager.FindByNameAsync(dto.UserName);
-                result = await _userManager.AddToRoleAsync(current, "User");
+                try
+                {
+                    var newUser = new ApplicationUser
+                    {
+                        UserName = dto.UserName,
+                        Birthdate = dto.Birthdate,
+                        Email = dto.Email,
+                        Sex = dto.Sex,
+                        GeographicOrigins = dto.GeographicOrigins
+                    };
+
+                    result = await _userManager.CreateAsync(newUser, dto.Password);
+                    if (result.Succeeded)
+                    {
+                        ApplicationUser current = await _userManager.FindByNameAsync(dto.UserName);
+                        result = await _userManager.AddToRoleAsync(current, "User");
+                    }
+
+                    _context.SaveChanges();
+                    transaction.Commit();
+
+                    return (result.Succeeded) ? Ok() : (IActionResult)BadRequest();       
+                }
+                catch(Exception)
+                {
+                    return BadRequest(result.Errors);
+                }
             }
-
-            IdentityResult roleResult = await _userManager.AddToRoleAsync(newUser, "User");
-            // TODO: retourner un Created à la place du Ok;
-            return (result.Succeeded) ? Ok() : (IActionResult)BadRequest();
         }
 
-        [HttpPost("Admin")]
-        public async Task<IActionResult> Admin([FromBody] NewUserDTO dto)
+        [HttpDelete("{username}")]
+        public async Task<IActionResult> DeleteUsers([FromRoute] String username)
         {
-            if(IsInRole("Admin"))
+            IList<String> role = await GetUsersRoles();
+            if (role.Contains("Admin"))
             {
-                return Unauthorized();
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var uti = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.UserName == username);
+                if (uti == null)
+                {
+                    return NotFound();
+                }
+
+                _context.ApplicationUser.Remove(uti);
+                await _context.SaveChangesAsync();
+
+                return Ok(uti);
             }
-            else
+            return Unauthorized();
+        }
+
+        [HttpGet]
+        [Route("Roles")]
+        public async Task<IActionResult> GetUserRoleAsync()
+        {
+            IList<String> roles = await GetUsersRoles();
+            if(roles.Contains("Admin"))
             {
                 return Ok();
             }
-        }
-
-       [HttpDelete("{username}")]
-        public async Task<IActionResult> DeleteUsers([FromRoute] String username)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var uti = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.UserName == username);
-            if (uti == null)
-            {
-                return NotFound();
-            }
-
-            _context.ApplicationUser.Remove(uti);
-            await _context.SaveChangesAsync();
-
-            return Ok(uti);
+            return Unauthorized();
         }
 
     }

@@ -14,7 +14,8 @@ namespace APIRestSmartCity2017.DTO
         public decimal NumStreet { get; set; }
         public string Description { get; set; }
         public string GeographicalCoordinate { get; set; }
-        //public string Picture { get; set; }
+        public string UrlImg { get; set; }
+        public string urlAudio { get; set; }
         public decimal? Note { get; set; }
     }
 }

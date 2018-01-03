@@ -11,5 +11,7 @@ namespace APIRestSmartCity2017.Model
         public DateTime StartTime { get; set; }
         public DateTime? EndTime { get; set; }
         public string Url { get; set; }
+
+        public ICollection<Event_Garden> Event_Garden { get; set; }
     }
 }

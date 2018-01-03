@@ -11,9 +11,9 @@ namespace APIRestSmartCity2017.Model
         public DateTime? Birthdate { get; set; }     
         public string Sex { get; set; }
         public string GeographicOrigins { get; set; }
-        public ICollection<Booking> Booking { get; set; }
-        public ICollection<Chatroom> Chatroom { get; set; }
 
         public ApplicationUser() : base() { }
+
+        public ICollection<Booking> Bookings { get; set; }
     }
 }

@@ -67,6 +67,18 @@ namespace BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo
             {
                 xamlType = CreateXamlType(typeIndex);
             }
+            var userXamlType = xamlType as global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType;
+            if(xamlType == null || (userXamlType != null && userXamlType.IsReturnTypeStub && !userXamlType.IsLocalType))
+            {
+                global::Windows.UI.Xaml.Markup.IXamlType libXamlType = CheckOtherMetadataProvidersForType(type);
+                if (libXamlType != null)
+                {
+                    if(libXamlType.IsConstructible || xamlType == null)
+                    {
+                        xamlType = libXamlType;
+                    }
+                }
+            }
             if (xamlType != null)
             {
                 _xamlTypeCacheByName.Add(xamlType.FullName, xamlType);
@@ -90,6 +102,18 @@ namespace BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo
             if(typeIndex != -1)
             {
                 xamlType = CreateXamlType(typeIndex);
+            }
+            var userXamlType = xamlType as global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType;
+            if(xamlType == null || (userXamlType != null && userXamlType.IsReturnTypeStub && !userXamlType.IsLocalType))
+            {
+                global::Windows.UI.Xaml.Markup.IXamlType libXamlType = CheckOtherMetadataProvidersForName(typeName);
+                if (libXamlType != null)
+                {
+                    if(libXamlType.IsConstructible || xamlType == null)
+                    {
+                        xamlType = libXamlType;
+                    }
+                }
             }
             if (xamlType != null)
             {
@@ -132,57 +156,63 @@ namespace BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo
 
         private void InitTypeTables()
         {
-            _typeNameTable = new string[24];
+            _typeNameTable = new string[27];
             _typeNameTable[0] = "BackOffice_SmartCity.ViewModel.ViewModelLocator";
             _typeNameTable[1] = "Object";
             _typeNameTable[2] = "BackOffice_SmartCity.ViewModel.AcceuilViewModel";
-            _typeNameTable[3] = "BackOffice_SmartCity.ViewModel.CreationJardinViewModel";
-            _typeNameTable[4] = "BackOffice_SmartCity.ViewModel.CreationResponsableViewModel";
-            _typeNameTable[5] = "GalaSoft.MvvmLight.ViewModelBase";
-            _typeNameTable[6] = "GalaSoft.MvvmLight.ObservableObject";
+            _typeNameTable[3] = "GalaSoft.MvvmLight.ViewModelBase";
+            _typeNameTable[4] = "GalaSoft.MvvmLight.ObservableObject";
+            _typeNameTable[5] = "BackOffice_SmartCity.ViewModel.CreationJardinViewModel";
+            _typeNameTable[6] = "BackOffice_SmartCity.ViewModel.CreationResponsableViewModel";
             _typeNameTable[7] = "BackOffice_SmartCity.ViewModel.ListJardinViewModel";
             _typeNameTable[8] = "BackOffice_SmartCity.ViewModel.ListResponsablesViewModel";
             _typeNameTable[9] = "BackOffice_SmartCity.ViewModel.ModifierJardinViewModel";
             _typeNameTable[10] = "BackOffice_SmartCity.ViewModel.ModifierResponsableViewModel";
             _typeNameTable[11] = "BackOffice_SmartCity.ViewModel.UtilisateurViewModel";
             _typeNameTable[12] = "BackOffice_SmartCity.ViewModel.ConnectionViewModel";
-            _typeNameTable[13] = "BackOffice_SmartCity.Acceuil";
-            _typeNameTable[14] = "Windows.UI.Xaml.Controls.Page";
-            _typeNameTable[15] = "Windows.UI.Xaml.Controls.UserControl";
-            _typeNameTable[16] = "BackOffice_SmartCity.Connection";
-            _typeNameTable[17] = "BackOffice_SmartCity.CreationJardin";
-            _typeNameTable[18] = "BackOffice_SmartCity.CreationResponsable";
-            _typeNameTable[19] = "BackOffice_SmartCity.ListJardin";
-            _typeNameTable[20] = "BackOffice_SmartCity.ListResponsables";
-            _typeNameTable[21] = "BackOffice_SmartCity.View.ModifierJardin";
-            _typeNameTable[22] = "BackOffice_SmartCity.ModifierResponsable";
-            _typeNameTable[23] = "BackOffice_SmartCity.Utilisateur";
+            _typeNameTable[13] = "BackOffice_SmartCity.ViewModel.InfosAdminViewModel";
+            _typeNameTable[14] = "BackOffice_SmartCity.Acceuil";
+            _typeNameTable[15] = "Windows.UI.Xaml.Controls.Page";
+            _typeNameTable[16] = "Windows.UI.Xaml.Controls.UserControl";
+            _typeNameTable[17] = "BackOffice_SmartCity.Connection";
+            _typeNameTable[18] = "BackOffice_SmartCity.Service.StringToDecimalConverter";
+            _typeNameTable[19] = "BackOffice_SmartCity.CreationJardin";
+            _typeNameTable[20] = "BackOffice_SmartCity.CreationResponsable";
+            _typeNameTable[21] = "BackOffice_SmartCity.InfosAdmin";
+            _typeNameTable[22] = "BackOffice_SmartCity.ListJardin";
+            _typeNameTable[23] = "BackOffice_SmartCity.ListResponsables";
+            _typeNameTable[24] = "BackOffice_SmartCity.View.ModifierJardin";
+            _typeNameTable[25] = "BackOffice_SmartCity.ModifierResponsable";
+            _typeNameTable[26] = "BackOffice_SmartCity.Utilisateur";
 
-            _typeTable = new global::System.Type[24];
+            _typeTable = new global::System.Type[27];
             _typeTable[0] = typeof(global::BackOffice_SmartCity.ViewModel.ViewModelLocator);
             _typeTable[1] = typeof(global::System.Object);
             _typeTable[2] = typeof(global::BackOffice_SmartCity.ViewModel.AcceuilViewModel);
-            _typeTable[3] = typeof(global::BackOffice_SmartCity.ViewModel.CreationJardinViewModel);
-            _typeTable[4] = typeof(global::BackOffice_SmartCity.ViewModel.CreationResponsableViewModel);
-            _typeTable[5] = typeof(global::GalaSoft.MvvmLight.ViewModelBase);
-            _typeTable[6] = typeof(global::GalaSoft.MvvmLight.ObservableObject);
+            _typeTable[3] = typeof(global::GalaSoft.MvvmLight.ViewModelBase);
+            _typeTable[4] = typeof(global::GalaSoft.MvvmLight.ObservableObject);
+            _typeTable[5] = typeof(global::BackOffice_SmartCity.ViewModel.CreationJardinViewModel);
+            _typeTable[6] = typeof(global::BackOffice_SmartCity.ViewModel.CreationResponsableViewModel);
             _typeTable[7] = typeof(global::BackOffice_SmartCity.ViewModel.ListJardinViewModel);
             _typeTable[8] = typeof(global::BackOffice_SmartCity.ViewModel.ListResponsablesViewModel);
             _typeTable[9] = typeof(global::BackOffice_SmartCity.ViewModel.ModifierJardinViewModel);
             _typeTable[10] = typeof(global::BackOffice_SmartCity.ViewModel.ModifierResponsableViewModel);
             _typeTable[11] = typeof(global::BackOffice_SmartCity.ViewModel.UtilisateurViewModel);
             _typeTable[12] = typeof(global::BackOffice_SmartCity.ViewModel.ConnectionViewModel);
-            _typeTable[13] = typeof(global::BackOffice_SmartCity.Acceuil);
-            _typeTable[14] = typeof(global::Windows.UI.Xaml.Controls.Page);
-            _typeTable[15] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
-            _typeTable[16] = typeof(global::BackOffice_SmartCity.Connection);
-            _typeTable[17] = typeof(global::BackOffice_SmartCity.CreationJardin);
-            _typeTable[18] = typeof(global::BackOffice_SmartCity.CreationResponsable);
-            _typeTable[19] = typeof(global::BackOffice_SmartCity.ListJardin);
-            _typeTable[20] = typeof(global::BackOffice_SmartCity.ListResponsables);
-            _typeTable[21] = typeof(global::BackOffice_SmartCity.View.ModifierJardin);
-            _typeTable[22] = typeof(global::BackOffice_SmartCity.ModifierResponsable);
-            _typeTable[23] = typeof(global::BackOffice_SmartCity.Utilisateur);
+            _typeTable[13] = typeof(global::BackOffice_SmartCity.ViewModel.InfosAdminViewModel);
+            _typeTable[14] = typeof(global::BackOffice_SmartCity.Acceuil);
+            _typeTable[15] = typeof(global::Windows.UI.Xaml.Controls.Page);
+            _typeTable[16] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
+            _typeTable[17] = typeof(global::BackOffice_SmartCity.Connection);
+            _typeTable[18] = typeof(global::BackOffice_SmartCity.Service.StringToDecimalConverter);
+            _typeTable[19] = typeof(global::BackOffice_SmartCity.CreationJardin);
+            _typeTable[20] = typeof(global::BackOffice_SmartCity.CreationResponsable);
+            _typeTable[21] = typeof(global::BackOffice_SmartCity.InfosAdmin);
+            _typeTable[22] = typeof(global::BackOffice_SmartCity.ListJardin);
+            _typeTable[23] = typeof(global::BackOffice_SmartCity.ListResponsables);
+            _typeTable[24] = typeof(global::BackOffice_SmartCity.View.ModifierJardin);
+            _typeTable[25] = typeof(global::BackOffice_SmartCity.ModifierResponsable);
+            _typeTable[26] = typeof(global::BackOffice_SmartCity.Utilisateur);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -218,16 +248,18 @@ namespace BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo
         }
 
         private object Activate_0_ViewModelLocator() { return new global::BackOffice_SmartCity.ViewModel.ViewModelLocator(); }
-        private object Activate_6_ObservableObject() { return new global::GalaSoft.MvvmLight.ObservableObject(); }
-        private object Activate_13_Acceuil() { return new global::BackOffice_SmartCity.Acceuil(); }
-        private object Activate_16_Connection() { return new global::BackOffice_SmartCity.Connection(); }
-        private object Activate_17_CreationJardin() { return new global::BackOffice_SmartCity.CreationJardin(); }
-        private object Activate_18_CreationResponsable() { return new global::BackOffice_SmartCity.CreationResponsable(); }
-        private object Activate_19_ListJardin() { return new global::BackOffice_SmartCity.ListJardin(); }
-        private object Activate_20_ListResponsables() { return new global::BackOffice_SmartCity.ListResponsables(); }
-        private object Activate_21_ModifierJardin() { return new global::BackOffice_SmartCity.View.ModifierJardin(); }
-        private object Activate_22_ModifierResponsable() { return new global::BackOffice_SmartCity.ModifierResponsable(); }
-        private object Activate_23_Utilisateur() { return new global::BackOffice_SmartCity.Utilisateur(); }
+        private object Activate_4_ObservableObject() { return new global::GalaSoft.MvvmLight.ObservableObject(); }
+        private object Activate_14_Acceuil() { return new global::BackOffice_SmartCity.Acceuil(); }
+        private object Activate_17_Connection() { return new global::BackOffice_SmartCity.Connection(); }
+        private object Activate_18_StringToDecimalConverter() { return new global::BackOffice_SmartCity.Service.StringToDecimalConverter(); }
+        private object Activate_19_CreationJardin() { return new global::BackOffice_SmartCity.CreationJardin(); }
+        private object Activate_20_CreationResponsable() { return new global::BackOffice_SmartCity.CreationResponsable(); }
+        private object Activate_21_InfosAdmin() { return new global::BackOffice_SmartCity.InfosAdmin(); }
+        private object Activate_22_ListJardin() { return new global::BackOffice_SmartCity.ListJardin(); }
+        private object Activate_23_ListResponsables() { return new global::BackOffice_SmartCity.ListResponsables(); }
+        private object Activate_24_ModifierJardin() { return new global::BackOffice_SmartCity.View.ModifierJardin(); }
+        private object Activate_25_ModifierResponsable() { return new global::BackOffice_SmartCity.ModifierResponsable(); }
+        private object Activate_26_Utilisateur() { return new global::BackOffice_SmartCity.Utilisateur(); }
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(int typeIndex)
         {
@@ -251,6 +283,7 @@ namespace BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo
                 userType.AddMemberName("ModifierResponsable");
                 userType.AddMemberName("Utilisateur");
                 userType.AddMemberName("Connection");
+                userType.AddMemberName("InfosAdmin");
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
@@ -260,34 +293,34 @@ namespace BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo
                 break;
 
             case 2:   //  BackOffice_SmartCity.ViewModel.AcceuilViewModel
-                userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
-                userType.SetIsReturnTypeStub();
-                userType.SetIsLocalType();
-                xamlType = userType;
-                break;
-
-            case 3:   //  BackOffice_SmartCity.ViewModel.CreationJardinViewModel
-                userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
-                userType.SetIsReturnTypeStub();
-                userType.SetIsLocalType();
-                xamlType = userType;
-                break;
-
-            case 4:   //  BackOffice_SmartCity.ViewModel.CreationResponsableViewModel
                 userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("GalaSoft.MvvmLight.ViewModelBase"));
                 userType.SetIsReturnTypeStub();
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 5:   //  GalaSoft.MvvmLight.ViewModelBase
+            case 3:   //  GalaSoft.MvvmLight.ViewModelBase
                 userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("GalaSoft.MvvmLight.ObservableObject"));
                 xamlType = userType;
                 break;
 
-            case 6:   //  GalaSoft.MvvmLight.ObservableObject
+            case 4:   //  GalaSoft.MvvmLight.ObservableObject
                 userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
-                userType.Activator = Activate_6_ObservableObject;
+                userType.Activator = Activate_4_ObservableObject;
+                xamlType = userType;
+                break;
+
+            case 5:   //  BackOffice_SmartCity.ViewModel.CreationJardinViewModel
+                userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("GalaSoft.MvvmLight.ViewModelBase"));
+                userType.SetIsReturnTypeStub();
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 6:   //  BackOffice_SmartCity.ViewModel.CreationResponsableViewModel
+                userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("GalaSoft.MvvmLight.ViewModelBase"));
+                userType.SetIsReturnTypeStub();
+                userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
@@ -306,14 +339,14 @@ namespace BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo
                 break;
 
             case 9:   //  BackOffice_SmartCity.ViewModel.ModifierJardinViewModel
-                userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("GalaSoft.MvvmLight.ViewModelBase"));
                 userType.SetIsReturnTypeStub();
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
             case 10:   //  BackOffice_SmartCity.ViewModel.ModifierResponsableViewModel
-                userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("GalaSoft.MvvmLight.ViewModelBase"));
                 userType.SetIsReturnTypeStub();
                 userType.SetIsLocalType();
                 xamlType = userType;
@@ -327,79 +360,100 @@ namespace BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo
                 break;
 
             case 12:   //  BackOffice_SmartCity.ViewModel.ConnectionViewModel
-                userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("GalaSoft.MvvmLight.ViewModelBase"));
                 userType.SetIsReturnTypeStub();
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 13:   //  BackOffice_SmartCity.Acceuil
-                userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_13_Acceuil;
+            case 13:   //  BackOffice_SmartCity.ViewModel.InfosAdminViewModel
+                userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("GalaSoft.MvvmLight.ViewModelBase"));
+                userType.SetIsReturnTypeStub();
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 14:   //  Windows.UI.Xaml.Controls.Page
+            case 14:   //  BackOffice_SmartCity.Acceuil
+                userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_14_Acceuil;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 15:   //  Windows.UI.Xaml.Controls.Page
                 xamlType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 15:   //  Windows.UI.Xaml.Controls.UserControl
+            case 16:   //  Windows.UI.Xaml.Controls.UserControl
                 xamlType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 16:   //  BackOffice_SmartCity.Connection
+            case 17:   //  BackOffice_SmartCity.Connection
                 userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_16_Connection;
+                userType.Activator = Activate_17_Connection;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 17:   //  BackOffice_SmartCity.CreationJardin
-                userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_17_CreationJardin;
+            case 18:   //  BackOffice_SmartCity.Service.StringToDecimalConverter
+                userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_18_StringToDecimalConverter;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 18:   //  BackOffice_SmartCity.CreationResponsable
+            case 19:   //  BackOffice_SmartCity.CreationJardin
                 userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_18_CreationResponsable;
+                userType.Activator = Activate_19_CreationJardin;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 19:   //  BackOffice_SmartCity.ListJardin
+            case 20:   //  BackOffice_SmartCity.CreationResponsable
                 userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_19_ListJardin;
+                userType.Activator = Activate_20_CreationResponsable;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 20:   //  BackOffice_SmartCity.ListResponsables
+            case 21:   //  BackOffice_SmartCity.InfosAdmin
                 userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_20_ListResponsables;
+                userType.Activator = Activate_21_InfosAdmin;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 21:   //  BackOffice_SmartCity.View.ModifierJardin
+            case 22:   //  BackOffice_SmartCity.ListJardin
                 userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_21_ModifierJardin;
+                userType.Activator = Activate_22_ListJardin;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 22:   //  BackOffice_SmartCity.ModifierResponsable
+            case 23:   //  BackOffice_SmartCity.ListResponsables
                 userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_22_ModifierResponsable;
+                userType.Activator = Activate_23_ListResponsables;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 23:   //  BackOffice_SmartCity.Utilisateur
+            case 24:   //  BackOffice_SmartCity.View.ModifierJardin
                 userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_23_Utilisateur;
+                userType.Activator = Activate_24_ModifierJardin;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 25:   //  BackOffice_SmartCity.ModifierResponsable
+                userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_25_ModifierResponsable;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 26:   //  BackOffice_SmartCity.Utilisateur
+                userType = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_26_Utilisateur;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
@@ -407,6 +461,60 @@ namespace BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo
             return xamlType;
         }
 
+        private global::System.Collections.Generic.List<global::Windows.UI.Xaml.Markup.IXamlMetadataProvider> _otherProviders;
+        private global::System.Collections.Generic.List<global::Windows.UI.Xaml.Markup.IXamlMetadataProvider> OtherProviders
+        {
+            get
+            {
+                if(_otherProviders == null)
+                {
+                    var otherProviders = new global::System.Collections.Generic.List<global::Windows.UI.Xaml.Markup.IXamlMetadataProvider>();
+                    global::Windows.UI.Xaml.Markup.IXamlMetadataProvider provider;
+                    provider = new global::Xamarin.Forms.Platform.UAP.Xamarin_Forms_Platform_UAP_XamlTypeInfo.XamlMetaDataProvider() as global::Windows.UI.Xaml.Markup.IXamlMetadataProvider;
+                    otherProviders.Add(provider); 
+                    _otherProviders = otherProviders;
+                }
+                return _otherProviders;
+            }
+        }
+
+        private global::Windows.UI.Xaml.Markup.IXamlType CheckOtherMetadataProvidersForName(string typeName)
+        {
+            global::Windows.UI.Xaml.Markup.IXamlType xamlType = null;
+            global::Windows.UI.Xaml.Markup.IXamlType foundXamlType = null;
+            foreach(global::Windows.UI.Xaml.Markup.IXamlMetadataProvider xmp in OtherProviders)
+            {
+                xamlType = xmp.GetXamlType(typeName);
+                if(xamlType != null)
+                {
+                    if(xamlType.IsConstructible)    // not Constructible means it might be a Return Type Stub
+                    {
+                        return xamlType;
+                    }
+                    foundXamlType = xamlType;
+                }
+            }
+            return foundXamlType;
+        }
+
+        private global::Windows.UI.Xaml.Markup.IXamlType CheckOtherMetadataProvidersForType(global::System.Type type)
+        {
+            global::Windows.UI.Xaml.Markup.IXamlType xamlType = null;
+            global::Windows.UI.Xaml.Markup.IXamlType foundXamlType = null;
+            foreach(global::Windows.UI.Xaml.Markup.IXamlMetadataProvider xmp in OtherProviders)
+            {
+                xamlType = xmp.GetXamlType(type);
+                if(xamlType != null)
+                {
+                    if(xamlType.IsConstructible)    // not Constructible means it might be a Return Type Stub
+                    {
+                        return xamlType;
+                    }
+                    foundXamlType = xamlType;
+                }
+            }
+            return foundXamlType;
+        }
 
         private object get_0_ViewModelLocator_Acceuil(object instance)
         {
@@ -452,6 +560,11 @@ namespace BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo
         {
             var that = (global::BackOffice_SmartCity.ViewModel.ViewModelLocator)instance;
             return that.Connection;
+        }
+        private object get_9_ViewModelLocator_InfosAdmin(object instance)
+        {
+            var that = (global::BackOffice_SmartCity.ViewModel.ViewModelLocator)instance;
+            return that.InfosAdmin;
         }
 
         private global::Windows.UI.Xaml.Markup.IXamlMember CreateXamlMember(string longMemberName)
@@ -513,6 +626,12 @@ namespace BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo
                 userType = (global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType)GetXamlTypeByName("BackOffice_SmartCity.ViewModel.ViewModelLocator");
                 xamlMember = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlMember(this, "Connection", "BackOffice_SmartCity.ViewModel.ConnectionViewModel");
                 xamlMember.Getter = get_8_ViewModelLocator_Connection;
+                xamlMember.SetIsReadOnly();
+                break;
+            case "BackOffice_SmartCity.ViewModel.ViewModelLocator.InfosAdmin":
+                userType = (global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlUserType)GetXamlTypeByName("BackOffice_SmartCity.ViewModel.ViewModelLocator");
+                xamlMember = new global::BackOffice_SmartCity.BackOffice_SmartCity_XamlTypeInfo.XamlMember(this, "InfosAdmin", "BackOffice_SmartCity.ViewModel.InfosAdminViewModel");
+                xamlMember.Getter = get_9_ViewModelLocator_InfosAdmin;
                 xamlMember.SetIsReadOnly();
                 break;
             }

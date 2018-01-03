@@ -3,6 +3,7 @@ View\Acceuil.xbf
 View\Connection.xbf
 View\CreationJardin.xbf
 View\CreationResponsable.xbf
+View\InfosAdmin.xbf
 View\ListJardin.xbf
 View\ListResponsables.xbf
 View\ModifierJardin.xbf

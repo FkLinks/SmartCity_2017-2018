@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Popups;
+
 namespace BackOffice_SmartCity.ViewModel
 {
     public class UtilisateurViewModel : ViewModelBase
@@ -49,7 +51,7 @@ namespace BackOffice_SmartCity.ViewModel
             {
                 if (_utilisateur == value)
                 {
-                    return;                 //On ne le fait que si la valeur a change pour evite de passer au RaisePropertyChanged pour ne pas perturber les ecouteurs 
+                    return; 
                 }
                 _utilisateur = value;
                 RaisePropertyChanged("Utilisateur");
@@ -63,13 +65,11 @@ namespace BackOffice_SmartCity.ViewModel
             Utilisateur = new ObservableCollection<ApplicationUser>(listeUti);
         }
 
-        /*---DELETE---*/
-
-        public ICommand DeleteUserCommand                                            //Le getter de "l'action event"
+        public ICommand DeleteUserCommand
         {
             get
             {
-                return new RelayCommand(() => DeleteUser());
+                return new RelayCommand(async () => await DeleteUser());
             }
 
         }
@@ -82,7 +82,7 @@ namespace BackOffice_SmartCity.ViewModel
                 _selectedUser = value;
                 if (_selectedUser != null)
                 {
-                    RaisePropertyChanged("SelectedGarden");                            //Permet ici de détecter qu'un responsable a été coché dans la liste
+                    RaisePropertyChanged("SelectedGarden");
                 }
             }
         }
@@ -92,13 +92,46 @@ namespace BackOffice_SmartCity.ViewModel
             if (CanExecute())
             {
                 var service = new AccountController();
-                var delResp = service.DeleteUser(SelectedUser.UserName);
+
+                var messageDialog = new MessageDialog(Constantes.MESSAGE_SUPPRESSION + SelectedUser.UserName + " ?")
+                {
+                    Title = Constantes.TITRE_SUPPRESSION
+                };
+                messageDialog.Commands.Add(new UICommand { Label = "Oui", Id = 0 });
+                messageDialog.Commands.Add(new UICommand { Label = "Non", Id = 1 });
+                var res = await messageDialog.ShowAsync();
+
+                if ((int)res.Id == 0)
+                {
+                    if(SelectedUser.UserName.Contains("Admin"))
+                    {
+                        var messageDialogErreur = new MessageDialog(Constantes.MESSAGE_ERREUR_DEL_ADMIN)
+                        {
+                            Title = Constantes.TITRE_ERREUR_DEL_ADMIN
+                        };
+                        var show = await messageDialogErreur.ShowAsync();
+                    }
+                    else
+                    {
+                        Task delResp = service.DeleteUser(SelectedUser.UserName);
+                        await InitializeAsync();
+                    }                 
+                    
+                }
             }
         }
 
         private bool CanExecute()
         {
             return SelectedUser != null;
+        }
+
+        public ICommand Actualiser
+        {
+            get
+            {
+                return new RelayCommand(async () => await InitializeAsync());
+            }
         }
 
     }

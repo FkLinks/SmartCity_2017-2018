@@ -9,33 +9,43 @@ using System.Threading.Tasks;
 
 namespace BackOffice_SmartCity.Service
 {
-    class GardenController
+    public class GardenController
     {
+        private HttpClient http = Constantes.GetHttp();
+
         public async Task<IEnumerable<Jardin>> GetAllElements()
         {
-            var http = new HttpClient();
-            var stringInput = await http.GetStringAsync(new Uri("http://smartcity-jardin-20172018.azurewebsites.net/api/Gardens"));
+            var stringInput = await http.GetStringAsync(new Uri(Constantes.API_GARDENS));
             Jardin[] elements = JsonConvert.DeserializeObject<Jardin[]>(stringInput);
 
             return elements;
         }
 
-        public async Task DeleteGarden(decimal id)
+        public async Task DeleteGarden(decimal? id)
         {
-            var http = new HttpClient();
-            var stringInput = await http.DeleteAsync(new Uri("http://smartcity-jardin-20172018.azurewebsites.net/api/Gardens/" + id));
+            http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(Constantes.BEARER, Constantes.TOKEN_ADMIN_PROP);
+            var stringInput = await http.DeleteAsync(new Uri(Constantes.API_GARDENS + id));
         }
 
-        public async Task PostGarden(Jardin jardin)
+        public async Task<String> PostGarden(Jardin jardin)
         {
-            var http = new HttpClient();
-            var stringInput = await http.PutAsJsonAsync("http://smartcity-jardin-20172018.azurewebsites.net/api/Gardens", jardin);
+            http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(Constantes.BEARER, Constantes.TOKEN_ADMIN_PROP);
+            var stringInput = await http.PostAsJsonAsync(Constantes.API_GARDENS, jardin);
+            return stringInput.ReasonPhrase;
         }
 
-        public async Task PutGarden(Jardin jardin)
+        public async Task<String> PutGarden(Jardin jardin)
         {
-            var http = new HttpClient();
-            var stringInput = await http.PutAsJsonAsync("http://smartcity-jardin-20172018.azurewebsites.net/api/Gardens", jardin);
+            http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(Constantes.BEARER, Constantes.TOKEN_ADMIN_PROP);
+            var stringInput = await http.PutAsJsonAsync(Constantes.API_GARDENS + jardin.NumGarden, jardin);
+            return stringInput.ReasonPhrase;
+        }
+
+        public async Task<int> CountGardens()
+        {
+            http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(Constantes.BEARER, Constantes.TOKEN_ADMIN_PROP);
+            var nbGardens = await http.GetStringAsync(new Uri(Constantes.API_COUNTGARDENS));
+            return JsonConvert.DeserializeObject<int>(nbGardens);
         }
     }
 }

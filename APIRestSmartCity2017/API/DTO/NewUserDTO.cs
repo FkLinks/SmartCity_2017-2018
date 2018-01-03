@@ -14,6 +14,5 @@ namespace APIRestSmartCity2017.DTO
         public string Sex { get; set; }
         public string GeographicOrigins { get; set; }
         public string PhoneNumber { get; set; }
-        //public string Role { get; set; }
     }
 }

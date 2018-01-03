@@ -31,13 +31,13 @@
     <AppXManifest Include="C:\Users\Thomas\Desktop\BackOffice-SmartCity\BackOffice-SmartCity\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2017-12-12T21:05:29.340</Modified>
+      <Modified>2018-01-03T13:44:30.030</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Thomas\Desktop\BackOffice-SmartCity\BackOffice-SmartCity\bin\x86\Debug\BackOffice-SmartCity.exe">
       <PackagePath>entrypoint\BackOffice-SmartCity.exe</PackagePath>
-      <Modified>2017-12-12T21:05:28.686</Modified>
+      <Modified>2018-01-03T13:44:29.325</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\commonservicelocator\1.3.0\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll">
       <PackagePath>Microsoft.Practices.ServiceLocation.dll</PackagePath>
@@ -50,6 +50,14 @@
     <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\microsoft.csharp\4.3.0\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
       <Modified>2016-11-05T03:55:34.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\microsoft.identitymodel.logging\5.2.0-preview2-41113220915\lib\netstandard1.4\Microsoft.IdentityModel.Logging.dll">
+      <PackagePath>Microsoft.IdentityModel.Logging.dll</PackagePath>
+      <Modified>2017-11-13T21:24:26.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\microsoft.identitymodel.tokens\5.2.0-preview2-41113220915\lib\netstandard1.4\Microsoft.IdentityModel.Tokens.dll">
+      <PackagePath>Microsoft.IdentityModel.Tokens.dll</PackagePath>
+      <Modified>2017-11-13T21:24:30.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\microsoft.net.http\2.2.22\lib\win8\System.Net.Http.Extensions.dll">
       <PackagePath>System.Net.Http.Extensions.dll</PackagePath>
@@ -303,6 +311,10 @@
       <PackagePath>System.Globalization.Extensions.dll</PackagePath>
       <Modified>2016-06-11T21:13:40.000</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\system.identitymodel.tokens.jwt\5.2.0-preview2-41113220915\lib\netstandard1.4\System.IdentityModel.Tokens.Jwt.dll">
+      <PackagePath>System.IdentityModel.Tokens.Jwt.dll</PackagePath>
+      <Modified>2017-11-13T21:24:42.000</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\system.io.compression\4.3.0\runtimes\win\lib\netstandard1.3\System.IO.Compression.dll">
       <PackagePath>System.IO.Compression.dll</PackagePath>
       <Modified>2016-11-05T03:56:08.000</Modified>
@@ -383,9 +395,9 @@
       <PackagePath>System.ObjectModel.dll</PackagePath>
       <Modified>2016-11-05T03:56:40.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\system.private.datacontractserialization\4.1.2\lib\netstandard1.3\System.Private.DataContractSerialization.dll">
+    <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\system.private.datacontractserialization\4.3.0\lib\netstandard1.3\System.Private.DataContractSerialization.dll">
       <PackagePath>System.Private.DataContractSerialization.dll</PackagePath>
-      <Modified>2017-02-09T12:26:02.000</Modified>
+      <Modified>2016-11-05T03:56:36.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\system.private.servicemodel\4.1.0\runtimes\win7\lib\netcore50\System.Private.ServiceModel.dll">
       <PackagePath>System.Private.ServiceModel.dll</PackagePath>
@@ -399,9 +411,9 @@
       <PackagePath>System.Reflection.DispatchProxy.dll</PackagePath>
       <Modified>2016-06-11T21:14:14.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\system.reflection.emit\4.0.1\lib\netcore50\System.Reflection.Emit.dll">
+    <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\system.reflection.emit\4.3.0\lib\netcore50\System.Reflection.Emit.dll">
       <PackagePath>System.Reflection.Emit.dll</PackagePath>
-      <Modified>2016-06-11T21:14:16.000</Modified>
+      <Modified>2016-11-05T03:56:44.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\system.reflection.emit.ilgeneration\4.3.0\lib\netcore50\System.Reflection.Emit.ILGeneration.dll">
       <PackagePath>System.Reflection.Emit.ILGeneration.dll</PackagePath>
@@ -443,9 +455,9 @@
       <PackagePath>System.Runtime.Serialization.Primitives.dll</PackagePath>
       <Modified>2016-11-05T03:57:02.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\system.runtime.serialization.xml\4.1.2\lib\netcore50\System.Runtime.Serialization.Xml.dll">
+    <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\system.runtime.serialization.xml\4.3.0\lib\netcore50\System.Runtime.Serialization.Xml.dll">
       <PackagePath>System.Runtime.Serialization.Xml.dll</PackagePath>
-      <Modified>2017-02-09T12:26:02.000</Modified>
+      <Modified>2016-11-05T03:56:58.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\system.runtime.windowsruntime\4.3.0\runtimes\win8\lib\netstandard1.3\System.Runtime.WindowsRuntime.dll">
       <PackagePath>System.Runtime.WindowsRuntime.dll</PackagePath>
@@ -455,9 +467,9 @@
       <PackagePath>System.Runtime.WindowsRuntime.UI.Xaml.dll</PackagePath>
       <Modified>2016-06-11T21:14:32.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\system.security.claims\4.0.1\lib\netstandard1.3\System.Security.Claims.dll">
+    <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\system.security.claims\4.3.0\lib\netstandard1.3\System.Security.Claims.dll">
       <PackagePath>System.Security.Claims.dll</PackagePath>
-      <Modified>2016-06-11T21:14:40.000</Modified>
+      <Modified>2016-11-05T03:57:04.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\system.security.cryptography.algorithms\4.3.0\runtimes\win\lib\netcore50\System.Security.Cryptography.Algorithms.dll">
       <PackagePath>System.Security.Cryptography.Algorithms.dll</PackagePath>
@@ -479,9 +491,9 @@
       <PackagePath>System.Security.Cryptography.X509Certificates.dll</PackagePath>
       <Modified>2016-11-05T03:57:18.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\system.security.principal\4.0.1\lib\netcore50\System.Security.Principal.dll">
+    <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\system.security.principal\4.3.0\lib\netcore50\System.Security.Principal.dll">
       <PackagePath>System.Security.Principal.dll</PackagePath>
-      <Modified>2016-06-11T21:14:46.000</Modified>
+      <Modified>2016-11-05T03:57:14.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\system.servicemodel.duplex\4.0.1\lib\netcore50\System.ServiceModel.Duplex.dll">
       <PackagePath>System.ServiceModel.Duplex.dll</PackagePath>
@@ -543,13 +555,29 @@
       <PackagePath>System.Xml.XmlDocument.dll</PackagePath>
       <Modified>2016-11-05T03:57:34.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\system.xml.xmlserializer\4.0.11\lib\netcore50\System.Xml.XmlSerializer.dll">
+    <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\system.xml.xmlserializer\4.3.0\lib\netcore50\System.Xml.XmlSerializer.dll">
       <PackagePath>System.Xml.XmlSerializer.dll</PackagePath>
-      <Modified>2016-06-11T21:15:04.000</Modified>
+      <Modified>2016-11-05T03:57:36.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\xamarin.forms\2.4.0.280\lib\uap10.0\Xamarin.Forms.Core.dll">
+      <PackagePath>Xamarin.Forms.Core.dll</PackagePath>
+      <Modified>2017-09-27T08:50:16.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\xamarin.forms\2.4.0.280\lib\uap10.0\Xamarin.Forms.Platform.UAP.dll">
+      <PackagePath>Xamarin.Forms.Platform.UAP.dll</PackagePath>
+      <Modified>2017-09-27T08:50:16.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\xamarin.forms\2.4.0.280\lib\uap10.0\Xamarin.Forms.Platform.dll">
+      <PackagePath>Xamarin.Forms.Platform.dll</PackagePath>
+      <Modified>2017-09-27T08:50:16.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\xamarin.forms\2.4.0.280\lib\uap10.0\Xamarin.Forms.Xaml.dll">
+      <PackagePath>Xamarin.Forms.Xaml.dll</PackagePath>
+      <Modified>2017-09-27T08:50:16.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Thomas\Desktop\BackOffice-SmartCity\BackOffice-SmartCity\Images\jardin.jpg">
       <PackagePath>Images\jardin.jpg</PackagePath>
-      <Modified>2017-12-10T17:10:43.234</Modified>
+      <Modified>2017-12-10T17:10:44.000</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Thomas\Desktop\BackOffice-SmartCity\BackOffice-SmartCity\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
@@ -591,20 +619,24 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Thomas\Desktop\BackOffice-SmartCity\BackOffice-SmartCity\bin\x86\Debug\BackOffice-SmartCity.xr.xml">
       <PackagePath>BackOffice-SmartCity.xr.xml</PackagePath>
-      <Modified>2017-12-12T21:05:28.406</Modified>
+      <Modified>2017-12-26T12:37:35.849</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.15063.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
       <Modified>2017-11-10T13:42:43.464</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Thomas\.nuget\packages\xamarin.forms\2.4.0.280\lib\uap10.0\Xamarin.Forms.Platform.UAP\Xamarin.Forms.Platform.UAP.xr.xml">
+      <PackagePath>Xamarin.Forms.Platform.UAP\Xamarin.Forms.Platform.UAP.xr.xml</PackagePath>
+      <Modified>2017-09-27T08:50:16.000</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Thomas\Desktop\BackOffice-SmartCity\BackOffice-SmartCity\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2017-12-12T21:05:29.131</Modified>
+      <Modified>2017-12-27T09:15:25.241</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Thomas\Desktop\BackOffice-SmartCity\BackOffice-SmartCity\bin\x86\Debug\Core\BackOffice-SmartCity.exe">
       <PackagePath>BackOffice-SmartCity.exe</PackagePath>
-      <Modified>2017-12-12T21:05:29.337</Modified>
+      <Modified>2018-01-03T13:44:30.027</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

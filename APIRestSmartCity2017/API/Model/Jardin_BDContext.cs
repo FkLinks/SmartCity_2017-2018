@@ -16,16 +16,15 @@ namespace APIRestSmartCity2017.Model
         public virtual DbSet<ApplicationUser> ApplicationUser { get; set; }
         public virtual DbSet<Booking> Booking { get; set; }
         public virtual DbSet<Chatroom> Chatroom { get; set; }
-        public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<Event> Event { get; set; }
+        public virtual DbSet<Event_Garden> Event_Garden { get; set; }
         public virtual DbSet<Garden> Garden { get; set; }
         public virtual DbSet<GuidedTour> GuidedTour { get; set; }
-        public virtual DbSet<Locality> Locality { get; set; }
-        public virtual DbSet<Picture> Picture { get; set; }
         public virtual DbSet<Plant> Plant { get; set; }
+        public virtual DbSet<Plant_Garden> Plant_Garden { get; set; }
         public virtual DbSet<PointOfInterest> PointOfInterest { get; set; }
         public virtual DbSet<Responsible> Responsible { get; set; }
-        //public virtual DbSet<UserTable> UserTable { get; set; }
+        public virtual DbSet<Responsible_Garden> Responsible_Garden { get; set; }
 
        
 
@@ -67,10 +66,11 @@ namespace APIRestSmartCity2017.Model
                     .HasConstraintName("guidedTour_fk");
 
                 entity.HasOne(d => d.UserBookingNavigation)
-                    .WithMany(p => p.Booking)
+                    .WithMany(p => p.Bookings)
                     .HasForeignKey(d => d.UserBooking)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("userBooking_fk");
+
             });
 
             modelBuilder.Entity<Chatroom>(entity =>
@@ -101,25 +101,6 @@ namespace APIRestSmartCity2017.Model
                     .HasForeignKey(d => d.Responsible)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("responsible_fk");
-
-                entity.HasOne(d => d.UserChatNavigation)
-                    .WithMany(p => p.Chatroom)
-                    .HasForeignKey(d => d.UserChat)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("userChat_fk");
-            });
-
-            modelBuilder.Entity<Country>(entity =>
-            {
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasColumnType("numeric(3, 0)");
-
-                entity.Property(e => e.NameCountry)
-                    .IsRequired()
-                    .HasColumnName("nameCountry")
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Event>(entity =>
@@ -154,6 +135,26 @@ namespace APIRestSmartCity2017.Model
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<Event_Garden>(entity =>
+            {
+                entity.Property(e => e.Id)
+                   .HasColumnName("id")
+                   .HasColumnType("numeric(2, 0)");
+
+                entity.HasOne(d => d.IdEv)
+                    .WithMany(p => p.Event_Garden)
+                    .HasForeignKey(d => d.IdEvent)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("id_fk");
+
+                entity.HasOne(d => d.NumGarden)
+                    .WithMany(p => p.Event_Garden)
+                    .HasForeignKey(d => d.IdNumGarden)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("numGarden_fk");
+
+            });
+
             modelBuilder.Entity<Garden>(entity =>
             {
                 entity.HasKey(e => e.NumGarden);
@@ -168,10 +169,15 @@ namespace APIRestSmartCity2017.Model
                     .HasMaxLength(150)
                     .IsUnicode(false);
 
-                /*entity.Property(e => e.Picture)
-                    .HasColumnName("pictureurl")
-                    .HasMaxLength(150)
-                    .IsUnicode(false);*/
+                entity.Property(e => e.UrlImg)
+                    .HasColumnName("urlImg")
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UrlAudio)
+                    .HasColumnName("urlAudio")
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Description)
                     .IsRequired()
@@ -221,61 +227,12 @@ namespace APIRestSmartCity2017.Model
                 entity.Property(e => e.StartTime)
                     .HasColumnName("startTime")
                     .HasColumnType("date");
-            });
 
-            modelBuilder.Entity<Locality>(entity =>
-            {
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasColumnType("numeric(10, 0)");
-
-                entity.Property(e => e.Country)
-                    .HasColumnName("country")
-                    .HasColumnType("numeric(3, 0)");
-
-                entity.Property(e => e.NameLocality)
-                    .IsRequired()
-                    .HasColumnName("nameLocality")
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.PostalCode)
-                    .IsRequired()
-                    .HasColumnName("postalCode")
-                    .HasMaxLength(4)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.CountryNavigation)
-                    .WithMany(p => p.Locality)
-                    .HasForeignKey(d => d.Country)
+                entity.HasOne(d => d.Fk_Garden)
+                    .WithMany(p => p.GuidedTour)
+                    .HasForeignKey(d => d.Garden)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("country_fk");
-            });
-
-            modelBuilder.Entity<Picture>(entity =>
-            {
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasColumnType("numeric(2, 0)")
-                    .ValueGeneratedOnAdd();
-
-                entity.Property(e => e.Legend)
-                    .IsRequired()
-                    .HasColumnName("legend")
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Season)
-                    .IsRequired()
-                    .HasColumnName("season")
-                    .HasMaxLength(9)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Url)
-                    .IsRequired()
-                    .HasColumnName("url")
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                    .HasConstraintName("fk_garden");
             });
 
             modelBuilder.Entity<Plant>(entity =>
@@ -303,6 +260,28 @@ namespace APIRestSmartCity2017.Model
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<Plant_Garden>(entity =>
+            {
+                entity.HasKey(e => e.IdPlant_Garden);
+
+                entity.Property(e => e.IdPlant_Garden)
+                   .HasColumnName("id")
+                   .HasColumnType("numeric(2, 0)");
+
+                entity.HasOne(d => d.Id)
+                    .WithMany(p => p.Plant_Garden)
+                    .HasForeignKey(d => d.IdPlant)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("idPlant_fk");
+
+                entity.HasOne(d => d.NumGarden)
+                    .WithMany(p => p.Plant_Garden)
+                    .HasForeignKey(d => d.IdNumGarden)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("idGarden_fk");
+
+            });
+
             modelBuilder.Entity<PointOfInterest>(entity =>
             {
                 entity.Property(e => e.Id)
@@ -320,6 +299,12 @@ namespace APIRestSmartCity2017.Model
                     .HasColumnName("name")
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.Fk_Garden)
+                    .WithMany(p => p.PointOfInterest)                               
+                    .HasForeignKey(d => d.Garden)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_garden");
             });
 
             modelBuilder.Entity<Responsible>(entity =>
@@ -354,7 +339,29 @@ namespace APIRestSmartCity2017.Model
                     .IsRequired()
                     .HasColumnName("sex")
                     .HasColumnType("char(1)");
-            });           
+            });
+
+            modelBuilder.Entity<Responsible_Garden>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Id)
+                   .HasColumnName("id")
+                   .HasColumnType("numeric(2, 0)");
+
+                entity.HasOne(d => d.NumGarden)
+                    .WithMany(p => p.Responsible_Garden)
+                    .HasForeignKey(d => d.IdNumGarden)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("numGarden_fk");
+
+                entity.HasOne(d => d.RegistrationNumber)
+                    .WithMany(p => p.Responsible_Garden)
+                    .HasForeignKey(d => d.IdRegistrationNumber)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("registrationNumber_fk");
+
+            });
 
             modelBuilder.Entity<ApplicationUser>(entity =>                         
             {

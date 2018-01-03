@@ -1,5 +1,6 @@
 ﻿using BackOffice_SmartCity.Model;
 using BackOffice_SmartCity.Service;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using System;
@@ -8,19 +9,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Popups;
 
 namespace BackOffice_SmartCity.ViewModel
 {
-    public class CreationJardinViewModel
+    public class CreationJardinViewModel : ViewModelBase
     {
         private INavigationService navigationService;
+        private Jardin _newJardin;
+        public Jardin NewJardin
+        {
+            get
+            {
+                return _newJardin;
+            }
+            set
+            {
+                if(value == _newJardin)
+                {
+                    return;
+                }
+                _newJardin = value;
+                RaisePropertyChanged("NewJardin");
+            }
+        }
 
         public CreationJardinViewModel(INavigationService navigationService)
         {
             this.navigationService = navigationService;
+            NewJardin = new Jardin();
         }
 
-        public ICommand NavigateToNextPage                                              //Le getter de "l'action event"
+        public ICommand NavigateToNextPage
         {
             get
             {
@@ -41,15 +61,32 @@ namespace BackOffice_SmartCity.ViewModel
             }
         }
 
-        /*public ICommand CreationJardin
+       public ICommand CreationJardin
         {
-            
-        }*/
+            get
+            {
+                return new RelayCommand(async () => await PostJardinAsync(NewJardin));
+            }      
+        }
 
-        public void PostJardin(Jardin jardin)
+        public async Task PostJardinAsync(Jardin jardin)
         {
             var service = new GardenController();
-            var listeGarden =  service.PostGarden(jardin);
+            var createGarden = await service.PostGarden(jardin);
+
+            if (createGarden.Equals("Created"))
+            {
+                navigationService.NavigateTo("Acceuil");
+                NewJardin = null;
+            }
+            else
+            {
+                var messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR)
+                {
+                    Title = Constantes.TITRE_ERREUR
+                };
+                var res = await messageDialog.ShowAsync();
+            }
         }
 
         private void GoTBefore()

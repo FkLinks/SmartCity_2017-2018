@@ -8,13 +8,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Popups;
 
 namespace BackOffice_SmartCity.ViewModel
 {
     public class ListJardinViewModel : ViewModelBase
     {
         private INavigationService navigationService;
-        private ICommand delete;
         private Jardin _selectedJardin;
 
         public ListJardinViewModel(INavigationService navigationService)
@@ -23,7 +23,7 @@ namespace BackOffice_SmartCity.ViewModel
             InitializeAsync();
         }
 
-        public ICommand NavigateToEdit                                              //Le getter de "l'action event"
+        public ICommand NavigateToEdit
         {
             get
             {
@@ -40,7 +40,7 @@ namespace BackOffice_SmartCity.ViewModel
             
         }
 
-        public ICommand NavigateToNew                                              //Le getter de "l'action event"
+        public ICommand NavigateToNew
         {
             get
             {
@@ -79,7 +79,7 @@ namespace BackOffice_SmartCity.ViewModel
             {
                 if (_jardin == value)
                 {
-                    return;                 //On ne le fait que si la valeur a change pour evite de passer au RaisePropertyChanged pour ne pas perturber les ecouteurs 
+                    return;
                 }
                 _jardin = value;
                 RaisePropertyChanged("Jardin");
@@ -93,13 +93,11 @@ namespace BackOffice_SmartCity.ViewModel
             Jardin = new ObservableCollection<Jardin>(listeGarden);
         }
 
-        public ICommand DeleteGardenCommand                                            //Le getter de "l'action event"
+        public ICommand DeleteGardenCommand
         {
             get
             {
-                if (this.delete == null)
-                    this.delete = new RelayCommand(() => DeleteGarden());       //On lui attribue la méthode qui lui permet de supprimer le responsable !
-                return this.delete;
+                return new RelayCommand(async () => await DeleteGarden());
             }
 
         }
@@ -112,7 +110,7 @@ namespace BackOffice_SmartCity.ViewModel
                 _selectedJardin = value;
                 if (_selectedJardin != null)
                 {
-                    RaisePropertyChanged("SelectedGarden");                            //Permet ici de détecter qu'un responsable a été coché dans la liste
+                    RaisePropertyChanged("SelectedGarden");
                 }
             }
         }
@@ -122,13 +120,34 @@ namespace BackOffice_SmartCity.ViewModel
             if (CanExecute())
             {
                 var service = new GardenController();
-                var delResp = service.DeleteGarden(SelectedGarden.NumGarden);
+
+                var messageDialog = new MessageDialog(Constantes.MESSAGE_SUPPRESSION + SelectedGarden.Name + " ?")
+                {
+                    Title = Constantes.TITRE_SUPPRESSION
+                };
+                messageDialog.Commands.Add(new UICommand { Label = "Oui", Id = 0 });
+                messageDialog.Commands.Add(new UICommand { Label = "Non", Id = 1 });
+                var res = await messageDialog.ShowAsync();
+
+                if ((int)res.Id == 0)
+                {
+                    var delResp = service.DeleteGarden(SelectedGarden.NumGarden);
+                    await InitializeAsync();
+                }                
             }
         }
 
         private bool CanExecute()
         {
             return SelectedGarden != null;
+        }
+
+        public ICommand Actualiser
+        {
+            get
+            {
+                return new RelayCommand(async () => await InitializeAsync());
+            }
         }
 
     }

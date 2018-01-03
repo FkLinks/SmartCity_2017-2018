@@ -95,14 +95,19 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Login.cs" />
     <Compile Include="Model\Responsable.cs" />
     <Compile Include="Model\ApplicationUser.cs" />
+    <Compile Include="Model\TokenResponse.cs" />
     <Compile Include="Service\AccountController.cs" />
+    <Compile Include="Service\Constantes.cs" />
     <Compile Include="Service\GardenController.cs" />
     <Compile Include="Service\ResponsibleController.cs" />
+    <Compile Include="Service\StringToDecimalConverter.cs" />
     <Compile Include="ViewModel\ConnectionViewModel.cs" />
     <Compile Include="ViewModel\CreationJardinViewModel.cs" />
     <Compile Include="ViewModel\CreationResponsableViewModel.cs" />
+    <Compile Include="ViewModel\InfosAdminViewModel.cs" />
     <Compile Include="ViewModel\ListJardinViewModel.cs" />
     <Compile Include="ViewModel\ListResponsablesViewModel.cs" />
     <Compile Include="ViewModel\ModifierJardinViewModel.cs" />
@@ -123,6 +128,9 @@
     </Compile>
     <Compile Include="View\CreationResponsable.xaml.cs">
       <DependentUpon>CreationResponsable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\InfosAdmin.xaml.cs">
+      <DependentUpon>InfosAdmin.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ListJardin.xaml.cs">
       <DependentUpon>ListJardin.xaml</DependentUpon>
@@ -178,6 +186,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\InfosAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ListJardin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -211,6 +223,12 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>11.0.1-beta1</Version>
+    </PackageReference>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt">
+      <Version>5.2.0-preview2-41113220915</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms">
+      <Version>2.4.0.280</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

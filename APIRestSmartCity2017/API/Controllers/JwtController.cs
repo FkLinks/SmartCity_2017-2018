@@ -15,17 +15,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using APIRestSmartCity2017.Model;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace APIRestSmartCity2017.Controllers
 {
     [Route("api/[controller]")]
-    public class JwtController : Controller
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public class JwtController : BaseController
     {
         private readonly JwtIssuerOptions _jwtOptions;
         private readonly ILogger _logger;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        public JwtController(IOptions<JwtIssuerOptions> jwtOptions, ILoggerFactory loggerFactory, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+
+        public JwtController(IOptions<JwtIssuerOptions> jwtOptions, ILoggerFactory loggerFactory, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager) : base(userManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -36,7 +39,7 @@ namespace APIRestSmartCity2017.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Post([FromBody] /*LoginDTO*/  NewUserDTO loginInfo)                                    //NEW USER DTO REALLY ?
+        public async Task<IActionResult> Post([FromBody] LoginDTO loginInfo)                                    
         {
             var user = await _userManager.FindByNameAsync(loginInfo.UserName);
             if (user == null)

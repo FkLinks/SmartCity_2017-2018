@@ -5,8 +5,13 @@
     xmlns:local="using:BackOffice_SmartCity"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local1="using:BackOffice_SmartCity.Service"
     mc:Ignorable="d"
     DataContext="{Binding Source={StaticResource Locator}, Path=ModifierResponsable}">
+
+    <Page.Resources>
+        <local1:StringToDecimalConverter x:Key="Converter"></local1:StringToDecimalConverter>
+    </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -14,7 +19,7 @@
             <AppBarButton Icon="Back" Command="{Binding NavigateToBefore}"></AppBarButton>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Height="500" Margin="0,-30" >
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Height="500" Padding="0,50" >
             <StackPanel HorizontalAlignment="Left" >
                 <TextBlock HorizontalAlignment="Left" Margin="0, 15">Registre national*</TextBlock>
                 <TextBlock HorizontalAlignment="Left" Margin="0, 15">Login*</TextBlock>
@@ -24,20 +29,21 @@
                 <TextBlock HorizontalAlignment="Left" Margin="0, 15">Telephone</TextBlock>
             </StackPanel>
             <StackPanel HorizontalAlignment="Right" Orientation="Vertical">
-                <TextBox Text="{Binding SelectedRespon.RegistrationNumber}" IsEnabled="False"  HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
-                <TextBox Text="{Binding SelectedRespon.Login}" IsEnabled="False" HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
-                <TextBox Text="{Binding SelectedRespon.Password}" IsEnabled="False" HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
-                <TextBox Text="{Binding SelectedRespon.Age}" HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
-                <ComboBox HorizontalAlignment="Right" Width="200" Margin="50,10">
+                <TextBox Text="{Binding SelectedRespon.RegistrationNumber, Mode=TwoWay, Converter={StaticResource Converter}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"  HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
+                <TextBox Text="{Binding SelectedRespon.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
+                <PasswordBox Password="{Binding SelectedRespon.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" HorizontalAlignment="Right" Width="200" Margin="50,10"></PasswordBox>
+                <TextBox Text="{Binding SelectedRespon.Age, Mode=TwoWay, Converter={StaticResource Converter}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
+                <TextBox Text="{Binding SelectedRespon.Sex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
+                <!--<ComboBox DataContext="{Binding SelectedRespon.Sex, Mode=TwoWay}" HorizontalAlignment="Right" Width="200" Margin="50,10">
                     <ComboBoxItem IsSelected="True">Homme</ComboBoxItem>
                     <ComboBoxItem>Femme</ComboBoxItem>
-                </ComboBox>
+                </ComboBox>-->
 
-                <TextBox Text="{Binding SelectedRespon.PhoneNumber}" HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
+                <TextBox Text="{Binding SelectedRespon.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
             </StackPanel>
         </StackPanel>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="200" Width="300" Orientation="Horizontal">
-            <Button HorizontalAlignment="Center" VerticalAlignment="Center" Margin="100,15" Command="{Binding NavigateToNextPage}">Confirmer</Button>
+            <AppBarButton Icon="Accept" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="120,15" Command="{Binding ConfirmChange}"/>
         </StackPanel>
     </Grid>
 </Page>

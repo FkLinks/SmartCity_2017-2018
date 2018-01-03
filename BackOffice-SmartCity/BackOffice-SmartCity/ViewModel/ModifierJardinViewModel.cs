@@ -1,5 +1,6 @@
 ﻿using BackOffice_SmartCity.Model;
 using BackOffice_SmartCity.Service;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using System;
@@ -8,11 +9,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Navigation;
 
 namespace BackOffice_SmartCity.ViewModel
 {
-    public class ModifierJardinViewModel
+    public class ModifierJardinViewModel : ViewModelBase
     {
         private INavigationService navigationService;
         public Jardin SelectedJardin { get; set; }
@@ -22,7 +24,7 @@ namespace BackOffice_SmartCity.ViewModel
             this.navigationService = navigationService;
         }
 
-        public ICommand NavigateToNextPage                                              //Le getter de "l'action event"
+        public ICommand NavigateToNextPage
         {
             get
             {
@@ -52,23 +54,31 @@ namespace BackOffice_SmartCity.ViewModel
         {
             get
             {
-                return new RelayCommand(() => PutGarden());
+                return new RelayCommand(async () => await PutGarden());
             }
         }
 
         public async Task PutGarden()
         {
-            if (CanExecute())
+            var service = new GardenController();
+            var delResp = await service.PutGarden(SelectedJardin);
+            if (delResp.Equals("No Content"))
             {
-                var service = new GardenController();
-                var delResp = service.PutGarden(SelectedJardin);
+                var messageDialog = new MessageDialog(Constantes.MESSAGE_OK_MODIF)
+                {
+                    Title = Constantes.TITRE_MODIF_OK
+                };
+                var res = await messageDialog.ShowAsync();
+                navigationService.NavigateTo("Acceuil");
             }
-        }
-
-        private bool CanExecute()
-        {
-            //TODO : FAIRE LES TESTS DE VALIDATION DES CHAMPS
-            return true;
+            else
+            {
+                var messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR_MODIF)
+                {
+                    Title = Constantes.TITRE_ERREUR_MODIF
+                };
+                var res = await messageDialog.ShowAsync();
+            }            
         }
 
         public void OnNavigatedTo(NavigationEventArgs e)

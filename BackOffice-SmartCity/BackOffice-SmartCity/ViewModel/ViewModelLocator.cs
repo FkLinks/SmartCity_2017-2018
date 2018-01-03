@@ -24,6 +24,7 @@ namespace BackOffice_SmartCity.ViewModel
             SimpleIoc.Default.Register<UtilisateurViewModel>();
             SimpleIoc.Default.Register<ModifierJardinViewModel>();
             SimpleIoc.Default.Register<ConnectionViewModel>();
+            SimpleIoc.Default.Register<InfosAdminViewModel>();
 
             NavigationService navigation = new NavigationService();
             SimpleIoc.Default.Register<INavigationService>(() => navigation);
@@ -36,6 +37,7 @@ namespace BackOffice_SmartCity.ViewModel
             navigation.Configure("ModifierResponsable", typeof(ModifierResponsable));
             navigation.Configure("Utilisateur", typeof(Utilisateur));
             navigation.Configure("Connection", typeof(Connection));
+            navigation.Configure("InfosAdmin", typeof(InfosAdmin));
         }
 
         public AcceuilViewModel Acceuil
@@ -109,6 +111,14 @@ namespace BackOffice_SmartCity.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<ConnectionViewModel>();
+            }
+        }
+
+        public InfosAdminViewModel InfosAdmin
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<InfosAdminViewModel>();
             }
         }
 

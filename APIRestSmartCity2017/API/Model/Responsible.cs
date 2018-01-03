@@ -18,5 +18,6 @@ namespace APIRestSmartCity2017.Model
         public string PhoneNumber { get; set; }
 
         public ICollection<Chatroom> Chatroom { get; set; }
+        public ICollection<Responsible_Garden> Responsible_Garden { get; set; }
     }
 }

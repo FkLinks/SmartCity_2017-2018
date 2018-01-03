@@ -1,31 +1,33 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using BackOffice_SmartCity.Model;
+using BackOffice_SmartCity.Service;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Xaml.Navigation;
 
 namespace BackOffice_SmartCity.ViewModel
 {
-    public class AcceuilViewModel
+    public class AcceuilViewModel : ViewModelBase
     {
         private INavigationService navigationService;
-        private ICommand navigateToResponsable, navigateToJardin, navigateToUti;
 
         public AcceuilViewModel(INavigationService navigationService)
         {
             this.navigationService = navigationService;
         }
 
-        public ICommand NavigateToResponsable                                              //Le getter de "l'action event"
+        public ICommand NavigateToResponsable                                             
         {
             get
             {
-                if (this.navigateToResponsable == null)
-                    this.navigateToResponsable = new RelayCommand(() => GoToChoix());       //On lui attribue la méthode EditStudent qui lui permet de naviguer la 2ème page !
-                return this.navigateToResponsable;
+                return new RelayCommand(() => GoToChoix());
             }
         }
 
@@ -34,13 +36,11 @@ namespace BackOffice_SmartCity.ViewModel
             navigationService.NavigateTo("ListResponsables");
         }
 
-        public ICommand NavigateToJardin                                              //Le getter de "l'action event"
+        public ICommand NavigateToJardin
         {
             get
             {
-                if (this.navigateToJardin == null)
-                    this.navigateToJardin = new RelayCommand(() => GoToEdit());       //On lui attribue la méthode EditStudent qui lui permet de naviguer la 2ème page !
-                return this.navigateToJardin;
+                return new RelayCommand(() => GoToEdit()); 
             }
         }
 
@@ -49,19 +49,30 @@ namespace BackOffice_SmartCity.ViewModel
             navigationService.NavigateTo("ListJardin");
         }
 
-        public ICommand NavigateToUtilisateur                                             //Le getter de "l'action event"
+        public ICommand NavigateToUtilisateur
         {
             get
             {
-                if (this.navigateToUti == null)
-                    this.navigateToUti = new RelayCommand(() => GoToDelete());       //On lui attribue la méthode EditStudent qui lui permet de naviguer la 2ème page !
-                return this.navigateToUti;
+                return new RelayCommand(() => GoToUti());
             }
         }
 
-        private void GoToDelete()
+        private void GoToUti()
         {
             navigationService.NavigateTo("Utilisateur");
+        }
+
+        public ICommand NavigateToInfo
+        {
+            get
+            {
+                return new RelayCommand(() => GoToInfo());
+            }
+        }
+
+        private void GoToInfo()
+        {
+            navigationService.NavigateTo("InfosAdmin");
         }
     }
 }
