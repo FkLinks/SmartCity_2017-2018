@@ -90,7 +90,6 @@ public class UserDAO {
 
             expirationDate = calendar.getTime();
             dateFormatForToken.format(expirationDate);
-
         }
         catch (Exception e){
             e.printStackTrace();
@@ -109,7 +108,7 @@ public class UserDAO {
             connection.setRequestProperty("Accept", "application/json");
 
             connection.setDoOutput(true);
-            connection.setDoInput(true);
+            //connection.setDoInput(true);
 
             connection.connect();
 
@@ -123,17 +122,17 @@ public class UserDAO {
             writer.flush();
             writer.close();
 
-            InputStream inputStream = new BufferedInputStream(connection.getInputStream());
-            String token = convertStreamToString(inputStream);
+            /*InputStream inputStream = new BufferedInputStream(connection.getInputStream());
+            String token = convertStreamToString(inputStream);*/
 
             outputStream.close();
             connection.disconnect();
+/*
+            JSONObject tokenReceived = new JSONObject(token);*/
 
-            JSONObject tokenReceived = new JSONObject(token);
-
-            if(tokenReceived.getString("ReasonPhrase").equals("OK")){
+            /*if(tokenReceived.getString("ReasonPhrase").equals("OK")){*/
                 codeReceived = 200;
-            }
+            //}
         }
         catch (Exception e){
             e.printStackTrace();

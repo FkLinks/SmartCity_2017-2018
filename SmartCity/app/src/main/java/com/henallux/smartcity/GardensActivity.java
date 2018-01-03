@@ -125,8 +125,6 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
     @Override
     protected void onResume() {
         super.onResume();
-
-
     }
 
     private void verifPermission()
