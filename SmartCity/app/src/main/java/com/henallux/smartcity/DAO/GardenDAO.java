@@ -5,11 +5,15 @@ import com.henallux.smartcity.Model.Garden;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+
+import static com.henallux.smartcity.Constants.convertStreamToString;
 
 //URL de base pour db azur :
 //http://smartcity-jardin-20172018.azurewebsites.net/api/
@@ -17,14 +21,10 @@ public class GardenDAO {
     public ArrayList<Garden> getAllGardens() throws Exception{
         URL url = new URL("http://smartcity-jardin-20172018.azurewebsites.net/api/Gardens");
         URLConnection connection = url.openConnection();
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        StringBuilder stringBuilder = new StringBuilder();
-        String stringJSON = "",line;
-        while((line = bufferedReader.readLine())!=null){
-            stringBuilder.append(line);
-        }
-        bufferedReader.close();
-        stringJSON = stringBuilder.toString();
+
+        InputStream inputStream = new BufferedInputStream(connection.getInputStream());
+        String stringJSON = convertStreamToString(inputStream);
+
         return jsonToGardens(stringJSON);
     }
 

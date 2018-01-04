@@ -1,11 +1,8 @@
-package com.henallux.smartcity;
+package com.henallux.smartcity.View;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.AudioAttributes;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -17,15 +14,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.games.Player;
 import com.henallux.smartcity.Model.Garden;
+import com.henallux.smartcity.R;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import static android.media.AudioAttributes.USAGE_MEDIA;
 
 public class GardensInformationActivity extends AppCompatActivity {
 
@@ -38,6 +31,7 @@ public class GardensInformationActivity extends AppCompatActivity {
     private MediaPlayer mPlayer = new MediaPlayer();
     private AudioAttributes audioAttributes;
     private Garden garden;
+    private int currentPos = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,29 +68,47 @@ public class GardensInformationActivity extends AppCompatActivity {
 
         audioGuid = (Button) findViewById(R.id.audioGuidBtn);
         audioGuid.setOnClickListener(launchStopAudioClickListener);
+        String url = garden.getUrlAudio();
+        try {
+            mPlayer.setDataSource(url);
+            mPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private View.OnClickListener launchStopAudioClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(audioGuid.getForeground().getConstantState() == getDrawable(R.drawable.ic_volume_up_black_24dp).getConstantState()){
+            if(mPlayer.isPlaying()){
                 audioGuid.setForeground(getDrawable(R.drawable.ic_volume_off_black_24dp));
-                mPlayer.stop();
+                currentPos = mPlayer.getCurrentPosition();
+                mPlayer.pause();
             }
             else{
                 audioGuid.setForeground(getDrawable(R.drawable.ic_volume_up_black_24dp));
-                String url = garden.getUrlAudio();
-                //mPlayer.setAudioAttributes(audioAttributes);
-                try {
-                    mPlayer.setDataSource(url);
-                    mPlayer.prepare();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+                mPlayer.seekTo(currentPos);
                 mPlayer.start();
             }
         }
     };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(currentPos!=0) {
+            mPlayer.seekTo(currentPos);
+            mPlayer.start();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        currentPos = mPlayer.getCurrentPosition();
+        mPlayer.pause();
+    }
 
     /*@Override
     protected void onDestroy() {
@@ -130,15 +142,14 @@ public class GardensInformationActivity extends AppCompatActivity {
 
         switch (item.getItemId())
         {
-            case R.id.settings:
-                startActivity(new Intent(GardensInformationActivity.this, SettingsActivity.class));
+            case R.id.profile:
+                startActivity(new Intent(GardensInformationActivity.this, UserProfileActivity.class));
                 return true;
             case R.id.sign_in:
                 startActivity(new Intent(GardensInformationActivity.this, LoginActivity.class));
                 return true;
             case R.id.sign_out:
                 editor.putString("token", "");
-                editor.putString("userName", "");
                 editor.commit();
                 startActivity(new Intent(GardensInformationActivity.this, MainActivity.class));
                 return true;

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.henallux.smartcity.RegisterActivity">
+    tools:context="com.henallux.smartcity.View.RegisterActivity">
 
     <EditText
         android:id="@+id/login"
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/log_in"
-        android:layout_below="@+id/rememberMe"
+        android:layout_below="@+id/password"
         android:layout_alignEnd="@+id/password"
         android:layout_marginTop="87dp" />
 
@@ -46,7 +46,8 @@
         android:layout_alignStart="@+id/password"
         android:layout_marginTop="10dp" />
 
-    <TextView
+    <!--Basic functionalities to implement for the users relative to the password and username forgivable-->
+    <!--<TextView
         android:id="@+id/loginForget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,7 +63,7 @@
         android:layout_marginTop="10dp"
         android:text="@string/forgot_password"
         android:layout_below="@+id/loginForget"
-        android:layout_alignStart="@+id/loginForget" />
+        android:layout_alignStart="@+id/loginForget" />-->
 
     <TextView
         android:id="@+id/isRegistered"
@@ -72,7 +73,7 @@
         android:layout_marginStart="17dp"
         android:layout_marginBottom="35dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/passwordForget" />
+        android:layout_alignStart="@+id/password" />
 
     <TextView
         android:id="@+id/register"

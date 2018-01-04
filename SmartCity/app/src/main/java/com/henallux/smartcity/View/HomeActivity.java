@@ -1,5 +1,6 @@
-package com.henallux.smartcity;
+package com.henallux.smartcity.View;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -14,6 +15,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.henallux.smartcity.Model.Custom_Home_Adapter;
+import com.henallux.smartcity.R;
+
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
@@ -26,10 +30,13 @@ public class HomeActivity extends AppCompatActivity {
     private boolean isConnected;
     private ListView listChoices;
     private ArrayList<String> listItems= new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        connectivityManager = (ConnectivityManager) HomeActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         token = preferences.getString("token", "");
@@ -49,7 +56,6 @@ public class HomeActivity extends AppCompatActivity {
         /*listItems.add(getString(R.string.home_menu_ask_questions));*/
         listItems.add(getString(R.string.home_menu_events_inc));
         listItems.add(getString(R.string.home_menu_my_profile));
-        listItems.add(getString(R.string.home_menu_prefs));
         listItems.add(getString(R.string.home_menu_contact_us));
         listItems.add(getString(R.string.home_menu_about));
     }
@@ -65,6 +71,7 @@ public class HomeActivity extends AppCompatActivity {
                 case 1:  Intent scan = new Intent(HomeActivity.this, ScanActivity.class);
                     startActivity(scan);
                     break;
+                /*not implemented yet*/
                 /*case 2:  Intent question = new Intent(HomeActivity.this, ChatActivity.class);
                         startActivity(question);
                     break;*/
@@ -72,21 +79,24 @@ public class HomeActivity extends AppCompatActivity {
                         startActivity(events);
                     break;
                 case 3:
-                    if(!token.equals("")) {
-                        Intent profile = new Intent(HomeActivity.this, UserProfileActivity.class);
-                        startActivity(profile);
+                    activeNetwork = connectivityManager.getActiveNetworkInfo();
+                    isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+                    if(isConnected) {
+                        if (!token.equals("")) {
+                            Intent profile = new Intent(HomeActivity.this, UserProfileActivity.class);
+                            startActivity(profile);
+                        } else {
+                            Toast.makeText(HomeActivity.this, R.string.connection_toast, Toast.LENGTH_LONG).show();
+                        }
                     }
                     else{
-                        Toast.makeText(HomeActivity.this, R.string.connection_toast, Toast.LENGTH_LONG).show();
+                        Toast.makeText(HomeActivity.this, R.string.connectionMessage, Toast.LENGTH_LONG).show();
                     }
                     break;
-                case 4:  Intent settings = new Intent(HomeActivity.this, SettingsActivity.class);
-                    startActivity(settings);
-                    break;
-                case 5:  Intent contact = new Intent(HomeActivity.this, ContactActivity.class);
+                case 4:  Intent contact = new Intent(HomeActivity.this, ContactActivity.class);
                         startActivity(contact);
                     break;
-                case 6:  Intent about = new Intent(HomeActivity.this, AboutActivity.class);
+                case 5:  Intent about = new Intent(HomeActivity.this, AboutActivity.class);
                         startActivity(about);
                     break;
             }
@@ -107,15 +117,14 @@ public class HomeActivity extends AppCompatActivity {
 
         switch (item.getItemId())
         {
-            case R.id.settings:
-                startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
+            case R.id.profile:
+                startActivity(new Intent(HomeActivity.this, UserProfileActivity.class));
                 return true;
             case R.id.sign_in:
                 startActivity(new Intent(HomeActivity.this, LoginActivity.class));
                 return true;
             case R.id.sign_out:
                 editor.putString("token", "");
-                editor.putString("userName", "");
                 editor.commit();
                 startActivity(new Intent(HomeActivity.this, MainActivity.class));
                 return true;

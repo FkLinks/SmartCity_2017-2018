@@ -1,8 +1,10 @@
-package com.henallux.smartcity;
+package com.henallux.smartcity.View;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.henallux.smartcity.R;
 
 public class AboutActivity extends AppCompatActivity {
 

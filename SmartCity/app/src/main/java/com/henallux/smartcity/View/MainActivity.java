@@ -1,4 +1,4 @@
-package com.henallux.smartcity;
+package com.henallux.smartcity.View;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.henallux.smartcity.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent home = new Intent(MainActivity.this, HomeActivity.class);
                 editor.putString("token", "");
                 editor.putString("userName", "");
+                editor.putString("password", "");
                 editor.commit();
                 startActivity(home);
             }

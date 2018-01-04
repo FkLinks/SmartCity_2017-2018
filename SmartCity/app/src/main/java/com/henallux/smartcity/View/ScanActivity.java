@@ -1,6 +1,5 @@
-package com.henallux.smartcity;
+package com.henallux.smartcity.View;
 
-import android.*;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -30,9 +29,9 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.henallux.smartcity.DAO.PlantDAO;
 import com.henallux.smartcity.Model.Plant;
+import com.henallux.smartcity.R;
 
 import java.io.IOException;
-import java.io.Serializable;
 
 public class ScanActivity extends AppCompatActivity {
 
@@ -48,7 +47,7 @@ public class ScanActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan);
+        setContentView(com.henallux.smartcity.R.layout.activity_scan);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         token = preferences.getString("token", "");
@@ -168,15 +167,14 @@ public class ScanActivity extends AppCompatActivity {
 
         switch (item.getItemId())
         {
-            case R.id.settings:
-                startActivity(new Intent(ScanActivity.this, SettingsActivity.class));
+            case R.id.profile:
+                startActivity(new Intent(ScanActivity.this, UserProfileActivity.class));
                 return true;
             case R.id.sign_in:
                 startActivity(new Intent(ScanActivity.this, LoginActivity.class));
                 return true;
             case R.id.sign_out:
                 editor.putString("token", "");
-                editor.putString("userName", "");
                 editor.commit();
                 startActivity(new Intent(ScanActivity.this, MainActivity.class));
                 return true;

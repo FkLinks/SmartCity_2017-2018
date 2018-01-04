@@ -3,78 +3,6 @@
     <string name="title_activity_settings">Settings</string>
     <string name="gardens_activity">GardensActivity</string>
 
-    <!-- Strings related to Settings -->
-
-    <!-- Example General settings -->
-    <string name="pref_header_general">General</string>
-
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
-    </string>
-
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
-
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
-
-    <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
-
-    <string name="pref_title_sync_frequency">Sync frequency</string>
-    <string-array name="pref_sync_frequency_titles">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>3 hours</item>
-        <item>6 hours</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
-    </string-array>
-
-    <string-array name="list_preference_entries">
-        <item>Entry 1</item>
-        <item>Entry 2</item>
-        <item>Entry 3</item>
-    </string-array>
-
-    <string-array name="list_preference_entry_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
-    <string-array name="multi_select_list_preference_default_value" />
-
-    <string name="pref_title_system_sync_settings">System sync settings</string>
-
-    <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notifications</string>
-
-    <string name="pref_title_new_message_notifications">New message notifications</string>
-
-    <string name="pref_title_ringtone">Ringtone</string>
-    <string name="pref_ringtone_silent">Silent</string>
-
-    <string name="pref_title_vibrate">Vibrate</string>
-
     <!--My strings-->
     <string name="enter_as_guest">Enter as guest</string>
     <string name="password">Choose a password</string>
@@ -120,7 +48,7 @@
     <string name="descriptionLabel">Description</string>
     <string name="cadre_explanation">Fait dans le cadre du projet SmartCity 2017</string>
     <string name="descr_app"><![CDATA[N&Garden permet aux visiteurs de découvrir les jardins à thème d\'une manière plus dynamique et ludique tout en apprenant des choses sur les éléments qui le composent.]]></string>
-    <string name="copyright"><![CDATA[©copyright 2017-2017, N&Gardenis a registered trademark.]]></string>
+    <string name="copyright"><![CDATA[©copyright 2017–2017, N&Gardenis a registered trademark.]]></string>
     <string name="about">About</string>
     <string name="noteGarden">Note :</string>
     <string name="superficieGarden">Superficie :</string>
@@ -136,7 +64,7 @@
     <string name="mailAdr">example@email.ext</string>
     <string name="user_name_label">User name :</string>
     <string name="userSexLabel">Sex :</string>
-    <string name="user_email_adress_label">Email adress :</string>
+    <string name="user_email_adress_label">Email address :</string>
     <string name="user_origin_country_label">Origin country :</string>
     <string name="user_birth_date_label">Birth date :</string>
     <string name="connection_toast">You must be connected to see this page</string>
@@ -146,9 +74,11 @@
     <string name="registerSuccessful">Register successful ! Connect now…</string>
     <string name="errorsInFormEncountered">Errors encountered</string>
     <string name="dateStartEventLabel">Aura lieu à partir du</string>
-    <string name="auEventTimeLabel">jusqu\'au</string>
-    <string name="moreInfosEventLabel">Plus d\'infos sur le site ci dessous :</string>
+    <string name="auEventTimeLabel"> until </string>
+    <string name="moreInfosEventLabel">More infos on the website below :</string>
     <string name="errorCheckingUser">Error occurred while attempting to authenticate</string>
-    <string name="errorMissInternetCo">Vous n\'êtes pas connecté à internet</string>
-    <string name="connectionMessage">Vous devez être connecté pour accéder à ce contenu.</string>
+    <string name="errorMissInternetCo">You are not connected to internet</string>
+    <string name="connectionMessage">You must have an internet connection to acces this content.</string>
+    <string name="invalid_username_password">password or username invalid</string>
+    <string name="json_exception_encountered">Problem encountered with Json</string>
 </resources>

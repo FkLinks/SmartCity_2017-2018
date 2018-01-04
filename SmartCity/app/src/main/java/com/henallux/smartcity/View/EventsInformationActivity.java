@@ -1,4 +1,4 @@
-package com.henallux.smartcity;
+package com.henallux.smartcity.View;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.henallux.smartcity.Model.Event;
+import com.henallux.smartcity.R;
 
 public class EventsInformationActivity extends AppCompatActivity {
 
@@ -24,6 +25,7 @@ public class EventsInformationActivity extends AppCompatActivity {
     private TextView endEventTimeLabel;
     private TextView moreInfosEventLabel;
     private TextView websiteEvent;
+    String[] DateWOHour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +45,19 @@ public class EventsInformationActivity extends AppCompatActivity {
         descrEvent = (TextView) findViewById(R.id.descrEvent);
         descrEvent.setText(event.getDescription());
 
+        DateWOHour = event.getStartTime().split("T");
+
         startEventTime = (TextView) findViewById(R.id.startEventTime);
-        startEventTime.setText(event.getStartTime().subSequence(0,9));
+        startEventTime.setText(DateWOHour[0]);
 
         auEventTimeLabel = (TextView) findViewById(R.id.auEventTimeLabel);
         endEventTimeLabel = (TextView) findViewById(R.id.endEventTimeLabel);
         if(event.getEndTime()!=null){
-            endEventTimeLabel.setText(event.getStartTime().subSequence(0,10));
+            DateWOHour = event.getEndTime().split("T");
+            endEventTimeLabel.setText(DateWOHour[0]);
         }
         else{
-            auEventTimeLabel.setText("");
+            endEventTimeLabel.setText("...");
         }
 
         moreInfosEventLabel = (TextView) findViewById(R.id.moreInfosEventLabel);
@@ -79,15 +84,14 @@ public class EventsInformationActivity extends AppCompatActivity {
 
         switch (item.getItemId())
         {
-            case R.id.settings:
-                startActivity(new Intent(EventsInformationActivity.this, SettingsActivity.class));
+            case R.id.profile:
+                startActivity(new Intent(EventsInformationActivity.this, UserProfileActivity.class));
                 return true;
             case R.id.sign_in:
                 startActivity(new Intent(EventsInformationActivity.this, LoginActivity.class));
                 return true;
             case R.id.sign_out:
                 editor.putString("token", "");
-                editor.putString("userName", "");
                 editor.commit();
                 startActivity(new Intent(EventsInformationActivity.this, MainActivity.class));
                 return true;

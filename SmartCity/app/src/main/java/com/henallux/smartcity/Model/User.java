@@ -1,6 +1,8 @@
 package com.henallux.smartcity.Model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String UserName;
     private String Password;
     private String Email;

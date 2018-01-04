@@ -5,18 +5,14 @@ import com.google.gson.GsonBuilder;
 import com.henallux.smartcity.Exceptions.LoginUserException;
 import com.henallux.smartcity.Model.TokenReceived;
 import com.henallux.smartcity.Model.User;
-import com.henallux.smartcity.R;
-import com.henallux.smartcity.RegisterActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -28,10 +24,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static com.henallux.smartcity.Constants.convertStreamToString;
+
 //URL de base pour db azur :
 //http://smartcity-jardin-20172018.azurewebsites.net/api/
 public class UserDAO {
-    public TokenReceived checkUserExist(String login_password) throws IOException, LoginUserException, JSONException {
+    public TokenReceived checkUserExist(String login_password) throws LoginUserException, JSONException {
         TokenReceived tokenReceivedCode =new TokenReceived();
         try{
             URL url = new URL("http://smartcity-jardin-20172018.azurewebsites.net/api/Jwt");
@@ -67,11 +65,8 @@ public class UserDAO {
                 tokenReceivedCode.setExpirationDate(getExpirationDateForToken (tokenReceived));
             }
         }
-        catch (IOException e){
+        catch (IOException ioe){
             throw new LoginUserException();
-        }
-        catch (JSONException je){
-            je.printStackTrace();
         }
 
         return tokenReceivedCode;
@@ -141,11 +136,6 @@ public class UserDAO {
         return codeReceived;
     }
 
-    private static String convertStreamToString(java.io.InputStream inputStream){
-        java.util.Scanner scanner = new java.util.Scanner(inputStream).useDelimiter("\\A");
-        return scanner.hasNext()? scanner.next():"";
-    }
-
     public User getUserByName(String userName, String token) throws Exception{
         String stringJSON = "";
 
@@ -162,16 +152,6 @@ public class UserDAO {
 
             InputStream inputStream = new BufferedInputStream(connection.getInputStream());
             stringJSON = convertStreamToString(inputStream);
-/*
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder stringBuilder = new StringBuilder();
-            String string = "",line;
-            while((line = bufferedReader.readLine())!=null){
-                stringBuilder.append(line);
-            }
-            bufferedReader.close();
-            string = stringBuilder.toString();
-            stringJSON = string;*/
         }
         catch (Exception e){
             e.getStackTrace();
@@ -180,19 +160,12 @@ public class UserDAO {
     }
 
     private User jsonToUser(String stringJSON) throws Exception{
-        User user = new User();
+        JSONArray jsonArray = new JSONArray(stringJSON);
+        JSONObject jsonUser = jsonArray.getJSONObject(0);
 
-        try {
-            JSONArray jsonArray = new JSONArray(stringJSON);
-            JSONObject jsonUser = jsonArray.getJSONObject(0);
+        Gson object = new GsonBuilder().create();
+        //new User(jsonUser.getString("UserName"), jsonUser.getString("Password"), jsonUser.getString("Email"), jsonUser.getString("Sex"), jsonUser.getString("BirthDate"), jsonUser.getString("GeographicOrigins"));
 
-            Gson object = new GsonBuilder().create();
-            user = object.fromJson(jsonUser.toString(), User.class); //new User(jsonUser.getString("UserName"), jsonUser.getString("Password"), jsonUser.getString("Email"), jsonUser.getString("Sex"), jsonUser.getString("BirthDate"), jsonUser.getString("GeographicOrigins"));
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return user;
+        return object.fromJson(jsonUser.toString(), User.class);
     }
 }

@@ -1,4 +1,4 @@
-package com.henallux.smartcity;
+package com.henallux.smartcity.View;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,8 +20,9 @@ import android.widget.Toast;
 import com.henallux.smartcity.DAO.UserDAO;
 import com.henallux.smartcity.Model.TokenReceived;
 import com.henallux.smartcity.Model.User;
+import com.henallux.smartcity.R;
+import com.henallux.smartcity.Validation;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class RegisterActivity extends AppCompatActivity {

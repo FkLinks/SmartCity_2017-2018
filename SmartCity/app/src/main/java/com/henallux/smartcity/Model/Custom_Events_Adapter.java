@@ -1,4 +1,4 @@
-package com.henallux.smartcity;
+package com.henallux.smartcity.Model;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.henallux.smartcity.Model.Event;
+import com.henallux.smartcity.R;
 
 import java.util.ArrayList;
 
@@ -25,7 +26,10 @@ public class Custom_Events_Adapter extends ArrayAdapter<Event> {
         TextView nameChoice = (TextView) shapeOfList.findViewById(R.id.choiceEventListView);
         nameChoice.setText(line_menu.getName());
         TextView dateChoice = (TextView) shapeOfList.findViewById(R.id.eventDateListView);
-        dateChoice.setText(line_menu.getStartTime() + ((!line_menu.getEndTime().equals(""))?" - " + line_menu.getEndTime(): ""));
+
+        String[] DateWOHourStart = line_menu.getStartTime().split("T");
+        String[] DateWOHourEnd = line_menu.getEndTime().split("T");
+        dateChoice.setText(DateWOHourStart[0] + " - " + ((!(line_menu.getEndTime()==null))? DateWOHourEnd[0]: "..."));
         return shapeOfList;
     }
 }

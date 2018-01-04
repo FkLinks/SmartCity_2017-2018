@@ -18,12 +18,12 @@
     <string name="descriptionLabel">Description</string>
     <string name="cadre_explanation">Fait dans le cadre du projet SmartCity 2017</string>
     <string name="descr_app"><![CDATA[N&Garden permet aux visiteurs de découvrir les jardins à thème d\'une manière plus dynamique et ludique tout en apprenant des choses sur les éléments qui le composent.]]></string>
-    <string name="copyright"><![CDATA[©copyright 2017-2017, N&Gardenis a registered trademark.]]></string>
+    <string name="copyright"><![CDATA[©copyright 2017–2017, N&Gardenis a registered trademark.]]></string>
     <string name="about">About</string>
     <string name="noteGarden">Note :</string>
     <string name="superficieGarden">Superficie :</string>
     <string name="adresseGarden">Adresse :</string>
-    <string name="textScanExplain">Scan the qr code near a plant to display his informations</string>
+    <string name="textScanExplain">Scannez le qr code situé près d\'une plante pour afficher ses informations</string>
     <string name="cadreLabel">Cadre</string>
     <string name="findUsOnSentence">Vous pouvez nous retrouver sur ces différents réseaux sociaux :</string>
     <string name="facebookLabel">Facebook :</string>
@@ -44,9 +44,11 @@
     <string name="registerSuccessful">Enregistrement réussi ! Connectez-vous…</string>
     <string name="errorsInFormEncountered">Erreurs recontrées</string>
     <string name="dateStartEventLabel">Aura lieu à partir du</string>
-    <string name="auEventTimeLabel">jusqu\'au</string>
+    <string name="auEventTimeLabel"> jusqu\'au </string>
     <string name="moreInfosEventLabel">Plus d\'infos sur le site ci dessous :</string>
     <string name="errorCheckingUser">Erreur survenue lors de l\'authentification</string>
     <string name="errorMissInternetCo">Vous n\'êtes pas connecté à internet</string>
-    <string name="connectionMessage">Vous devez être connecté pour accéder à ce contenu.</string>
+    <string name="connectionMessage">Vous devez être connecté à internet pour accéder à ce contenu.</string>
+    <string name="invalid_username_password">mot de passe ou username invalide</string>
+    <string name="json_exception_encountered">Probleme rencontré avec le Json</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.henallux.smartcity;
+package com.henallux.smartcity.View;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.henallux.smartcity.Model.Plant;
+import com.henallux.smartcity.R;
 import com.squareup.picasso.Picasso;
 
 public class PlantInformationActivity extends AppCompatActivity {
@@ -60,15 +61,14 @@ public class PlantInformationActivity extends AppCompatActivity {
 
         switch (item.getItemId())
         {
-            case R.id.settings:
-                startActivity(new Intent(PlantInformationActivity.this, SettingsActivity.class));
+            case R.id.profile:
+                startActivity(new Intent(PlantInformationActivity.this, UserProfileActivity.class));
                 return true;
             case R.id.sign_in:
                 startActivity(new Intent(PlantInformationActivity.this, LoginActivity.class));
                 return true;
             case R.id.sign_out:
                 editor.putString("token", "");
-                editor.putString("userName", "");
                 editor.commit();
                 startActivity(new Intent(PlantInformationActivity.this, MainActivity.class));
                 return true;

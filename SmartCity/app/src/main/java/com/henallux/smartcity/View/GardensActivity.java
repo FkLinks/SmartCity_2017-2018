@@ -1,12 +1,10 @@
-package com.henallux.smartcity;
+package com.henallux.smartcity.View;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.Icon;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -19,32 +17,26 @@ import android.support.v4.app.ActivityCompat;
 import android.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.henallux.smartcity.DAO.GardenDAO;
+import com.henallux.smartcity.Model.Custom_Gardens_Adapter;
 import com.henallux.smartcity.Model.Garden;
+import com.henallux.smartcity.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -213,11 +205,11 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
 
     @Override
     public void onLocationChanged(Location location) {
-        double latitude = location.getLatitude();
+        /*remet l'ecran sur l'emplacement*/
+        /*double latitude = location.getLatitude();
         double longitude = location.getLongitude();
 
-        /*remet l'ecran sur l'emplacement*/
-        /*if(googleMap != null)
+        if(googleMap != null)
         {
             LatLng googleLocation = new LatLng(latitude, longitude);
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(googleLocation));
@@ -239,11 +231,11 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
 
     }
 
-    private class LoadGarden extends AsyncTask<String, Void, ArrayList<Garden>>{
+    private class LoadGarden extends AsyncTask<Void, Void, Void>{
         @Override
-        protected ArrayList<Garden> doInBackground(String... strings) {
+        protected Void doInBackground(Void... strings) {
             GardenDAO gardenDAO = new GardenDAO();
-            ArrayList<Garden> gardens = new ArrayList<>();
+            ArrayList<Garden> gardens;
             try{
                 gardens = gardenDAO.getAllGardens();
                 for(Garden garden:gardens){
@@ -254,12 +246,12 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
                 Toast.makeText(GardensActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
 
-            return gardens;
+            return null;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Garden> gardens) {
-            super.onPostExecute(gardens);
+        protected void onPostExecute(Void param) {
+            super.onPostExecute(param);
             gardenList.setAdapter(new Custom_Gardens_Adapter(GardensActivity.this, listItems));
             verifPermission();
         }
@@ -279,15 +271,14 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
 
         switch (item.getItemId())
         {
-            case R.id.settings:
-                startActivity(new Intent(GardensActivity.this, SettingsActivity.class));
+            case R.id.profile:
+                startActivity(new Intent(GardensActivity.this, UserProfileActivity.class));
                 return true;
             case R.id.sign_in:
                 startActivity(new Intent(GardensActivity.this, LoginActivity.class));
                 return true;
             case R.id.sign_out:
                 editor.putString("token", "");
-                editor.putString("userName", "");
                 editor.commit();
                 startActivity(new Intent(GardensActivity.this, MainActivity.class));
                 return true;

@@ -1,4 +1,4 @@
-package com.henallux.smartcity;
+package com.henallux.smartcity.View;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,8 +13,7 @@ import android.widget.Toast;
 
 import com.henallux.smartcity.DAO.UserDAO;
 import com.henallux.smartcity.Model.User;
-
-import java.util.ArrayList;
+import com.henallux.smartcity.R;
 
 public class UserProfileActivity extends AppCompatActivity {
 
@@ -32,7 +31,6 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
-
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         token = preferences.getString("token", "");
@@ -57,7 +55,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 user = userDAO.getUserByName(userName, token);
             }
             catch (Exception e){
-                Toast.makeText(UserProfileActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(UserProfileActivity.this, e.toString(), Toast.LENGTH_LONG).show();
             }
 
             return user;
@@ -78,9 +76,9 @@ public class UserProfileActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!token.equals(""))
-            getMenuInflater().inflate(R.menu.menu_main_sign_out, menu);
+            getMenuInflater().inflate(R.menu.menu_profile_page_sign_out, menu);
         else
-            getMenuInflater().inflate(R.menu.menu_main_sign_in, menu);
+            getMenuInflater().inflate(R.menu.menu_profile_page_sign_in, menu);
         return true;
     }
 
@@ -89,15 +87,11 @@ public class UserProfileActivity extends AppCompatActivity {
 
         switch (item.getItemId())
         {
-            case R.id.settings:
-                startActivity(new Intent(UserProfileActivity.this, SettingsActivity.class));
-                return true;
             case R.id.sign_in:
                 startActivity(new Intent(UserProfileActivity.this, LoginActivity.class));
                 return true;
             case R.id.sign_out:
                 editor.putString("token", "");
-                editor.putString("userName", "");
                 editor.commit();
                 startActivity(new Intent(UserProfileActivity.this, MainActivity.class));
                 return true;

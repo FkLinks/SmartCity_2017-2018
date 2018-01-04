@@ -13,11 +13,11 @@ public class Event implements Serializable {
     }
 
     public Event(String name, String description, String startTime, String endTime, String url) {
-        this.name = name;
-        this.description = description;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.url = url;
+        setName(name);
+        setDescription(description);
+        setStartTime(startTime);
+        setEndTime(endTime);
+        setUrl(url);
     }
 
     public String getName() {

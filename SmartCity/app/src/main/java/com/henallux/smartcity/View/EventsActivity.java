@@ -1,6 +1,5 @@
-package com.henallux.smartcity;
+package com.henallux.smartcity.View;
 
-import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,7 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.henallux.smartcity.DAO.EventDAO;
+import com.henallux.smartcity.Model.Custom_Events_Adapter;
 import com.henallux.smartcity.Model.Event;
+import com.henallux.smartcity.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -107,15 +108,14 @@ public class EventsActivity extends AppCompatActivity {
 
         switch (item.getItemId())
         {
-            case R.id.settings:
-                startActivity(new Intent(EventsActivity.this, SettingsActivity.class));
+            case R.id.profile:
+                startActivity(new Intent(EventsActivity.this, UserProfileActivity.class));
                 return true;
             case R.id.sign_in:
                 startActivity(new Intent(EventsActivity.this, LoginActivity.class));
                 return true;
             case R.id.sign_out:
                 editor.putString("token", "");
-                editor.putString("userName", "");
                 editor.commit();
                 startActivity(new Intent(EventsActivity.this, MainActivity.class));
                 return true;
