@@ -41,7 +41,7 @@
     <string name="profileActivityName">Profile</string>
     <string name="registerFailed">Enregistrement échoué</string>
     <string name="connectionError">Erreur de connexion</string>
-    <string name="registerSuccessful">Enregistrement réussi ! Connectez-vous…</string>
+    <string name="registerSuccessful">Enregistrement réussi !</string>
     <string name="errorsInFormEncountered">Erreurs recontrées</string>
     <string name="dateStartEventLabel">Aura lieu à partir du</string>
     <string name="auEventTimeLabel"> jusqu\'au </string>
@@ -51,4 +51,16 @@
     <string name="connectionMessage">Vous devez être connecté à internet pour accéder à ce contenu.</string>
     <string name="invalid_username_password">mot de passe ou username invalide</string>
     <string name="json_exception_encountered">Probleme rencontré avec le Json</string>
+    <string name="error_registering_user">erreurs rencontrées pendant l\'enregistrement</string>
+    <string name="error_register_mail_unique">Cette adresse mail est déjà utilisée</string>
+    <string name="error_register_username_unique">Ce nom d\'utilisateur est déjà pris</string>
+    <string name="expired_request">demande expirée</string>
+    <string name="login_empty_fields">Completez les deux champs</string>
+    <string name="welcomeMessage">Bienvenue </string>
+    <string name="error_user_data_exception">Erreur survenue lors de l\'accès à vos données personnelles</string>
+    <string name="error_get_all_events_exception">Erreur survenue lors du chargement des évènements</string>
+    <string name="error_get_all_gardens_exception">Erreur survenue lors du chargement des jardins</string>
+    <string name="errorMsgFormatGO">Invalide, n\'utilisez que des lettres</string>
+    <string name="phone_number_label">Numéro de téléphone</string>
+    <string name="error_format_phoneNumber">Respectez le format 0412345678</string>
 </resources>

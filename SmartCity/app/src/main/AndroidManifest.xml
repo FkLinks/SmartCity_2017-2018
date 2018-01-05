@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.MainActivity">
+        <activity android:name=".Controller.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,18 +24,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".View.LoginActivity"
+            android:name=".Controller.LoginActivity"
             android:label="@string/loginActivityLabel"
-            android:parentActivityName=".View.MainActivity" />
+            android:parentActivityName=".Controller.MainActivity" />
         <activity
-            android:name=".View.RegisterActivity"
+            android:name=".Controller.RegisterActivity"
             android:label="@string/registrationActivityLabel"
-            android:parentActivityName=".View.LoginActivity" />
-        <activity android:name=".View.HomeActivity" />
+            android:parentActivityName=".Controller.LoginActivity" />
+        <activity android:name=".Controller.HomeActivity" />
         <activity
-            android:name=".View.GardensActivity"
+            android:name=".Controller.GardensActivity"
             android:label="@string/gardensActivityName"
-            android:parentActivityName=".View.HomeActivity" />
+            android:parentActivityName=".Controller.HomeActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -45,43 +45,43 @@
             android:value="barcode" />
 
         <activity
-            android:name=".View.ScanActivity"
+            android:name=".Controller.ScanActivity"
             android:label="@string/scannerActivityLabel">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.henallux.smartcity.View.HomeActivity" />
+                android:value="com.henallux.smartcity.Controller.HomeActivity" />
         </activity>
         <activity
-            android:name=".View.GardensInformationActivity"
+            android:name=".Controller.GardensInformationActivity"
             android:label="@string/infosLabelActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.henallux.smartcity.View.GardensActivity" />
+                android:value="com.henallux.smartcity.Controller.GardensActivity" />
         </activity>
         <activity
-            android:name=".View.PlantInformationActivity"
+            android:name=".Controller.PlantInformationActivity"
             android:label="@string/infosLabelActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.henallux.smartcity.View.ScanActivity" />
+                android:value="com.henallux.smartcity.Controller.ScanActivity" />
         </activity>
         <activity
-            android:name=".View.AboutActivity"
+            android:name=".Controller.AboutActivity"
             android:label="@string/about"
-            android:parentActivityName=".View.HomeActivity" />
+            android:parentActivityName=".Controller.HomeActivity" />
         <activity
-            android:name=".View.ContactActivity"
+            android:name=".Controller.ContactActivity"
             android:label="@string/gardensActivityName"
-            android:parentActivityName=".View.HomeActivity" />
+            android:parentActivityName=".Controller.HomeActivity" />
         <activity
-            android:name=".View.UserProfileActivity"
+            android:name=".Controller.UserProfileActivity"
             android:label="@string/profileActivityName"
-            android:parentActivityName=".View.HomeActivity" />
-        <activity android:name=".View.EventsActivity"
-            android:parentActivityName=".View.HomeActivity" />
+            android:parentActivityName=".Controller.HomeActivity" />
+        <activity android:name=".Controller.EventsActivity"
+            android:parentActivityName=".Controller.HomeActivity" />
 
-        <activity android:name=".View.EventsInformationActivity"
-            android:parentActivityName=".View.EventsActivity"/>
+        <activity android:name=".Controller.EventsInformationActivity"
+            android:parentActivityName=".Controller.EventsActivity"/>
     </application>
 
 </manifest>

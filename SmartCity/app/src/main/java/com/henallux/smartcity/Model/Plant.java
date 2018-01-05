@@ -10,8 +10,8 @@ public class Plant implements Serializable {
     }
 
     public Plant(String name, String description) {
-        this.name = name;
-        this.description = description;
+        setName(name);
+        setDescription(description);
     }
 
     public String getName() {

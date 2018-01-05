@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.henallux.smartcity.View.GardensActivity">
+    tools:context="com.henallux.smartcity.Controller.GardensActivity">
 
     <TextView
         android:id="@+id/errorMessageGarden"

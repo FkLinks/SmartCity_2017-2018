@@ -6,14 +6,17 @@ public class TokenReceived {
     private String token;
     private int code;
     private Date expirationDate;
+    private String errorException;
 
     public TokenReceived() {
+        this.errorException = "";
     }
 
-    public TokenReceived(String token, int code, Date expirationDate) {
-        this.token = token;
-        this.code = code;
-        this.expirationDate = expirationDate;
+    public TokenReceived(String token, int code, Date expirationDate, String errorException) {
+        setToken(token);
+        setCode(code);
+        setExpirationDate(expirationDate);
+        setErrorException(errorException);
     }
 
     public String getToken() {
@@ -38,5 +41,13 @@ public class TokenReceived {
 
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
+    }
+
+    public String getErrorException() {
+        return errorException;
+    }
+
+    public void setErrorException(String errorException) {
+        this.errorException = errorException;
     }
 }

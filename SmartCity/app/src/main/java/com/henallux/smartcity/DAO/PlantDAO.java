@@ -1,5 +1,7 @@
 package com.henallux.smartcity.DAO;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.henallux.smartcity.Model.Plant;
 
 import org.json.JSONArray;
@@ -11,12 +13,11 @@ import java.util.ArrayList;
 //http://smartcity-jardin-20172018.azurewebsites.net/api/
 public class PlantDAO {
     public Plant jsonToPlant(String stringJSON) throws Exception{
-        Plant plant;
-
         JSONArray jsonArray = new JSONArray(stringJSON);
         JSONObject jsonPlant = jsonArray.getJSONObject(0);
-        plant = new Plant(jsonPlant.getString("name"),jsonPlant.getString("description"));
 
-        return plant;
+        Gson object = new GsonBuilder().create();
+
+        return object.fromJson(jsonPlant.toString(), Plant.class);
     }
 }

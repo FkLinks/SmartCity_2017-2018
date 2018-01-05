@@ -41,9 +41,9 @@
     <string name="gardensActivityName">The Gardens</string>
     <string name="infosLabelActivity">Informations</string>
     <string name="RequiredForm">Required</string>
-    <string name="errorMsgFormatEmail">Respectez le format exemple@ex.com</string>
-    <string name="errorMsgFormatBirthdate">Respectez le format yyyy-mm-dd</string>
-    <string name="errorMsgFormatPassword">Doit contenir au moins 6 caracteres</string>
+    <string name="errorMsgFormatEmail">Respect format exemple@ex.com</string>
+    <string name="errorMsgFormatBirthdate">Respect format yyyy-mm-dd</string>
+    <string name="errorMsgFormatPassword">Must contain at least 6 characters</string>
     <string name="name_of_the_app_label">Name of the app :</string>
     <string name="descriptionLabel">Description</string>
     <string name="cadre_explanation">Fait dans le cadre du projet SmartCity 2017</string>
@@ -71,7 +71,7 @@
     <string name="profileActivityName">Profile</string>
     <string name="registerFailed">Register failed</string>
     <string name="connectionError">Error while connecting</string>
-    <string name="registerSuccessful">Register successful ! Connect now…</string>
+    <string name="registerSuccessful">Register successful !</string>
     <string name="errorsInFormEncountered">Errors encountered</string>
     <string name="dateStartEventLabel">Aura lieu à partir du</string>
     <string name="auEventTimeLabel"> until </string>
@@ -81,4 +81,16 @@
     <string name="connectionMessage">You must have an internet connection to acces this content.</string>
     <string name="invalid_username_password">password or username invalid</string>
     <string name="json_exception_encountered">Problem encountered with Json</string>
+    <string name="error_registering_user">errors encountered while attempting to register</string>
+    <string name="error_register_mail_unique">This email address is already used</string>
+    <string name="error_register_username_unique">This user name is already used</string>
+    <string name="expired_request">Expired request</string>
+    <string name="login_empty_fields">Complete both fields</string>
+    <string name="welcomeMessage">Welcome </string>
+    <string name="error_user_data_exception">Error while attempting to access your personal data</string>
+    <string name="error_get_all_events_exception">Error caught while attempting to load events</string>
+    <string name="error_get_all_gardens_exception">Error caught while attempting to load all gardens</string>
+    <string name="errorMsgFormatGO">Invalid, please use only letters</string>
+    <string name="phone_number_label">Phone number</string>
+    <string name="error_format_phoneNumber">Respect format 0412345678</string>
 </resources>

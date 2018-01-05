@@ -1,1 +1,1 @@
-C:\Users\Thomas\Desktop\BackOffice-SmartCity\BackOffice-SmartCity\BackOffice-SmartCity.csproj;x86
+C:\Users\Quentin\Documents\GitHub\SmartCity_2017-2018\BackOffice-SmartCity\BackOffice-SmartCity\BackOffice-SmartCity.csproj;x86

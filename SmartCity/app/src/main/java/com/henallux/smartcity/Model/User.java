@@ -1,25 +1,34 @@
 package com.henallux.smartcity.Model;
 
+import android.support.annotation.Nullable;
+
 import java.io.Serializable;
+import java.util.Date;
 
 public class User implements Serializable {
     private String UserName;
     private String Password;
     private String Email;
-    private String sex;
-    private String birthdate;
-    private String geographicOrigins;
+    private char Sex;
+    private Date Birthdate;
+
+    @Nullable
+    private String GeographicOrigins;
+
+    @Nullable
+    private String PhoneNumber;
 
     public User() {
     }
 
-    public User(String userName, String password, String email, String birthdate, String sex, String GeographicOrigins) {
+    public User(String userName, String password, String email, Date Birthdate, char sex, String GeographicOrigins, String PhoneNumber) {
         setUserName(userName);
         setPassword(password);
         setEmail(email);
-        setBirthDate(birthdate);
+        setBirthdate(Birthdate);
         setSex(sex);
         setGeographicOrigins(GeographicOrigins);
+        setPhoneNumber(PhoneNumber);
     }
 
     public String getUserName() {
@@ -38,30 +47,31 @@ public class User implements Serializable {
         this.Email = email;
     }
 
-    public String getSex() {
-        return sex;
+    public char getSex() {
+        return Sex;
     }
 
-    public void setSex(String sex) {
-        if(sex.equals("M") || sex.equals("F")) {
-            this.sex = sex;
+    public void setSex(char sex) {
+        if(sex=='M' || sex=='F') {
+            this.Sex = sex;
         }
     }
 
-    public String getBirthDate() {
-        return birthdate;
+    public Date getBirthdate() {
+        return Birthdate;
     }
 
-    public void setBirthDate(String birthdate) {
-        this.birthdate = birthdate;
+    public void setBirthdate(Date birthdate) {
+        this.Birthdate = birthdate;
     }
 
+    @Nullable
     public String getGeographicOrigins() {
-        return geographicOrigins;
+        return GeographicOrigins;
     }
 
-    public void setGeographicOrigins(String geographicOrigins) {
-        this.geographicOrigins = geographicOrigins;
+    public void setGeographicOrigins(@Nullable String geographicOrigins) {
+        this.GeographicOrigins = geographicOrigins;
     }
 
     public String getPassword() {
@@ -72,5 +82,14 @@ public class User implements Serializable {
         if(password.length() >= 6) {
             this.Password = password;
         }
+    }
+
+    @Nullable
+    public String getPhoneNumber() {
+        return PhoneNumber;
+    }
+
+    public void setPhoneNumber(@Nullable String phoneNumber) {
+        PhoneNumber = phoneNumber;
     }
 }

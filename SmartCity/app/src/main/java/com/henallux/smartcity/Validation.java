@@ -5,8 +5,8 @@ import android.widget.EditText;
 import java.util.regex.Pattern;
 
 public class Validation {
-    
-    public static boolean isEmailAdressValid(EditText editText, String regex, String errorMsg, String isEmptyMsg, Boolean required){
+
+    /*public static boolean isEmailAdressValid(EditText editText, String regex, String errorMsg, String isEmptyMsg, Boolean required){
         return isValid(editText, regex, errorMsg, isEmptyMsg, required);
     }
 
@@ -18,7 +18,11 @@ public class Validation {
         return isValid(editText, regex, errorMsg, isEmptyMsg, required);
     }
 
-    private static boolean isValid(EditText editText, String regex, String errorMsg, String isEmptyMsg, Boolean required) {
+    public static boolean isGeographicOriginValid(EditText editText, String regex, String errorMsg, String isEmptyMsg, Boolean required){
+        return isValid(editText, regex, errorMsg, isEmptyMsg, required);
+    }*/
+
+    public static boolean isValid(EditText editText, String regex, String errorMsg, String isEmptyMsg, Boolean required) {
         String text = editText.getText().toString().trim();
 
         editText.setError(null);

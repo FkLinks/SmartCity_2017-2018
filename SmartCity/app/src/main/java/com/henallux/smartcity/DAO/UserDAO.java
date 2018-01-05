@@ -3,6 +3,8 @@ package com.henallux.smartcity.DAO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.henallux.smartcity.Exceptions.LoginUserException;
+import com.henallux.smartcity.Exceptions.RegisterUserException;
+import com.henallux.smartcity.Exceptions.ShowInfosUserException;
 import com.henallux.smartcity.Model.TokenReceived;
 import com.henallux.smartcity.Model.User;
 
@@ -11,8 +13,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -60,40 +64,43 @@ public class UserDAO {
             tokenReceivedCode.setToken(tokenReceived.getString("access_token"));
 
             if(!tokenReceivedCode.getToken().equals("")){
-                tokenReceivedCode.setCode(200);
+                tokenReceivedCode.setCode(connection.getResponseCode());
 
-                tokenReceivedCode.setExpirationDate(getExpirationDateForToken (tokenReceived));
+                tokenReceivedCode.setExpirationDate(getExpirationDateForToken(tokenReceived));
             }
         }
         catch (IOException ioe){
             throw new LoginUserException();
         }
+        catch (JSONException e) {
+            e.getStackTrace();
+        }
+        catch (Exception e) {
+            e.getStackTrace();
+        }
 
         return tokenReceivedCode;
     }
 
-    private Date getExpirationDateForToken (JSONObject tokenReceived){
+    private Date getExpirationDateForToken (JSONObject tokenReceived)throws JSONException{
         DateFormat dateFormatForToken = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.FRENCH);
         Date currentDate = new Date();
-        Date expirationDate = new Date();
+        Date expirationDate;
 
-        try{
-            int durationOfToken = Integer.parseInt(tokenReceived.getString("expires_in"));
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(currentDate);
-            calendar.add(Calendar.SECOND, durationOfToken);
+        int durationOfToken = Integer.parseInt(tokenReceived.getString("expires_in"));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        calendar.add(Calendar.SECOND, durationOfToken);
 
-            expirationDate = calendar.getTime();
-            dateFormatForToken.format(expirationDate);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+        expirationDate = calendar.getTime();
+        dateFormatForToken.format(expirationDate);
+
         return expirationDate;
     }
 
-    public int registerUser(User user) throws Exception{
-        int codeReceived = 0;
+    public int registerUser(User user) throws RegisterUserException, JSONException{
+        JSONObject tokenReceived;
+        int code;
         try{
             URL url = new URL("http://smartcity-jardin-20172018.azurewebsites.net/api/Account");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -103,40 +110,47 @@ public class UserDAO {
             connection.setRequestProperty("Accept", "application/json");
 
             connection.setDoOutput(true);
-            //connection.setDoInput(true);
+            connection.setDoInput(true);
 
             connection.connect();
 
             OutputStream outputStream = connection.getOutputStream();
             OutputStreamWriter writer = new OutputStreamWriter(outputStream);
 
-            Gson object = new GsonBuilder().create();
+            Gson object = new GsonBuilder()
+                    .setDateFormat("yyyy-MM-dd")
+                    .serializeNulls()
+                    .create();
             String jsonUser = object.toJson(user);
 
             writer.write(jsonUser);
             writer.flush();
             writer.close();
 
-            /*InputStream inputStream = new BufferedInputStream(connection.getInputStream());
-            String token = convertStreamToString(inputStream);*/
+            InputStream inputStream;
+            /*if(connection.getResponseCode()>=400 && connection.getResponseCode() <= 499){
+                inputStream = new BufferedInputStream(connection.getErrorStream());
+            }
+            else {*/
+                inputStream = new BufferedInputStream(connection.getInputStream());
+            //}
+
+            code=connection.getResponseCode();
+
+            String token = convertStreamToString(inputStream);
 
             outputStream.close();
             connection.disconnect();
-/*
-            JSONObject tokenReceived = new JSONObject(token);*/
-
-            /*if(tokenReceived.getString("ReasonPhrase").equals("OK")){*/
-                codeReceived = 200;
-            //}
+            tokenReceived = new JSONObject(token);
         }
-        catch (Exception e){
-            e.printStackTrace();
+        catch (IOException e){
+            throw new RegisterUserException();
         }
 
-        return codeReceived;
+        return code; //tokenReceived.getInt("StatusCode");
     }
 
-    public User getUserByName(String userName, String token) throws Exception{
+    public User getUserByName(String userName, String token) throws ShowInfosUserException, JSONException{
         String stringJSON = "";
 
         try {
@@ -146,25 +160,25 @@ public class UserDAO {
             connection.setRequestProperty("Authorization", "Bearer" + token);
             connection.setRequestProperty("Accept", "application/json");
 
-            connection.setDoInput(true);
-
-            connection.connect();
-
             InputStream inputStream = new BufferedInputStream(connection.getInputStream());
             stringJSON = convertStreamToString(inputStream);
         }
-        catch (Exception e){
-            e.getStackTrace();
+        catch (IOException e){
+            throw new ShowInfosUserException();
         }
         return jsonToUser(stringJSON);
     }
 
-    private User jsonToUser(String stringJSON) throws Exception{
+    private User jsonToUser(String stringJSON) throws JSONException{
         JSONArray jsonArray = new JSONArray(stringJSON);
         JSONObject jsonUser = jsonArray.getJSONObject(0);
 
+        //DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+        //Date birthDate = df.parse(jsonUser.getString("BirthDate"));
+
         Gson object = new GsonBuilder().create();
-        //new User(jsonUser.getString("UserName"), jsonUser.getString("Password"), jsonUser.getString("Email"), jsonUser.getString("Sex"), jsonUser.getString("BirthDate"), jsonUser.getString("GeographicOrigins"));
+        //User user = new User(jsonUser.getString("UserName"), jsonUser.getString("Password"), jsonUser.getString("Email"), birthDate, jsonUser.getString("Sex"), jsonUser.getString("GeographicOrigins"));
 
         return object.fromJson(jsonUser.toString(), User.class);
     }

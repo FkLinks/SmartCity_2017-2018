@@ -1,12 +1,17 @@
 package com.henallux.smartcity.DAO;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.henallux.smartcity.Exceptions.GetAllGardensException;
 import com.henallux.smartcity.Model.Garden;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -18,18 +23,37 @@ import static com.henallux.smartcity.Constants.convertStreamToString;
 //URL de base pour db azur :
 //http://smartcity-jardin-20172018.azurewebsites.net/api/
 public class GardenDAO {
-    public ArrayList<Garden> getAllGardens() throws Exception{
-        URL url = new URL("http://smartcity-jardin-20172018.azurewebsites.net/api/Gardens");
-        URLConnection connection = url.openConnection();
+    public ArrayList<Garden> getAllGardens() throws GetAllGardensException, JSONException{
+        String stringJSON;
+        try {
+            URL url = new URL("http://smartcity-jardin-20172018.azurewebsites.net/api/Gardens");
+            URLConnection connection = url.openConnection();
 
-        InputStream inputStream = new BufferedInputStream(connection.getInputStream());
-        String stringJSON = convertStreamToString(inputStream);
-
+            InputStream inputStream = new BufferedInputStream(connection.getInputStream());
+            stringJSON = convertStreamToString(inputStream);
+        }
+        catch (IOException e){
+            throw new GetAllGardensException();
+        }
         return jsonToGardens(stringJSON);
     }
 
-    private ArrayList<Garden> jsonToGardens(String stringJSON) throws Exception{
+    private ArrayList<Garden> jsonToGardens(String stringJSON) throws JSONException{
         ArrayList<Garden> gardens = new ArrayList<>();
+
+        JSONArray jsonArray = new JSONArray(stringJSON);
+
+        Gson object = new GsonBuilder().create();
+        for(int i = 0; i<jsonArray.length();i++){
+            JSONObject jsonGarden = jsonArray.getJSONObject(i);
+
+            gardens.add(object.fromJson(jsonGarden.toString(), Garden.class));
+        }
+        return gardens;
+    }
+}
+
+        /*ArrayList<Garden> gardens = new ArrayList<>();
         Garden garden;
         JSONArray jsonArray = new JSONArray(stringJSON);
         for(int i = 0; i<jsonArray.length();i++){
@@ -39,6 +63,4 @@ public class GardenDAO {
 
             gardens.add(garden);
         }
-        return gardens;
-    }
-}
+        return gardens;*/
