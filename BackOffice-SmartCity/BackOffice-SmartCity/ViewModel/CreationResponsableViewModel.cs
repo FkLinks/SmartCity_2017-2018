@@ -73,7 +73,7 @@ namespace BackOffice_SmartCity.ViewModel
 
         public async Task PostResponsableAsync(Responsable responsable)
         {
-            var service = new ResponsibleController();
+            ResponsibleController service = new ResponsibleController();
             var respon = await service.PostResponsable(responsable);
 
             if (respon.Equals("Created"))
@@ -83,7 +83,7 @@ namespace BackOffice_SmartCity.ViewModel
             }
             else
             {
-                var messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR)
+                MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR)
                 {
                     Title = Constantes.TITRE_ERREUR
                 };

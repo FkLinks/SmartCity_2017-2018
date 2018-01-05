@@ -53,7 +53,7 @@ namespace BackOffice_SmartCity.ViewModel
         
         public async Task GetTokens()
         {
-            var service = new AccountController();
+            AccountController service = new AccountController();
             Constantes.TOKEN_ADMIN_PROP = await service.GetTokenAdmin(AdminUWP);
 
             if(Constantes.TOKEN_ADMIN_PROP != null)
@@ -62,7 +62,7 @@ namespace BackOffice_SmartCity.ViewModel
             }
             else
             {
-                var messageDialog = new MessageDialog(Constantes.BAD_CONNECTION)
+                MessageDialog messageDialog = new MessageDialog(Constantes.BAD_CONNECTION)
                 {
                     Title = Constantes.TITRE_ERREUR_CONNECTION
                 };

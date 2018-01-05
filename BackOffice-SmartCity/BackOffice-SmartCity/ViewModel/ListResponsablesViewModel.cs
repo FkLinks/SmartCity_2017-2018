@@ -89,7 +89,7 @@ namespace BackOffice_SmartCity.ViewModel
 
         public async Task InitializeAsync()
         {
-            var service = new ResponsibleController();
+            ResponsibleController service = new ResponsibleController();
             var listeResponsable = await service.GetAllElements();
             Responsable = new ObservableCollection<Responsable>(listeResponsable);
         }
@@ -120,9 +120,9 @@ namespace BackOffice_SmartCity.ViewModel
         {
             if(CanExecute())
             {
-                var service = new ResponsibleController();
+                ResponsibleController service = new ResponsibleController();
 
-                var messageDialog = new MessageDialog(Constantes.MESSAGE_SUPPRESSION + SelectedResponsable.Login + " ?")
+                MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_SUPPRESSION + SelectedResponsable.Login + " ?")
                 {
                     Title = Constantes.TITRE_SUPPRESSION
                 };

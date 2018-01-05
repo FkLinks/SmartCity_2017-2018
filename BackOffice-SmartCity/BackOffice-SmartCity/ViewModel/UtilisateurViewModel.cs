@@ -60,7 +60,7 @@ namespace BackOffice_SmartCity.ViewModel
 
         public async Task InitializeAsync()
         {
-            var service = new AccountController();
+            AccountController service = new AccountController();
             var listeUti = await service.GetAllElements();
             Utilisateur = new ObservableCollection<ApplicationUser>(listeUti);
         }
@@ -91,9 +91,9 @@ namespace BackOffice_SmartCity.ViewModel
         {
             if (CanExecute())
             {
-                var service = new AccountController();
+                AccountController service = new AccountController();
 
-                var messageDialog = new MessageDialog(Constantes.MESSAGE_SUPPRESSION + SelectedUser.UserName + " ?")
+                MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_SUPPRESSION + SelectedUser.UserName + " ?")
                 {
                     Title = Constantes.TITRE_SUPPRESSION
                 };
@@ -105,7 +105,7 @@ namespace BackOffice_SmartCity.ViewModel
                 {
                     if(SelectedUser.UserName.Contains("Admin"))
                     {
-                        var messageDialogErreur = new MessageDialog(Constantes.MESSAGE_ERREUR_DEL_ADMIN)
+                        MessageDialog messageDialogErreur = new MessageDialog(Constantes.MESSAGE_ERREUR_DEL_ADMIN)
                         {
                             Title = Constantes.TITRE_ERREUR_DEL_ADMIN
                         };

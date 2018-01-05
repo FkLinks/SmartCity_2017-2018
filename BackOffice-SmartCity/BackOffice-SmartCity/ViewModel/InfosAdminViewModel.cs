@@ -104,17 +104,14 @@ namespace BackOffice_SmartCity.ViewModel
 
         public async Task InitializeAsync()
         {
-            var serviceAccount = new AccountController();
-            var countUsers = await serviceAccount.CountUsers();
-            NbUsers = countUsers;
+            AccountController serviceAccount = new AccountController();
+            NbUsers = await serviceAccount.CountUsers();
 
-            var serviceGarden = new GardenController();
-            var countGardens = await serviceGarden.CountGardens();
-            NbGardens = countGardens;
+            GardenController serviceGarden = new GardenController();
+            NbGardens = await serviceGarden.CountGardens();
 
-            var serviceRespon = new ResponsibleController();
-            var countRespon = await serviceRespon.CountRespon();
-            NbRespon = countRespon;
+            ResponsibleController serviceRespon = new ResponsibleController();
+            NbRespon = await serviceRespon.CountRespon();
         }
 
     }

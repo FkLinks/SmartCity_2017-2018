@@ -88,7 +88,7 @@ namespace BackOffice_SmartCity.ViewModel
 
         public async Task InitializeAsync()
         {
-            var service = new GardenController();
+            GardenController service = new GardenController();
             var listeGarden = await service.GetAllElements();
             Jardin = new ObservableCollection<Jardin>(listeGarden);
         }
@@ -119,9 +119,9 @@ namespace BackOffice_SmartCity.ViewModel
         {
             if (CanExecute())
             {
-                var service = new GardenController();
+                GardenController service = new GardenController();
 
-                var messageDialog = new MessageDialog(Constantes.MESSAGE_SUPPRESSION + SelectedGarden.Name + " ?")
+                MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_SUPPRESSION + SelectedGarden.Name + " ?")
                 {
                     Title = Constantes.TITRE_SUPPRESSION
                 };

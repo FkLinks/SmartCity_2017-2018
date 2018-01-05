@@ -71,7 +71,7 @@ namespace BackOffice_SmartCity.ViewModel
 
         public async Task PostJardinAsync(Jardin jardin)
         {
-            var service = new GardenController();
+            GardenController service = new GardenController();
             var createGarden = await service.PostGarden(jardin);
 
             if (createGarden.Equals("Created"))
@@ -81,7 +81,7 @@ namespace BackOffice_SmartCity.ViewModel
             }
             else
             {
-                var messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR)
+                MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR)
                 {
                     Title = Constantes.TITRE_ERREUR
                 };

@@ -60,11 +60,11 @@ namespace BackOffice_SmartCity.ViewModel
 
         public async Task PutRespon()
         {
-            var service = new ResponsibleController();
+            ResponsibleController service = new ResponsibleController();
             var delResp = await service.PutResponsable(SelectedRespon);
             if (delResp.Equals("No Content"))
             {
-                var messageDialog = new MessageDialog(Constantes.MESSAGE_OK_MODIF)
+                MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_OK_MODIF)
                 {
                     Title = Constantes.TITRE_MODIF_OK
                 };
@@ -73,7 +73,7 @@ namespace BackOffice_SmartCity.ViewModel
             }
             else
             {
-                var messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR_MODIF)
+                MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR_MODIF)
                 {
                     Title = Constantes.TITRE_ERREUR_MODIF
                 };
