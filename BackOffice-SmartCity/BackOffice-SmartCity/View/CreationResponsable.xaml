@@ -33,11 +33,14 @@
                 <TextBox Text="{Binding NewResponsable.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
                 <PasswordBox Password="{Binding NewResponsable.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,10"></PasswordBox>
                 <TextBox Text="{Binding NewResponsable.Age, Mode=TwoWay, Converter={StaticResource Converter}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
-                <TextBox Text="{Binding NewResponsable.Sex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
-                <!--<ComboBox HorizontalAlignment="Right" Width="200" Margin="50,10">
-                    <ComboBoxItem DataContext="{Binding NewResponsable.Sex, Mode=TwoWay}" IsSelected="True">H</ComboBoxItem>
-                    <ComboBoxItem DataContext="{Binding NewResponsable.Sex, Mode=TwoWay}">F</ComboBoxItem>
-                </ComboBox>-->
+                <ComboBox ItemsSource="{Binding Sex, Mode=OneWay}" SelectedValue="{Binding Sex}" SelectedItem="{Binding SelectedSex, Mode=TwoWay}" HorizontalAlignment="Right" Width="200" Margin="50,10">
+                    <ComboBoxItem IsSelected="True">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">M</TextBlock>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">F</TextBlock>
+                    </ComboBoxItem>
+                </ComboBox>
                 <TextBox Text="{Binding NewResponsable.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,10"></TextBox>
             </StackPanel>
         </StackPanel>

@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Popups;
@@ -27,14 +28,52 @@ namespace BackOffice_SmartCity.ViewModel
                     return;
                 }
                 _newResponsable = value;
-                RaisePropertyChanged("NewJardin");
+                RaisePropertyChanged("NewResponsable");
             }
         }
+
+        #region ComboBox_Sex
+
+        private ObservableCollection<String> _sex;
+        public ObservableCollection<String> Sex
+        {
+            get
+            {
+                return _sex;
+            }
+
+            set
+            {
+                if (_sex == value)
+                {
+                    return;
+                }
+                _sex = value;
+                RaisePropertyChanged("Sex");
+            }
+        }
+
+        private String _selectedSex;
+        public String SelectedSex
+        {
+            get { return _selectedSex; }
+            set
+            {
+                _selectedSex = value;
+                if (_selectedSex != null)
+                {
+                    RaisePropertyChanged("SelectedSex");
+                }
+            }
+        }
+
+        #endregion
 
         public CreationResponsableViewModel(INavigationService navigationService)
         {
             this.navigationService = navigationService;
             NewResponsable = new Responsable();
+            Sex = new ObservableCollection<String>(Constantes.Sex);
         }
 
         public ICommand NavigateToNextPage
@@ -74,12 +113,13 @@ namespace BackOffice_SmartCity.ViewModel
         public async Task PostResponsableAsync(Responsable responsable)
         {
             ResponsibleController service = new ResponsibleController();
+            responsable.Sex = SelectedSex;
             var respon = await service.PostResponsable(responsable);
 
             if (respon.Equals("Created"))
             {                
                 navigationService.NavigateTo("Acceuil");
-                NewResponsable = null;
+                NewResponsable = new Responsable();
             }
             else
             {

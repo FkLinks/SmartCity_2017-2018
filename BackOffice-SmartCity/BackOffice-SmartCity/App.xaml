@@ -7,7 +7,7 @@
     RequestedTheme="Light">
 
     <Application.Resources>
-        <vm:ViewModelLocator x:Key="Locator"/>        <!-- On définit une clé 'locator' qui sera le raccourxi de ViewModelLocator-->
+        <vm:ViewModelLocator x:Key="Locator"/>        <!-- On définit une clé 'locator' qui sera le raccourci de ViewModelLocator-->
     </Application.Resources>
 
 </Application>

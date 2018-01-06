@@ -15,7 +15,7 @@ namespace BackOffice_SmartCity.Service
 
         public async Task<IEnumerable<Jardin>> GetAllElements()
         {
-            var stringInput = await http.GetStringAsync(new Uri(Constantes.API_GARDENS));
+            string stringInput = await http.GetStringAsync(new Uri(Constantes.API_GARDENS));
             Jardin[] elements = JsonConvert.DeserializeObject<Jardin[]>(stringInput);
 
             return elements;
@@ -44,7 +44,7 @@ namespace BackOffice_SmartCity.Service
         public async Task<int> CountGardens()
         {
             http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(Constantes.BEARER, Constantes.TOKEN_ADMIN_PROP);
-            var nbGardens = await http.GetStringAsync(new Uri(Constantes.API_COUNTGARDENS));
+            string nbGardens = await http.GetStringAsync(new Uri(Constantes.API_COUNTGARDENS));
             return JsonConvert.DeserializeObject<int>(nbGardens);
         }
     }

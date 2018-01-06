@@ -16,6 +16,38 @@ namespace BackOffice_SmartCity.ViewModel
     {
         private INavigationService navigationService;
         private Jardin _selectedJardin;
+        private ObservableCollection<Jardin> _jardin = null;
+
+        public ObservableCollection<Jardin> Jardin
+        {
+            get
+            {
+                return _jardin;
+            }
+
+            set
+            {
+                if (_jardin == value)
+                {
+                    return;
+                }
+                _jardin = value;
+                RaisePropertyChanged("Jardin");
+            }
+        }
+
+        public Jardin SelectedGarden
+        {
+            get { return _selectedJardin; }
+            set
+            {
+                _selectedJardin = value;
+                if (_selectedJardin != null)
+                {
+                    RaisePropertyChanged("SelectedGarden");
+                }
+            }
+        }
 
         public ListJardinViewModel(INavigationService navigationService)
         {
@@ -66,30 +98,10 @@ namespace BackOffice_SmartCity.ViewModel
             navigationService.GoBack();
         }
 
-        private ObservableCollection<Jardin> _jardin = null;
-
-        public ObservableCollection<Jardin> Jardin
-        {
-            get
-            {
-                return _jardin;
-            }
-
-            set
-            {
-                if (_jardin == value)
-                {
-                    return;
-                }
-                _jardin = value;
-                RaisePropertyChanged("Jardin");
-            }
-        }
-
         public async Task InitializeAsync()
         {
             GardenController service = new GardenController();
-            var listeGarden = await service.GetAllElements();
+            IEnumerable<Jardin> listeGarden = await service.GetAllElements();
             Jardin = new ObservableCollection<Jardin>(listeGarden);
         }
 
@@ -100,19 +112,6 @@ namespace BackOffice_SmartCity.ViewModel
                 return new RelayCommand(async () => await DeleteGarden());
             }
 
-        }
-
-        public Jardin SelectedGarden
-        {
-            get { return _selectedJardin; }
-            set
-            {
-                _selectedJardin = value;
-                if (_selectedJardin != null)
-                {
-                    RaisePropertyChanged("SelectedGarden");
-                }
-            }
         }
 
         public async Task DeleteGarden()
@@ -131,7 +130,7 @@ namespace BackOffice_SmartCity.ViewModel
 
                 if ((int)res.Id == 0)
                 {
-                    var delResp = service.DeleteGarden(SelectedGarden.NumGarden);
+                    Task delResp = service.DeleteGarden(SelectedGarden.NumGarden);
                     await InitializeAsync();
                 }                
             }

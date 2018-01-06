@@ -19,7 +19,7 @@
         </StackPanel>
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="320" >
-            <ListView ItemsSource="{Binding Responsable, Mode=TwoWay}" SelectedItem="{Binding SelectedResponsable, Mode=TwoWay}" BorderBrush="NavajoWhite" HorizontalAlignment="Center">
+            <ListView ItemsSource="{Binding Responsable, Mode=TwoWay}" SelectedItem="{Binding SelectedResponsable, Mode=TwoWay}" BorderBrush="NavajoWhite" HorizontalAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Login}" Foreground="Black" FontSize="16" Padding="15"/>

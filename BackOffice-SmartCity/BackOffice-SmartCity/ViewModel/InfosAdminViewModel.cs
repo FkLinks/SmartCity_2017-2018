@@ -96,10 +96,9 @@ namespace BackOffice_SmartCity.ViewModel
             }
         }
 
-        private async void GoToAccueil()
+        private void GoToAccueil()
         {            
             navigationService.NavigateTo("Acceuil");
-            await InitializeAsync();
         }
 
         public async Task InitializeAsync()

@@ -16,7 +16,7 @@ namespace BackOffice_SmartCity.Service
         public async Task<IEnumerable<Responsable>> GetAllElements()
         {
             http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(Constantes.BEARER, Constantes.TOKEN_ADMIN_PROP);
-            var stringInput = await http.GetStringAsync(new Uri(Constantes.API_RESPONSIBLES));
+            string stringInput = await http.GetStringAsync(new Uri(Constantes.API_RESPONSIBLES));
             Responsable[] elements = JsonConvert.DeserializeObject<Responsable[]>(stringInput);
 
             return elements;
@@ -54,7 +54,7 @@ namespace BackOffice_SmartCity.Service
         public async Task<int> CountRespon()
         {
             http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(Constantes.BEARER, Constantes.TOKEN_ADMIN_PROP);
-            var nbRespon = await http.GetStringAsync(new Uri(Constantes.API_COUNTRESPON));
+            string nbRespon = await http.GetStringAsync(new Uri(Constantes.API_COUNTRESPON));
             return JsonConvert.DeserializeObject<int>(nbRespon);
         }
     }

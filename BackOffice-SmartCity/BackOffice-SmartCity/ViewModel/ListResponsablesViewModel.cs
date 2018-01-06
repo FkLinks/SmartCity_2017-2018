@@ -18,6 +18,38 @@ namespace BackOffice_SmartCity.ViewModel
     {
         private INavigationService navigationService;
         private Responsable _selectedResponsable;
+        private ObservableCollection<Responsable> _responsible = null;
+
+        public ObservableCollection<Responsable> Responsable
+        {
+            get
+            {
+                return _responsible;
+            }
+
+            set
+            {
+                if (_responsible == value)
+                {
+                    return;
+                }
+                _responsible = value;
+                RaisePropertyChanged("Responsable");
+            }
+        }
+
+        public Responsable SelectedResponsable
+        {
+            get { return _selectedResponsable; }
+            set
+            {
+                _selectedResponsable = value;
+                if (_selectedResponsable != null)
+                {
+                    RaisePropertyChanged("SelectedResponsable");
+                }
+            }
+        }
 
         public ListResponsablesViewModel(INavigationService navigationService)
         {
@@ -67,30 +99,10 @@ namespace BackOffice_SmartCity.ViewModel
             navigationService.GoBack();
         }
 
-        private ObservableCollection<Responsable> _responsible = null;
-
-        public ObservableCollection<Responsable> Responsable
-        {
-            get
-            {
-                return _responsible;
-            }
-
-            set
-            {
-                if (_responsible == value)
-                {
-                    return;
-                }
-                _responsible = value;
-                RaisePropertyChanged("Responsable");
-            }
-        }
-
         public async Task InitializeAsync()
         {
             ResponsibleController service = new ResponsibleController();
-            var listeResponsable = await service.GetAllElements();
+            IEnumerable<Responsable> listeResponsable = await service.GetAllElements();
             Responsable = new ObservableCollection<Responsable>(listeResponsable);
         }
 
@@ -101,19 +113,6 @@ namespace BackOffice_SmartCity.ViewModel
                 return new RelayCommand(async () => await DeleteResponsable());
             }
 
-        }
-
-        public Responsable SelectedResponsable
-        {
-            get { return _selectedResponsable; }
-            set
-            {
-                _selectedResponsable = value;
-                if (_selectedResponsable != null)
-                {
-                    RaisePropertyChanged("SelectedResponsable");
-                }
-            }
         }
 
         public async Task DeleteResponsable()
@@ -132,7 +131,7 @@ namespace BackOffice_SmartCity.ViewModel
 
                 if ((int)res.Id == 0)
                 {
-                    var delResp = service.DeleteRespon(SelectedResponsable.RegistrationNumber);
+                    Task delResp = service.DeleteRespon(SelectedResponsable.RegistrationNumber);
                     await InitializeAsync();
                 }
             }

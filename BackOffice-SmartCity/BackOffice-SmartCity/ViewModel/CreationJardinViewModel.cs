@@ -61,7 +61,12 @@ namespace BackOffice_SmartCity.ViewModel
             }
         }
 
-       public ICommand CreationJardin
+        private void GoTBefore()
+        {
+            navigationService.GoBack();
+        }
+
+        public ICommand CreationJardin
         {
             get
             {
@@ -77,7 +82,7 @@ namespace BackOffice_SmartCity.ViewModel
             if (createGarden.Equals("Created"))
             {
                 navigationService.NavigateTo("Acceuil");
-                NewJardin = null;
+                NewJardin = new Jardin();
             }
             else
             {
@@ -87,11 +92,6 @@ namespace BackOffice_SmartCity.ViewModel
                 };
                 var res = await messageDialog.ShowAsync();
             }
-        }
-
-        private void GoTBefore()
-        {
-            navigationService.GoBack();
         }
     }
 }

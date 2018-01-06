@@ -20,7 +20,7 @@ namespace BackOffice_SmartCity.Service
         public async Task<IEnumerable<ApplicationUser>> GetAllElements()
         {
             http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(Constantes.BEARER, Constantes.TOKEN_ADMIN_PROP);
-            var stringInput = await http.GetStringAsync(new Uri(Constantes.API_ACCOUNT));
+            string stringInput = await http.GetStringAsync(new Uri(Constantes.API_ACCOUNT));
             ApplicationUser[] elements = JsonConvert.DeserializeObject<ApplicationUser[]>(stringInput);
 
             return elements;
@@ -46,7 +46,7 @@ namespace BackOffice_SmartCity.Service
         public async Task<int> CountUsers()
         {
             http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(Constantes.BEARER, Constantes.TOKEN_ADMIN_PROP);
-            var nbUsers = await http.GetStringAsync(new Uri(Constantes.API_COUNTUSERS));
+            string nbUsers = await http.GetStringAsync(new Uri(Constantes.API_COUNTUSERS));
             return JsonConvert.DeserializeObject<int>(nbUsers);
         }
 
@@ -56,7 +56,7 @@ namespace BackOffice_SmartCity.Service
             HttpResponseMessage reponse = await http.PostAsJsonAsync(Constantes.API_JWT, admin);
             if(reponse.IsSuccessStatusCode)
             {
-                var responseContent = await reponse.Content.ReadAsAsync<TokenResponse>();
+                TokenResponse responseContent = await reponse.Content.ReadAsAsync<TokenResponse>();
                 string tokenTemp = responseContent.Access_Token;
                 http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(Constantes.BEARER, tokenTemp);
                 reponse = await http.GetAsync(Constantes.API_ROLES);

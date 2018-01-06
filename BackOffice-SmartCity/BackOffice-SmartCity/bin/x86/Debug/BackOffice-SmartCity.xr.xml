@@ -31,6 +31,7 @@
     <RootPropertyPathName Name="NewResponsable" />
     <RootPropertyPathName Name="PhoneNumber" />
     <RootPropertyPathName Name="Sex" />
+    <RootPropertyPathName Name="SelectedSex" />
     <RootPropertyPathName Name="Age" />
     <RootPropertyPathName Name="Login" />
     <RootPropertyPathName Name="RegistrationNumber" />
@@ -152,6 +153,19 @@
       <RootProperty Name="Height" />
     </RootType>
     <RootType FullName="BackOffice_SmartCity.CreationJardin" />
+    <RootType FullName="Windows.UI.Xaml.Controls.ComboBox">
+      <RootProperty Name="ItemsSource" />
+      <RootProperty Name="SelectedValue" />
+      <RootProperty Name="SelectedItem" />
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Width" />
+      <RootProperty Name="Margin" />
+      <RootProperty Name="Items" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.ComboBoxItem">
+      <RootProperty Name="IsSelected" />
+      <RootProperty Name="Content" />
+    </RootType>
     <RootType FullName="BackOffice_SmartCity.CreationResponsable" />
     <RootType FullName="BackOffice_SmartCity.InfosAdmin" />
     <RootType FullName="Windows.UI.Xaml.Controls.ListView">
@@ -160,6 +174,10 @@
       <RootProperty Name="BorderBrush" />
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="ItemTemplate" />
+    </RootType>
+    <RootType FullName="Windows.UI.Xaml.Controls.ScrollViewer">
+      <RootMethod Name="GetVerticalScrollBarVisibility" />
+      <RootMethod Name="SetVerticalScrollBarVisibility" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.DataTemplate">
       <RootProperty Name="Template" />

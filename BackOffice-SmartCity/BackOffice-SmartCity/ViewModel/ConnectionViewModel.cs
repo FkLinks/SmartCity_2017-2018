@@ -46,11 +46,6 @@ namespace BackOffice_SmartCity.ViewModel
             }
         }    
 
-        private void GoToAcceuil()
-        {
-            navigationService.NavigateTo("Acceuil");
-        }
-        
         public async Task GetTokens()
         {
             AccountController service = new AccountController();

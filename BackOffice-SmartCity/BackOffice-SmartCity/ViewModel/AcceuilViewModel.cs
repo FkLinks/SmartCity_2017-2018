@@ -27,11 +27,11 @@ namespace BackOffice_SmartCity.ViewModel
         {
             get
             {
-                return new RelayCommand(() => GoToChoix());
+                return new RelayCommand(() => GoToResponsable());
             }
         }
 
-        private void GoToChoix()
+        private void GoToResponsable()
         {
             navigationService.NavigateTo("ListResponsables");
         }
@@ -40,11 +40,11 @@ namespace BackOffice_SmartCity.ViewModel
         {
             get
             {
-                return new RelayCommand(() => GoToEdit()); 
+                return new RelayCommand(() => GoToJardin()); 
             }
         }
 
-        private void GoToEdit()
+        private void GoToJardin()
         {
             navigationService.NavigateTo("ListJardin");
         }
@@ -53,11 +53,11 @@ namespace BackOffice_SmartCity.ViewModel
         {
             get
             {
-                return new RelayCommand(() => GoToUti());
+                return new RelayCommand(() => GoToUtilisateur());
             }
         }
 
-        private void GoToUti()
+        private void GoToUtilisateur()
         {
             navigationService.NavigateTo("Utilisateur");
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -34,6 +35,8 @@ namespace BackOffice_SmartCity.Service
         public const String API_COUNTGARDENS = "http://smartcity-jardin-20172018.azurewebsites.net/api/Gardens/Count/Gardens";
         public const String API_COUNTRESPON = "http://smartcity-jardin-20172018.azurewebsites.net/api/Responsibles/Count/Responsibles";
         public const String API_ROLES = "http://smartcity-jardin-20172018.azurewebsites.net/api/Account/Roles";
+
+        public static String[] Sex = { "M", "F" };
 
         private static String TOKEN_ADMIN = null;
         public static String TOKEN_ADMIN_PROP

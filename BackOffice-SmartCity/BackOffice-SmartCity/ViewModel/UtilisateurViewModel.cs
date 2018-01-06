@@ -18,6 +18,38 @@ namespace BackOffice_SmartCity.ViewModel
     {
         private INavigationService navigationService;
         private ApplicationUser _selectedUser;
+        private ObservableCollection<ApplicationUser> _utilisateur = null;
+
+        public ObservableCollection<ApplicationUser> Utilisateur
+        {
+            get
+            {
+                return _utilisateur;
+            }
+
+            set
+            {
+                if (_utilisateur == value)
+                {
+                    return;
+                }
+                _utilisateur = value;
+                RaisePropertyChanged("Utilisateur");
+            }
+        }
+
+        public ApplicationUser SelectedUser
+        {
+            get { return _selectedUser; }
+            set
+            {
+                _selectedUser = value;
+                if (_selectedUser != null)
+                {
+                    RaisePropertyChanged("SelectedGarden");
+                }
+            }
+        }
 
         public UtilisateurViewModel(INavigationService navigationService)
         {
@@ -38,30 +70,10 @@ namespace BackOffice_SmartCity.ViewModel
             navigationService.GoBack();
         }
 
-        private ObservableCollection<ApplicationUser> _utilisateur = null;
-
-        public ObservableCollection<ApplicationUser> Utilisateur
-        {
-            get
-            {
-                return _utilisateur;
-            }
-
-            set
-            {
-                if (_utilisateur == value)
-                {
-                    return; 
-                }
-                _utilisateur = value;
-                RaisePropertyChanged("Utilisateur");
-            }
-        }
-
         public async Task InitializeAsync()
         {
             AccountController service = new AccountController();
-            var listeUti = await service.GetAllElements();
+            IEnumerable<ApplicationUser> listeUti = await service.GetAllElements();
             Utilisateur = new ObservableCollection<ApplicationUser>(listeUti);
         }
 
@@ -72,19 +84,6 @@ namespace BackOffice_SmartCity.ViewModel
                 return new RelayCommand(async () => await DeleteUser());
             }
 
-        }
-
-        public ApplicationUser SelectedUser
-        {
-            get { return _selectedUser; }
-            set
-            {
-                _selectedUser = value;
-                if (_selectedUser != null)
-                {
-                    RaisePropertyChanged("SelectedGarden");
-                }
-            }
         }
 
         public async Task DeleteUser()
