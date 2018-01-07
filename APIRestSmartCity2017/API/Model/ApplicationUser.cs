@@ -8,7 +8,7 @@ namespace APIRestSmartCity2017.Model
 {
     public partial class ApplicationUser : IdentityUser
     {
-        public DateTime? Birthdate { get; set; }     
+        public DateTime Birthdate { get; set; }     
         public string Sex { get; set; }
         public string GeographicOrigins { get; set; }
 
