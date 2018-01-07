@@ -109,7 +109,7 @@ public class RegisterActivity extends AppCompatActivity {
                             birthDate,
                             ((sex.getCheckedRadioButtonId() == R.id.male) ? 'M' : 'F'),
                             (geographicalOrigins.getText().toString().equals("")) ? null : geographicalOrigins.getText().toString(),
-                            phoneNumber.getText().toString());
+                            (phoneNumber.getText().toString().equals("")) ? null : phoneNumber.getText().toString());
 
                     new SubmitRegistration().execute(user);
                 }
@@ -211,6 +211,9 @@ public class RegisterActivity extends AppCompatActivity {
                     break;
                 case 409:
                     Toast.makeText(RegisterActivity.this, R.string.error_register_username_unique, Toast.LENGTH_LONG).show();
+                    break;
+                case 500:
+                    Toast.makeText(RegisterActivity.this, R.string.error_server_encountered, Toast.LENGTH_LONG).show();
                     break;
                 default:
                     Toast.makeText(RegisterActivity.this, tokenReceived.getErrorException(), Toast.LENGTH_LONG).show();

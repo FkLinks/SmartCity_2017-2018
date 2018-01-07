@@ -12,20 +12,18 @@ import org.json.JSONObject;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
 import static com.henallux.smartcity.Constants.convertStreamToString;
+import static com.henallux.smartcity.Constants.URL_API_BASE;
 
-//URL de base pour db azur :
-//http://smartcity-jardin-20172018.azurewebsites.net/api/
 public class EventDAO {
     public ArrayList<Event> getAllEvents() throws GetEventsException, JSONException{
         String stringJSON;
         try {
-            URL url = new URL("http://smartcity-jardin-20172018.azurewebsites.net/api/Events");
+            URL url = new URL(URL_API_BASE +"Events");
             URLConnection connection = url.openConnection();
 
             InputStream inputStream = new BufferedInputStream(connection.getInputStream());
@@ -45,7 +43,7 @@ public class EventDAO {
         for(int i = 0; i<jsonArray.length();i++){
             JSONObject jsonGarden = jsonArray.getJSONObject(i);
 
-            Gson object = new GsonBuilder().create();
+            Gson object = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 
             events.add(object.fromJson(jsonGarden.toString(), Event.class));
         }

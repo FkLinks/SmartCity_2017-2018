@@ -61,6 +61,7 @@
     <string name="error_get_all_events_exception">Erreur survenue lors du chargement des évènements</string>
     <string name="error_get_all_gardens_exception">Erreur survenue lors du chargement des jardins</string>
     <string name="errorMsgFormatGO">Invalide, n\'utilisez que des lettres</string>
-    <string name="phone_number_label">Numéro de téléphone</string>
+    <string name="phone_number_label">Numéro de téléphone (facultatif)</string>
     <string name="error_format_phoneNumber">Respectez le format 0412345678</string>
+    <string name="error_server_encountered">Un problème est survenu du côté du serveur</string>
 </resources>

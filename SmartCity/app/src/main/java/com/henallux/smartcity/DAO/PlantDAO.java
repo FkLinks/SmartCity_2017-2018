@@ -9,12 +9,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-//URL de base pour db azur :
-//http://smartcity-jardin-20172018.azurewebsites.net/api/
 public class PlantDAO {
     public Plant jsonToPlant(String stringJSON) throws Exception{
-        JSONArray jsonArray = new JSONArray(stringJSON);
-        JSONObject jsonPlant = jsonArray.getJSONObject(0);
+        //JSONArray jsonArray = new JSONArray(stringJSON);
+        JSONObject jsonPlant = new JSONObject(stringJSON);//jsonArray.getJSONObject(0);
 
         Gson object = new GsonBuilder().create();
 

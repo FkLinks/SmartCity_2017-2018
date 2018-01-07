@@ -2,20 +2,33 @@ package com.henallux.smartcity.Model;
 
 import android.support.annotation.Nullable;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class User implements Serializable {
+    @SerializedName("userName")
     private String UserName;
+
+    @SerializedName("password")
     private String Password;
+
+    @SerializedName("email")
     private String Email;
+
+    @SerializedName("sex")
     private char Sex;
+
+    @SerializedName("birtdate")
     private Date Birthdate;
 
     @Nullable
+    @SerializedName("geographicOrigins")
     private String GeographicOrigins;
 
     @Nullable
+    @SerializedName("phoneNumber")
     private String PhoneNumber;
 
     public User() {

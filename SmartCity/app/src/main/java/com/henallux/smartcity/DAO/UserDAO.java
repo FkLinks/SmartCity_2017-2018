@@ -8,35 +8,32 @@ import com.henallux.smartcity.Exceptions.ShowInfosUserException;
 import com.henallux.smartcity.Model.TokenReceived;
 import com.henallux.smartcity.Model.User;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 import static com.henallux.smartcity.Constants.convertStreamToString;
+import static com.henallux.smartcity.Constants.URL_API_BASE;
 
-//URL de base pour db azur :
-//http://smartcity-jardin-20172018.azurewebsites.net/api/
 public class UserDAO {
     public TokenReceived checkUserExist(String login_password) throws LoginUserException, JSONException {
         TokenReceived tokenReceivedCode =new TokenReceived();
         try{
-            URL url = new URL("http://smartcity-jardin-20172018.azurewebsites.net/api/Jwt");
+            URL url = new URL(URL_API_BASE +"Jwt");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             connection.setRequestMethod("POST");
@@ -75,9 +72,6 @@ public class UserDAO {
         catch (JSONException e) {
             e.getStackTrace();
         }
-        catch (Exception e) {
-            e.getStackTrace();
-        }
 
         return tokenReceivedCode;
     }
@@ -99,10 +93,10 @@ public class UserDAO {
     }
 
     public int registerUser(User user) throws RegisterUserException, JSONException{
-        JSONObject tokenReceived;
+        //JSONObject tokenReceived;
         int code;
         try{
-            URL url = new URL("http://smartcity-jardin-20172018.azurewebsites.net/api/Account");
+            URL url = new URL(URL_API_BASE +"Account");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             connection.setRequestMethod("POST");
@@ -127,34 +121,34 @@ public class UserDAO {
             writer.flush();
             writer.close();
 
-            InputStream inputStream;
-            /*if(connection.getResponseCode()>=400 && connection.getResponseCode() <= 499){
-                inputStream = new BufferedInputStream(connection.getErrorStream());
-            }
-            else {*/
-                inputStream = new BufferedInputStream(connection.getInputStream());
-            //}
-
             code=connection.getResponseCode();
 
-            String token = convertStreamToString(inputStream);
+            /*InputStream inputStream;
+            if(connection.getResponseCode()>=400 && connection.getResponseCode() <= 499){
+                inputStream = new BufferedInputStream(connection.getErrorStream());
+            }
+            else {
+                inputStream = new BufferedInputStream(connection.getInputStream());
+            }*/
+
+            //String token = convertStreamToString(inputStream);
 
             outputStream.close();
             connection.disconnect();
-            tokenReceived = new JSONObject(token);
+            //tokenReceived = new JSONObject(token);
         }
         catch (IOException e){
             throw new RegisterUserException();
         }
 
-        return code; //tokenReceived.getInt("StatusCode");
+        return code; //tokenReceived.getInt("StatusCode");//
     }
 
     public User getUserByName(String userName, String token) throws ShowInfosUserException, JSONException{
         String stringJSON = "";
 
         try {
-            URL url = new URL("http://smartcity-jardin-20172018.azurewebsites.net/api/Account/" + userName);
+            URL url = new URL(URL_API_BASE +"Account/" + userName);
             URLConnection connection = url.openConnection();
 
             connection.setRequestProperty("Authorization", "Bearer" + token);
@@ -166,20 +160,28 @@ public class UserDAO {
         catch (IOException e){
             throw new ShowInfosUserException();
         }
+
         return jsonToUser(stringJSON);
     }
 
     private User jsonToUser(String stringJSON) throws JSONException{
-        JSONArray jsonArray = new JSONArray(stringJSON);
-        JSONObject jsonUser = jsonArray.getJSONObject(0);
+        JSONObject jsonUser = new JSONObject(stringJSON);
 
-        //DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-        //Date birthDate = df.parse(jsonUser.getString("BirthDate"));
+        Date birthDate = null;
+        try {
+            birthDate = df.parse(jsonUser.get("birthdate").toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-        Gson object = new GsonBuilder().create();
-        //User user = new User(jsonUser.getString("UserName"), jsonUser.getString("Password"), jsonUser.getString("Email"), birthDate, jsonUser.getString("Sex"), jsonUser.getString("GeographicOrigins"));
+        //String go = (jsonUser.get("geographicOrigins")==null)?null:jsonUser.getString("geographicOrigins");
+        //String pn = (jsonUser.get("phoneNumber")==null)?null:jsonUser.getString("phoneNumber");
 
-        return object.fromJson(jsonUser.toString(), User.class);
+        Gson object = new GsonBuilder().setDateFormat("yyyy-MM-dd").serializeNulls().create();
+        //User user = new User(jsonUser.getString("userName"), jsonUser.getString("passwordHash"), jsonUser.getString("email"), birthDate, jsonUser.getString("sex").charAt(0), go,pn);
+
+        return object.fromJson(jsonUser.toString(), User.class);//user; //
     }
 }

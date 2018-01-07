@@ -19,7 +19,7 @@
     <string name="sign_in">Sign in</string>
     <string name="enter_your_e_mail_adress">example@email.ex</string>
     <string name="enter_your_birth_date">Birth date (yyyy-mm-dd)</string>
-    <string name="where_are_you_from">Native country</string>
+    <string name="where_are_you_from">Native country (optional)</string>
     <string name="remember_me">Remember me</string>
     <string name="forgot_login">Forgot login ?</string>
     <string name="forgot_password">Forgot password?</string>
@@ -52,7 +52,7 @@
     <string name="about">About</string>
     <string name="noteGarden">Note :</string>
     <string name="superficieGarden">Superficie :</string>
-    <string name="adresseGarden">Adresse :</string>
+    <string name="adresseGarden">Address :</string>
     <string name="textScanExplain">Scan the qr code near a plant to display his informations</string>
     <string name="cadreLabel">Cadre</string>
     <string name="findUsOnSentence">Vous pouvez nous retrouver sur ces différents réseaux sociaux :</string>
@@ -91,6 +91,7 @@
     <string name="error_get_all_events_exception">Error caught while attempting to load events</string>
     <string name="error_get_all_gardens_exception">Error caught while attempting to load all gardens</string>
     <string name="errorMsgFormatGO">Invalid, please use only letters</string>
-    <string name="phone_number_label">Phone number</string>
+    <string name="phone_number_label">Phone number (optional)</string>
     <string name="error_format_phoneNumber">Respect format 0412345678</string>
+    <string name="error_server_encountered">An error occurred on the server\'s side</string>
 </resources>
