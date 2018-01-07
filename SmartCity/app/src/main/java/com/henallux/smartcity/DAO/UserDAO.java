@@ -2,6 +2,7 @@ package com.henallux.smartcity.DAO;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.henallux.smartcity.Exceptions.LoginUserException;
 import com.henallux.smartcity.Exceptions.RegisterUserException;
 import com.henallux.smartcity.Exceptions.ShowInfosUserException;
@@ -16,7 +17,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
+import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.DateFormat;
@@ -167,14 +170,14 @@ public class UserDAO {
     private User jsonToUser(String stringJSON) throws JSONException{
         JSONObject jsonUser = new JSONObject(stringJSON);
 
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        /*DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
         Date birthDate = null;
         try {
             birthDate = df.parse(jsonUser.get("birthdate").toString());
         } catch (ParseException e) {
             e.printStackTrace();
-        }
+        }*/
 
         //String go = (jsonUser.get("geographicOrigins")==null)?null:jsonUser.getString("geographicOrigins");
         //String pn = (jsonUser.get("phoneNumber")==null)?null:jsonUser.getString("phoneNumber");

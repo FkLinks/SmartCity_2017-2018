@@ -9,27 +9,28 @@ import java.util.Date;
 
 public class User implements Serializable {
     @SerializedName("userName")
-    private String UserName;
+    private String userName;
 
+    @Nullable
     @SerializedName("password")
-    private String Password;
+    private String password;
 
     @SerializedName("email")
-    private String Email;
+    private String email;
 
     @SerializedName("sex")
-    private char Sex;
+    private char sex;
 
     @SerializedName("birtdate")
-    private Date Birthdate;
+    private Date birthdate;
 
     @Nullable
     @SerializedName("geographicOrigins")
-    private String GeographicOrigins;
+    private String geographicOrigins;
 
     @Nullable
     @SerializedName("phoneNumber")
-    private String PhoneNumber;
+    private String phoneNumber;
 
     public User() {
     }
@@ -45,64 +46,64 @@ public class User implements Serializable {
     }
 
     public String getUserName() {
-        return UserName;
+        return userName;
     }
 
     public void setUserName(String userName) {
-        this.UserName = userName;
+        this.userName = userName;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        this.Email = email;
+        this.email = email;
     }
 
     public char getSex() {
-        return Sex;
+        return sex;
     }
 
     public void setSex(char sex) {
         if(sex=='M' || sex=='F') {
-            this.Sex = sex;
+            this.sex = sex;
         }
     }
 
     public Date getBirthdate() {
-        return Birthdate;
+        return birthdate;
     }
 
     public void setBirthdate(Date birthdate) {
-        this.Birthdate = birthdate;
+        this.birthdate = birthdate;
     }
 
     @Nullable
     public String getGeographicOrigins() {
-        return GeographicOrigins;
+        return geographicOrigins;
     }
 
     public void setGeographicOrigins(@Nullable String geographicOrigins) {
-        this.GeographicOrigins = geographicOrigins;
+        this.geographicOrigins = geographicOrigins;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
         if(password.length() >= 6) {
-            this.Password = password;
+            this.password = password;
         }
     }
 
     @Nullable
     public String getPhoneNumber() {
-        return PhoneNumber;
+        return phoneNumber;
     }
 
     public void setPhoneNumber(@Nullable String phoneNumber) {
-        PhoneNumber = phoneNumber;
+        this.phoneNumber = phoneNumber;
     }
 }
