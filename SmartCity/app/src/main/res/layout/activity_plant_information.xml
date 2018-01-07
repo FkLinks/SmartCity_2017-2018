@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.henallux.smartcity.PlantInformationActivity">
+    tools:context="com.henallux.smartcity.Controller.PlantInformationActivity">
 
     <ImageView
         android:id="@+id/picturePlant"
@@ -20,28 +20,18 @@
         android:layout_width="wrap_content"
         android:layout_height="37dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:text="Name plant"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/picturePlant"
         android:layout_marginTop="16dp" />
-
-    <Button
-        android:id="@+id/audioGuide"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:text="A"
-        android:layout_alignBottom="@+id/namePlant"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="11dp" />
 
     <TextView
         android:id="@+id/descrLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Description"
-        android:textSize="20dp"
+        android:text="@string/descriptionLabel"
+        android:textSize="20sp"
         android:layout_alignTop="@+id/picturePlant"
         android:layout_centerHorizontal="true" />
 
@@ -53,7 +43,6 @@
         android:layout_below="@+id/descrLabel"
         android:layout_alignStart="@+id/descrLabel"
         android:layout_marginTop="10dp"
-        android:layout_alignBottom="@+id/picturePlant"
-        android:layout_alignEnd="@+id/audioGuide" />
+        android:layout_alignBottom="@+id/picturePlant" />
 
 </RelativeLayout>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.henallux.smartcity.Controller.EventsInformationActivity">
+
+
+    <TextView
+        android:id="@+id/nameEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="37dp"
+        android:textSize="24sp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="18dp"/>
+
+    <TextView
+        android:id="@+id/descrEventLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/nameEvent"
+        android:layout_below="@+id/nameEvent"
+        android:layout_marginTop="28dp"
+        android:textSize="18sp"
+        android:text="@string/descriptionLabel"/>
+
+    <TextView
+        android:id="@+id/descrEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/descrEventLabel"
+        android:layout_below="@+id/descrEventLabel"
+        android:layout_marginTop="18dp" />
+
+    <TextView
+        android:id="@+id/dateStartEventLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:text="@string/dateStartEventLabel"
+        android:layout_below="@+id/descrEvent"
+        android:layout_alignStart="@+id/descrEvent" />
+
+    <TextView
+        android:id="@+id/startEventTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/dateStartEventLabel"
+        android:layout_alignBottom="@+id/dateStartEventLabel"
+        android:layout_toEndOf="@+id/dateStartEventLabel" />
+
+    <TextView
+        android:id="@+id/auEventTimeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/startEventTime"
+        android:layout_toEndOf="@+id/startEventTime"
+        android:text="@string/auEventTimeLabel" />
+
+    <TextView
+        android:id="@+id/endEventTimeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/auEventTimeLabel"
+        android:layout_alignBottom="@+id/auEventTimeLabel"
+        android:layout_toEndOf="@+id/auEventTimeLabel" />
+
+    <TextView
+        android:id="@+id/moreInfosEventLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/dateStartEventLabel"
+        android:layout_below="@+id/dateStartEventLabel"
+        android:layout_marginTop="34dp"
+        android:text="@string/moreInfosEventLabel" />
+
+    <TextView
+        android:id="@+id/websiteEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/moreInfosEventLabel"
+        android:layout_below="@+id/moreInfosEventLabel"
+        android:layout_marginTop="20dp" />
+</RelativeLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/choiceEventListView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="15dp"
+            android:textColor="#000"/>
+
+        <TextView
+            android:id="@+id/eventDateListView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/choiceEventListView"
+            android:layout_below="@+id/choiceEventListView"
+            android:text="TextView"
+            android:textSize="16sp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="5dp"
+            android:textColor="#000"/>
+
+        <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:background="@drawable/arrow"
+            android:layout_alignBottom="@+id/eventDateListView"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true" />
+
+</RelativeLayout>

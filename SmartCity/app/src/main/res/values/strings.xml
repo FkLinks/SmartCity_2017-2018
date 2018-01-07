@@ -1,79 +1,7 @@
 <resources>
-    <string name="app_name">SmartCity</string>
+    <string name="app_name">N&amp;Garden</string>
     <string name="title_activity_settings">Settings</string>
     <string name="gardens_activity">GardensActivity</string>
-
-    <!-- Strings related to Settings -->
-
-    <!-- Example General settings -->
-    <string name="pref_header_general">General</string>
-
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
-    </string>
-
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
-
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
-
-    <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
-
-    <string name="pref_title_sync_frequency">Sync frequency</string>
-    <string-array name="pref_sync_frequency_titles">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>3 hours</item>
-        <item>6 hours</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
-    </string-array>
-
-    <string-array name="list_preference_entries">
-        <item>Entry 1</item>
-        <item>Entry 2</item>
-        <item>Entry 3</item>
-    </string-array>
-
-    <string-array name="list_preference_entry_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
-    <string-array name="multi_select_list_preference_default_value" />
-
-    <string name="pref_title_system_sync_settings">System sync settings</string>
-
-    <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notifications</string>
-
-    <string name="pref_title_new_message_notifications">New message notifications</string>
-
-    <string name="pref_title_ringtone">Ringtone</string>
-    <string name="pref_ringtone_silent">Silent</string>
-
-    <string name="pref_title_vibrate">Vibrate</string>
 
     <!--My strings-->
     <string name="enter_as_guest">Enter as guest</string>
@@ -87,11 +15,11 @@
     <string name="register">Register</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
-    <string name="you_have_already_an_account_sign_in">You have already an account? Sign in.</string>
+    <string name="you_have_already_an_account_sign_in">You have already an account ?</string>
     <string name="sign_in">Sign in</string>
-    <string name="enter_your_e_mail_adress">Enter your e-mail adress</string>
-    <string name="enter_your_birth_date">Enter your birth date</string>
-    <string name="where_are_you_from">Where are you from?</string>
+    <string name="enter_your_e_mail_adress">example@email.ex</string>
+    <string name="enter_your_birth_date">Birth date (yyyy-mm-dd)</string>
+    <string name="where_are_you_from">Native country (optional)</string>
     <string name="remember_me">Remember me</string>
     <string name="forgot_login">Forgot login ?</string>
     <string name="forgot_password">Forgot password?</string>
@@ -110,4 +38,60 @@
     <string name="scannerActivityLabel">Scanner</string>
     <string name="registrationActivityLabel">Registration</string>
     <string name="loginActivityLabel">Login</string>
+    <string name="gardensActivityName">The Gardens</string>
+    <string name="infosLabelActivity">Informations</string>
+    <string name="RequiredForm">Required</string>
+    <string name="errorMsgFormatEmail">Respect format exemple@ex.com</string>
+    <string name="errorMsgFormatBirthdate">Respect format yyyy-mm-dd</string>
+    <string name="errorMsgFormatPassword">Must contain at least 6 characters</string>
+    <string name="name_of_the_app_label">Name of the app :</string>
+    <string name="descriptionLabel">Description</string>
+    <string name="cadre_explanation">Fait dans le cadre du projet SmartCity 2017</string>
+    <string name="descr_app"><![CDATA[N&Garden permet aux visiteurs de découvrir les jardins à thème d\'une manière plus dynamique et ludique tout en apprenant des choses sur les éléments qui le composent.]]></string>
+    <string name="copyright"><![CDATA[©copyright 2017–2017, N&Gardenis a registered trademark.]]></string>
+    <string name="about">About</string>
+    <string name="noteGarden">Note :</string>
+    <string name="superficieGarden">Superficie :</string>
+    <string name="adresseGarden">Address :</string>
+    <string name="textScanExplain">Scan the qr code near a plant to display his informations</string>
+    <string name="cadreLabel">Cadre</string>
+    <string name="findUsOnSentence">Vous pouvez nous retrouver sur ces différents réseaux sociaux :</string>
+    <string name="facebookLabel">Facebook :</string>
+    <string name="facebookLink">https://www.facebook.com/Animaland-379469422498868/</string>
+    <string name="twitterLabel">Twitter :</string>
+    <string name="twitterLink">https://twitter.com/_AnimaLanD</string>
+    <string name="mailLabel">Ou nous contacter par mail via :</string>
+    <string name="mailAdr">example@email.ext</string>
+    <string name="user_name_label">User name :</string>
+    <string name="userSexLabel">Sex :</string>
+    <string name="user_email_adress_label">Email address :</string>
+    <string name="user_origin_country_label">Origin country :</string>
+    <string name="user_birth_date_label">Birth date :</string>
+    <string name="connection_toast">You must be connected to see this page</string>
+    <string name="profileActivityName">Profile</string>
+    <string name="registerFailed">Register failed</string>
+    <string name="connectionError">Error while connecting</string>
+    <string name="registerSuccessful">Register successful !</string>
+    <string name="errorsInFormEncountered">Errors encountered</string>
+    <string name="dateStartEventLabel">Aura lieu à partir du</string>
+    <string name="auEventTimeLabel"> until </string>
+    <string name="moreInfosEventLabel">More infos on the website below :</string>
+    <string name="errorCheckingUser">Error occurred while attempting to authenticate</string>
+    <string name="errorMissInternetCo">You are not connected to internet</string>
+    <string name="connectionMessage">You must have an internet connection to acces this content.</string>
+    <string name="invalid_username_password">password or username invalid</string>
+    <string name="json_exception_encountered">Problem encountered with Json</string>
+    <string name="error_registering_user">errors encountered while attempting to register</string>
+    <string name="error_register_mail_unique">This email address is already used</string>
+    <string name="error_register_username_unique">This user name is already used</string>
+    <string name="expired_request">Expired request</string>
+    <string name="login_empty_fields">Complete both fields</string>
+    <string name="welcomeMessage">Welcome </string>
+    <string name="error_user_data_exception">Error while attempting to access your personal data</string>
+    <string name="error_get_all_events_exception">Error caught while attempting to load events</string>
+    <string name="error_get_all_gardens_exception">Error caught while attempting to load all gardens</string>
+    <string name="errorMsgFormatGO">Invalid, please use only letters</string>
+    <string name="phone_number_label">Phone number (optional)</string>
+    <string name="error_format_phoneNumber">Respect format 0412345678</string>
+    <string name="error_server_encountered">An error occurred on the server\'s side</string>
 </resources>

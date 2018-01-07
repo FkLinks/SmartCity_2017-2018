@@ -1,33 +1,38 @@
 package com.henallux.smartcity.Model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Garden implements Serializable {
     private String name;
-    private double surfaceArea;
+    private double superficie;
     private String street;
     private int numStreet;
     private String description;
     private double note;
-    private String geographicalCoordinates;
-
-    public Garden(String name, double surfaceArea, String street, int numStreet, String description, double note, String geographicalCoordinates) {
-        this.name = name;
-        this.surfaceArea = surfaceArea;
-        this.street = street;
-        this.numStreet = numStreet;
-        this.description = description;
-        this.note = note;
-        this.geographicalCoordinates = geographicalCoordinates;
+    private String geographicalCoordinate;
+    private String urlImg;
+    private String urlAudio;
+    //garden = new Garden(jsonGarden.getString("name"), jsonGarden.getDouble("superficie"), jsonGarden.getString("street"),
+    // jsonGarden.getInt("numStreet"), jsonGarden.getString("description"),
+    // jsonGarden.getDouble("note"), jsonGarden.getString("geographicalCoordinate"), jsonGarden.getString("urlImg"),jsonGarden.getString("urlAudio"));
+    public Garden(String name, double superficie, String street, int numStreet, String description, double note, String geographicalCoordinate, String urlImg, String urlAudio) {
+        setName(name);
+        setSuperficie(superficie);
+        setStreet(street);
+        setNumStreet(numStreet);
+        setDescription(description);
+        setNote(note);
+        setGeographicalCoordinate(geographicalCoordinate);
+        setUrlImg(urlImg);
+        setUrlAudio(urlAudio);
     }
 
     public String getName() {
         return name;
     }
 
-    public double getSurfaceArea() {
-        return surfaceArea;
+    public double getSuperficie() {
+        return superficie;
     }
 
     public String getStreet() {
@@ -46,16 +51,16 @@ public class Garden implements Serializable {
         return note;
     }
 
-    public String getGeographicalCoordinates() {
-        return geographicalCoordinates;
+    public String getGeographicalCoordinate() {
+        return geographicalCoordinate;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setSurfaceArea(double surfaceArea) {
-        this.surfaceArea = surfaceArea;
+    public void setSuperficie(double superficie) {
+        this.superficie = superficie;
     }
 
     public void setStreet(String street) {
@@ -74,7 +79,23 @@ public class Garden implements Serializable {
         this.note = note;
     }
 
-    public void setGeographicalCoordinates(String geographicalCoordinates) {
-        this.geographicalCoordinates = geographicalCoordinates;
+    public void setGeographicalCoordinate(String geographicalCoordinate) {
+        this.geographicalCoordinate = geographicalCoordinate;
+    }
+
+    public String getUrlImg() {
+        return urlImg;
+    }
+
+    public void setUrlImg(String urlImg) {
+        this.urlImg = urlImg;
+    }
+
+    public String getUrlAudio() {
+        return urlAudio;
+    }
+
+    public void setUrlAudio(String urlAudio) {
+        this.urlAudio = urlAudio;
     }
 }

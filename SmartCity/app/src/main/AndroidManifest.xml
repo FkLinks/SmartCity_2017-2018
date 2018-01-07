@@ -16,55 +16,72 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Controller.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"
-            android:label="@string/loginActivityLabel"/>
-        <activity android:name=".RegisterActivity"
-            android:label="@string/registrationActivityLabel"/>
-        <activity android:name=".HomeActivity" />
         <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName=".HomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.henallux.smartcity.HomeActivity" />
-        </activity>
+            android:name=".Controller.LoginActivity"
+            android:label="@string/loginActivityLabel"
+            android:parentActivityName=".Controller.MainActivity" />
         <activity
-            android:name=".GardensActivity"
-            android:parentActivityName=".HomeActivity" />
+            android:name=".Controller.RegisterActivity"
+            android:label="@string/registrationActivityLabel"
+            android:parentActivityName=".Controller.LoginActivity" />
+        <activity android:name=".Controller.HomeActivity" />
+        <activity
+            android:name=".Controller.GardensActivity"
+            android:label="@string/gardensActivityName"
+            android:parentActivityName=".Controller.HomeActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD2BK-yCPB3e_Z26fwwJ8Pb0BOCWaczEQs" />
+            android:value="AIzaSyD_nlRp5JKykNjDJ2YyZgkO5fwhKjJZjoUs" />
         <meta-data
             android:name="com.google.android.gms.vision.DEPENCIES"
             android:value="barcode" />
 
-        <activity android:name=".ScanActivity"
+        <activity
+            android:name=".Controller.ScanActivity"
             android:label="@string/scannerActivityLabel">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.henallux.smartcity.HomeActivity" />
+                android:value="com.henallux.smartcity.Controller.HomeActivity" />
         </activity>
-
-        <activity android:name=".GardensInformationActivity">
+        <activity
+            android:name=".Controller.GardensInformationActivity"
+            android:label="@string/infosLabelActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.henallux.smartcity.GardensActivity" />
+                android:value="com.henallux.smartcity.Controller.GardensActivity" />
         </activity>
-
-        <activity android:name=".PlantInformationActivity">
+        <activity
+            android:name=".Controller.PlantInformationActivity"
+            android:label="@string/infosLabelActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.henallux.smartcity.ScanActivity" />
+                android:value="com.henallux.smartcity.Controller.ScanActivity" />
         </activity>
+        <activity
+            android:name=".Controller.AboutActivity"
+            android:label="@string/about"
+            android:parentActivityName=".Controller.HomeActivity" />
+        <activity
+            android:name=".Controller.ContactActivity"
+            android:label="@string/gardensActivityName"
+            android:parentActivityName=".Controller.HomeActivity" />
+        <activity
+            android:name=".Controller.UserProfileActivity"
+            android:label="@string/profileActivityName"
+            android:parentActivityName=".Controller.HomeActivity" />
+        <activity android:name=".Controller.EventsActivity"
+            android:parentActivityName=".Controller.HomeActivity" />
+
+        <activity android:name=".Controller.EventsInformationActivity"
+            android:parentActivityName=".Controller.EventsActivity"/>
     </application>
 
 </manifest>
