@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using System;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Popups;
@@ -48,16 +49,27 @@ namespace BackOffice_SmartCity.ViewModel
 
         public async Task GetTokens()
         {
-            AccountController service = new AccountController();
-            Constantes.TOKEN_ADMIN_PROP = await service.GetTokenAdmin(AdminUWP);
-
-            if(Constantes.TOKEN_ADMIN_PROP != null)
+            if (NetworkInterface.GetIsNetworkAvailable())
             {
-                navigationService.NavigateTo("Acceuil");
+                AccountController service = new AccountController();
+                Constantes.TOKEN_ADMIN_PROP = await service.GetTokenAdmin(AdminUWP);
+
+                if (Constantes.TOKEN_ADMIN_PROP != null)
+                {
+                    navigationService.NavigateTo("Acceuil");
+                }
+                else
+                {
+                    MessageDialog messageDialog = new MessageDialog(Constantes.BAD_CONNECTION)
+                    {
+                        Title = Constantes.TITRE_ERREUR_CONNECTION
+                    };
+                    var res = messageDialog.ShowAsync();
+                }
             }
             else
             {
-                MessageDialog messageDialog = new MessageDialog(Constantes.BAD_CONNECTION)
+                MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR_CONNEXION)
                 {
                     Title = Constantes.TITRE_ERREUR_CONNECTION
                 };

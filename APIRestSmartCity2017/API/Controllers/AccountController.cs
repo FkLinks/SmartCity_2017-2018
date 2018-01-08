@@ -93,7 +93,7 @@ namespace APIRestSmartCity2017.Controllers
 
                     _context.SaveChanges();
                     transaction.Commit();
-
+                    
                     return (result.Succeeded) ? Ok() : (IActionResult)BadRequest();       
                 }
                 catch(Exception)

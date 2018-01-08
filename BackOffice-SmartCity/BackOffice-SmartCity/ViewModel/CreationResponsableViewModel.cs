@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using System;
 using System.Collections.ObjectModel;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Popups;
@@ -112,23 +113,34 @@ namespace BackOffice_SmartCity.ViewModel
 
         public async Task PostResponsableAsync(Responsable responsable)
         {
-            ResponsibleController service = new ResponsibleController();
-            responsable.Sex = SelectedSex;
-            var respon = await service.PostResponsable(responsable);
+            if (NetworkInterface.GetIsNetworkAvailable())
+            {
+                ResponsibleController service = new ResponsibleController();
+                responsable.Sex = SelectedSex;
+                var respon = await service.PostResponsable(responsable);
 
-            if (respon.Equals("Created"))
-            {                
-                navigationService.NavigateTo("Acceuil");
-                NewResponsable = new Responsable();
+                if (respon.Equals("Created"))
+                {
+                    navigationService.NavigateTo("Acceuil");
+                    NewResponsable = new Responsable();
+                }
+                else
+                {
+                    MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR)
+                    {
+                        Title = Constantes.TITRE_ERREUR
+                    };
+                    var res = await messageDialog.ShowAsync();
+                }
             }
             else
             {
-                MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR)
+                MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR_CONNEXION)
                 {
-                    Title = Constantes.TITRE_ERREUR
+                    Title = Constantes.TITRE_ERREUR_CONNECTION
                 };
-                var res = await messageDialog.ShowAsync();
-            }            
+                var res = messageDialog.ShowAsync();
+            }
         }
     }
 }

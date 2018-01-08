@@ -11,7 +11,7 @@ namespace BackOffice_SmartCity.Model
 {
     public class Jardin
     {
-        private decimal? numGarden;
+        private decimal numGarden;
         private string name;
         private decimal? superficie;
         private string street;
@@ -23,7 +23,7 @@ namespace BackOffice_SmartCity.Model
         private decimal? note;
         
         #region Propriétés
-        public decimal? NumGarden
+        public decimal NumGarden
         {
             get
             {
@@ -31,10 +31,7 @@ namespace BackOffice_SmartCity.Model
             }
             set
             {
-                if(value>0 && value is decimal?)
-                {
-                    numGarden = value;
-                }
+                numGarden = value;
             }
         }
         public string Name

@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -76,21 +77,32 @@ namespace BackOffice_SmartCity.ViewModel
 
         public async Task PostJardinAsync(Jardin jardin)
         {
-            GardenController service = new GardenController();
-            var createGarden = await service.PostGarden(jardin);
-
-            if (createGarden.Equals("Created"))
+            if (NetworkInterface.GetIsNetworkAvailable())
             {
-                navigationService.NavigateTo("Acceuil");
-                NewJardin = new Jardin();
+                GardenController service = new GardenController();
+                var createGarden = await service.PostGarden(jardin);
+
+                if (createGarden.Equals("Created"))
+                {
+                    navigationService.NavigateTo("Acceuil");
+                    NewJardin = new Jardin();
+                }
+                else
+                {
+                    MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR)
+                    {
+                        Title = Constantes.TITRE_ERREUR
+                    };
+                    var res = await messageDialog.ShowAsync();
+                }
             }
             else
             {
-                MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR)
+                MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR_CONNEXION)
                 {
-                    Title = Constantes.TITRE_ERREUR
+                    Title = Constantes.TITRE_ERREUR_CONNECTION
                 };
-                var res = await messageDialog.ShowAsync();
+                var res = messageDialog.ShowAsync();
             }
         }
     }

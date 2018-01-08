@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Popups;
@@ -100,9 +101,20 @@ namespace BackOffice_SmartCity.ViewModel
 
         public async Task InitializeAsync()
         {
-            GardenController service = new GardenController();
-            IEnumerable<Jardin> listeGarden = await service.GetAllElements();
-            Jardin = new ObservableCollection<Jardin>(listeGarden);
+            if (NetworkInterface.GetIsNetworkAvailable())
+            {
+                GardenController service = new GardenController();
+                IEnumerable<Jardin> listeGarden = await service.GetAllElements();
+                Jardin = new ObservableCollection<Jardin>(listeGarden);
+            }
+            else
+            {
+                MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR_CONNEXION)
+                {
+                    Title = Constantes.TITRE_ERREUR_CONNECTION
+                };
+                var res = messageDialog.ShowAsync();
+            }
         }
 
         public ICommand DeleteGardenCommand
@@ -116,7 +128,7 @@ namespace BackOffice_SmartCity.ViewModel
 
         public async Task DeleteGarden()
         {
-            if (CanExecute())
+            if (CanExecute() && NetworkInterface.GetIsNetworkAvailable())
             {
                 GardenController service = new GardenController();
 
@@ -134,6 +146,15 @@ namespace BackOffice_SmartCity.ViewModel
                     await InitializeAsync();
                 }                
             }
+            else
+            {
+                MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR_CONNEXION)
+                {
+                    Title = Constantes.TITRE_ERREUR_CONNECTION
+                };
+                var res = messageDialog.ShowAsync();
+            }
+
         }
 
         private bool CanExecute()

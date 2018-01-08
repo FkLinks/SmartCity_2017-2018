@@ -24,9 +24,8 @@
             <AppBarButton Icon="Back" Command="{Binding NavigateToBefore}"></AppBarButton>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Width="360" Height="460">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Width="360" Height="460" Margin="0,0,0,-100">
             <StackPanel HorizontalAlignment="Left" >
-                <TextBlock HorizontalAlignment="Left" Margin="0, 15">Numéro Jardin*</TextBlock>
                 <TextBlock HorizontalAlignment="Left" Margin="0, 10">Nom*</TextBlock>
                 <TextBlock HorizontalAlignment="Left" Margin="0, 10">Superficie (m²)*</TextBlock>
                 <TextBlock HorizontalAlignment="Left" Margin="0, 10">Rue*</TextBlock>
@@ -38,7 +37,6 @@
                 <TextBlock HorizontalAlignment="Left" Margin="0, 15">Description*</TextBlock>
             </StackPanel>
             <StackPanel HorizontalAlignment="Right">
-                <TextBox Text="{Binding NewJardin.NumGarden, Mode=TwoWay, Converter={StaticResource Converter}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,10"/>
                 <TextBox Text="{Binding NewJardin.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,0"/>
                 <TextBox Text="{Binding NewJardin.Superficie, Mode=TwoWay, Converter={StaticResource Converter}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,10"/>
                 <TextBox Text="{Binding NewJardin.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,0"/>
@@ -48,12 +46,12 @@
                 <TextBox Text="{Binding NewJardin.UrlImg, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,5"/>
                 <TextBox Text="{Binding NewJardin.Note, Mode=TwoWay, Converter={StaticResource Converter}, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Width="200" Margin="50,5"/>
             </StackPanel>
-            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="-320,10">
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="-320,60">
                 <TextBox Text="{Binding NewJardin.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Width="200" Height="40"></TextBox>
             </StackPanel>
         </StackPanel>
 
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="100" Width="300" Orientation="Horizontal" Margin="30,0" Grid.RowSpan="3">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="100" Width="300" Orientation="Horizontal" Margin="50,0" Grid.RowSpan="3">
             <AppBarButton Icon="Accept" Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="120,15" Command="{Binding CreationJardin}">Confirmer</AppBarButton>
         </StackPanel>
     </Grid>

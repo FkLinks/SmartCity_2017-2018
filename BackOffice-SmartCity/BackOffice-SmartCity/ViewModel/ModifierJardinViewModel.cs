@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -60,25 +61,36 @@ namespace BackOffice_SmartCity.ViewModel
 
         public async Task PutGarden()
         {
-            GardenController service = new GardenController();
-            var delResp = await service.PutGarden(SelectedJardin);
-            if (delResp.Equals("No Content"))
+            if (NetworkInterface.GetIsNetworkAvailable())
             {
-                MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_OK_MODIF)
+                GardenController service = new GardenController();
+                var delResp = await service.PutGarden(SelectedJardin);
+                if (delResp.Equals("No Content"))
                 {
-                    Title = Constantes.TITRE_MODIF_OK
-                };
-                var res = await messageDialog.ShowAsync();
-                navigationService.NavigateTo("Acceuil");
+                    MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_OK_MODIF)
+                    {
+                        Title = Constantes.TITRE_MODIF_OK
+                    };
+                    var res = await messageDialog.ShowAsync();
+                    navigationService.NavigateTo("Acceuil");
+                }
+                else
+                {
+                    MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR_MODIF)
+                    {
+                        Title = Constantes.TITRE_ERREUR_MODIF
+                    };
+                    var res = await messageDialog.ShowAsync();
+                }
             }
             else
             {
-                MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR_MODIF)
+                MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR_CONNEXION)
                 {
-                    Title = Constantes.TITRE_ERREUR_MODIF
+                    Title = Constantes.TITRE_ERREUR_CONNECTION
                 };
-                var res = await messageDialog.ShowAsync();
-            }            
+                var res = messageDialog.ShowAsync();
+            }
         }
 
         public void OnNavigatedTo(NavigationEventArgs e)

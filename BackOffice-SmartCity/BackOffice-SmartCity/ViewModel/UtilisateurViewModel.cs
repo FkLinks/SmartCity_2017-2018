@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -72,9 +73,20 @@ namespace BackOffice_SmartCity.ViewModel
 
         public async Task InitializeAsync()
         {
-            AccountController service = new AccountController();
-            IEnumerable<ApplicationUser> listeUti = await service.GetAllElements();
-            Utilisateur = new ObservableCollection<ApplicationUser>(listeUti);
+            if (NetworkInterface.GetIsNetworkAvailable())
+            {
+                AccountController service = new AccountController();
+                IEnumerable<ApplicationUser> listeUti = await service.GetAllElements();
+                Utilisateur = new ObservableCollection<ApplicationUser>(listeUti);
+            }
+            else
+            {
+                MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR_CONNEXION)
+                {
+                    Title = Constantes.TITRE_ERREUR_CONNECTION
+                };
+                var res = messageDialog.ShowAsync();
+            }
         }
 
         public ICommand DeleteUserCommand
@@ -88,7 +100,7 @@ namespace BackOffice_SmartCity.ViewModel
 
         public async Task DeleteUser()
         {
-            if (CanExecute())
+            if (CanExecute() && NetworkInterface.GetIsNetworkAvailable())
             {
                 AccountController service = new AccountController();
 
@@ -114,9 +126,16 @@ namespace BackOffice_SmartCity.ViewModel
                     {
                         Task delResp = service.DeleteUser(SelectedUser.UserName);
                         await InitializeAsync();
-                    }                 
-                    
+                    }                  
                 }
+            }
+            else
+            {
+                MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR_CONNEXION)
+                {
+                    Title = Constantes.TITRE_ERREUR_CONNECTION
+                };
+                var res = messageDialog.ShowAsync();
             }
         }
 

@@ -6,9 +6,11 @@ using GalaSoft.MvvmLight.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Navigation;
 
 namespace BackOffice_SmartCity.ViewModel
@@ -103,14 +105,25 @@ namespace BackOffice_SmartCity.ViewModel
 
         public async Task InitializeAsync()
         {
-            AccountController serviceAccount = new AccountController();
-            NbUsers = await serviceAccount.CountUsers();
+            if (NetworkInterface.GetIsNetworkAvailable())
+            {
+                AccountController serviceAccount = new AccountController();
+                NbUsers = await serviceAccount.CountUsers();
 
-            GardenController serviceGarden = new GardenController();
-            NbGardens = await serviceGarden.CountGardens();
+                GardenController serviceGarden = new GardenController();
+                NbGardens = await serviceGarden.CountGardens();
 
-            ResponsibleController serviceRespon = new ResponsibleController();
-            NbRespon = await serviceRespon.CountRespon();
+                ResponsibleController serviceRespon = new ResponsibleController();
+                NbRespon = await serviceRespon.CountRespon();
+            }
+            else
+            {
+                MessageDialog messageDialog = new MessageDialog(Constantes.MESSAGE_ERREUR_CONNEXION)
+                {
+                    Title = Constantes.TITRE_ERREUR_CONNECTION
+                };
+                var res = messageDialog.ShowAsync();
+            }
         }
 
     }
