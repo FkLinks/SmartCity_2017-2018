@@ -98,7 +98,6 @@ public class UserDAO {
     }
 
     public int registerUser(User user) throws RegisterUserException, JSONException{
-        //JSONObject tokenReceived;
         int code;
         try{
             URL url = new URL(URL_API_BASE +"Account");
@@ -124,25 +123,14 @@ public class UserDAO {
 
             code=connection.getResponseCode();
 
-            /*InputStream inputStream;
-            if(connection.getResponseCode()>=400 && connection.getResponseCode() <= 499){
-                inputStream = new BufferedInputStream(connection.getErrorStream());
-            }
-            else {
-                inputStream = new BufferedInputStream(connection.getInputStream());
-            }*/
-
-            //String token = convertStreamToString(inputStream);
-
             outputStream.close();
             connection.disconnect();
-            //tokenReceived = new JSONObject(token);
         }
         catch (IOException e){
             throw new RegisterUserException();
         }
 
-        return code; //tokenReceived.getInt("StatusCode");//
+        return code;
     }
 
     public User getUserByName(String userName, String token) throws ShowInfosUserException, JSONException{
@@ -168,27 +156,6 @@ public class UserDAO {
     private User jsonToUser(String stringJSON) throws JSONException{
         JSONObject jsonUser = new JSONObject(stringJSON);
 
-        /*DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-
-        Date birthDate = null;
-        try {
-            birthDate = df.parse(jsonUser.get("birthdate").toString());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }*/
-
-        //String go = (jsonUser.get("geographicOrigins")==null)?null:jsonUser.getString("geographicOrigins");
-        //String pn = (jsonUser.get("phoneNumber")==null)?null:jsonUser.getString("phoneNumber");
-
-        //User user = new User(jsonUser.getString("userName"), jsonUser.getString("passwordHash"), jsonUser.getString("email"), birthDate, jsonUser.getString("sex").charAt(0), go,pn);
-        /*User user = new User();
-        try {
-            user = gsonForUser.fromJson(jsonUser.toString(), User.class);//
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            e.printStackTrace();
-        }*/
-        return gsonForUser.fromJson(jsonUser.toString(), User.class);//user; //
+        return gsonForUser.fromJson(jsonUser.toString(), User.class);
     }
 }

@@ -11,8 +11,7 @@ import java.util.ArrayList;
 
 public class PlantDAO {
     public Plant jsonToPlant(String stringJSON) throws Exception{
-        //JSONArray jsonArray = new JSONArray(stringJSON);
-        JSONObject jsonPlant = new JSONObject(stringJSON);//jsonArray.getJSONObject(0);
+        JSONObject jsonPlant = new JSONObject(stringJSON);
 
         Gson object = new GsonBuilder().create();
 

@@ -35,11 +35,11 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String userName, String password, String email, Date Birthdate, char sex, String GeographicOrigins, String PhoneNumber) {
+    public User(String userName, String password, String email, Date birthdate, char sex, String GeographicOrigins, String PhoneNumber) {
         setUserName(userName);
         setPassword(password);
         setEmail(email);
-        setBirthdate(Birthdate);
+        setBirthdate(birthdate);
         setSex(sex);
         setGeographicOrigins(GeographicOrigins);
         setPhoneNumber(PhoneNumber);
