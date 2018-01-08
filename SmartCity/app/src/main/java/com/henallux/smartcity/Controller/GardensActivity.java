@@ -44,7 +44,6 @@ import org.json.JSONException;
 import java.io.Serializable;
 import java.util.ArrayList;
 //cle map : AIzaSyD_nlRp5JKykNjDJ2YyZgkO5fwhKjJZjoU
-//https://www.youtube.com/watch?time_continue=3&v=uOKLUu1Jjco
 public class GardensActivity extends AppCompatActivity implements LocationListener{
     private static final int PERMS_CALL_ID = 1234;
 
@@ -147,7 +146,6 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
         {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000,0,this);
         }
-
         loadMap();
     }
 
@@ -171,7 +169,6 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
                 for (Garden garden : listItems) {
                     String[] latLong = garden.getGeographicalCoordinate().split(",");
 
-                    //iconGoToMarker = getDrawable(R.drawable.arrow);
                     googleMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(latLong[0]), Double.parseDouble(latLong[1])))
                             .title(garden.getName()));
 
@@ -189,10 +186,8 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
                             startActivity(gardenInfos);
                         }
                     });
-
                 }
             }
-
         });
     }
 
@@ -208,15 +203,7 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
 
     @Override
     public void onLocationChanged(Location location) {
-        /*remet l'ecran sur l'emplacement*/
-        /*double latitude = location.getLatitude();
-        double longitude = location.getLongitude();
 
-        if(googleMap != null)
-        {
-            LatLng googleLocation = new LatLng(latitude, longitude);
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(googleLocation));
-        }*/
     }
 
     @Override
@@ -284,7 +271,15 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
         switch (item.getItemId())
         {
             case R.id.profile:
-                startActivity(new Intent(GardensActivity.this, UserProfileActivity.class));
+                activeNetwork = connectivityManager.getActiveNetworkInfo();
+                isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+                if(isConnected) {
+                    Intent profile = new Intent(GardensActivity.this, UserProfileActivity.class);
+                    startActivity(profile);
+                }
+                else{
+                    Toast.makeText(GardensActivity.this, R.string.connectionMessage, Toast.LENGTH_LONG).show();
+                }
                 return true;
             case R.id.sign_in:
                 startActivity(new Intent(GardensActivity.this, LoginActivity.class));

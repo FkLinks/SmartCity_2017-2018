@@ -121,7 +121,15 @@ public class EventsActivity extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.profile:
-                startActivity(new Intent(EventsActivity.this, UserProfileActivity.class));
+                activeNetwork = connectivityManager.getActiveNetworkInfo();
+                isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+                if(isConnected) {
+                    Intent profile = new Intent(EventsActivity.this, UserProfileActivity.class);
+                    startActivity(profile);
+                }
+                else{
+                    Toast.makeText(EventsActivity.this, R.string.connectionMessage, Toast.LENGTH_LONG).show();
+                }
                 return true;
             case R.id.sign_in:
                 startActivity(new Intent(EventsActivity.this, LoginActivity.class));

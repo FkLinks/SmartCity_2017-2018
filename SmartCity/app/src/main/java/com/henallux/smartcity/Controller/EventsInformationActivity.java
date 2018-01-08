@@ -1,13 +1,17 @@
 package com.henallux.smartcity.Controller;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.henallux.smartcity.Model.Event;
 import com.henallux.smartcity.R;
@@ -17,6 +21,9 @@ public class EventsInformationActivity extends AppCompatActivity {
     private String token;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private ConnectivityManager connectivityManager;
+    private NetworkInfo activeNetwork;
+    private boolean isConnected;
     private Event event;
     private TextView nameEvent;
     private TextView descrEvent;
@@ -31,6 +38,8 @@ public class EventsInformationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events_information);
+
+        connectivityManager = (ConnectivityManager) EventsInformationActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         token = preferences.getString("token", "");
@@ -85,7 +94,15 @@ public class EventsInformationActivity extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.profile:
-                startActivity(new Intent(EventsInformationActivity.this, UserProfileActivity.class));
+                activeNetwork = connectivityManager.getActiveNetworkInfo();
+                isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+                if(isConnected) {
+                    Intent profile = new Intent(EventsInformationActivity.this, UserProfileActivity.class);
+                    startActivity(profile);
+                }
+                else{
+                    Toast.makeText(EventsInformationActivity.this, R.string.connectionMessage, Toast.LENGTH_LONG).show();
+                }
                 return true;
             case R.id.sign_in:
                 startActivity(new Intent(EventsInformationActivity.this, LoginActivity.class));

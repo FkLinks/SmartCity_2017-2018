@@ -118,7 +118,15 @@ public class HomeActivity extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.profile:
-                startActivity(new Intent(HomeActivity.this, UserProfileActivity.class));
+                activeNetwork = connectivityManager.getActiveNetworkInfo();
+                isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+                if(isConnected) {
+                    Intent profile = new Intent(HomeActivity.this, UserProfileActivity.class);
+                    startActivity(profile);
+                }
+                else{
+                    Toast.makeText(HomeActivity.this, R.string.connectionMessage, Toast.LENGTH_LONG).show();
+                }
                 return true;
             case R.id.sign_in:
                 startActivity(new Intent(HomeActivity.this, LoginActivity.class));

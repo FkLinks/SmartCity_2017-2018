@@ -1,7 +1,10 @@
 package com.henallux.smartcity.Controller;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.henallux.smartcity.Model.Plant;
 import com.henallux.smartcity.R;
@@ -19,6 +23,9 @@ public class PlantInformationActivity extends AppCompatActivity {
     private Boolean login;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private ConnectivityManager connectivityManager;
+    private NetworkInfo activeNetwork;
+    private boolean isConnected;
     ImageView picture;
     TextView namePlant, descr;
 
@@ -26,6 +33,8 @@ public class PlantInformationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plant_information);
+
+        connectivityManager = (ConnectivityManager) PlantInformationActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         login = preferences.getBoolean("login", false);
@@ -62,7 +71,15 @@ public class PlantInformationActivity extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.profile:
-                startActivity(new Intent(PlantInformationActivity.this, UserProfileActivity.class));
+                activeNetwork = connectivityManager.getActiveNetworkInfo();
+                isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+                if(isConnected) {
+                    Intent profile = new Intent(PlantInformationActivity.this, UserProfileActivity.class);
+                    startActivity(profile);
+                }
+                else{
+                    Toast.makeText(PlantInformationActivity.this, R.string.connectionMessage, Toast.LENGTH_LONG).show();
+                }
                 return true;
             case R.id.sign_in:
                 startActivity(new Intent(PlantInformationActivity.this, LoginActivity.class));

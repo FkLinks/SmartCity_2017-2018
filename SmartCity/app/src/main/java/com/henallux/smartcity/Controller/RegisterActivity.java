@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -119,7 +118,7 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean checkValidation(){
         boolean valid = true;
 
-        //affichera toutes les erreurs
+        //will display all errors format encountered
         if(!Validation.isValid(email, getString(R.string.email_regex), getString(R.string.errorMsgFormatEmail), getString(R.string.RequiredForm), true))
             valid = false;
 
