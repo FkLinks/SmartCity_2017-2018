@@ -13,7 +13,7 @@
     <string name="RequiredForm">Required</string>
     <string name="errorMsgFormatEmail">Respectez le format exemple@ex.com</string>
     <string name="errorMsgFormatBirthdate">Respectez le format yyyy-mm-dd</string>
-    <string name="errorMsgFormatPassword">Doit contenir au moins 6 caracteres</string>
+    <string name="errorMsgFormatPassword">Doit contenir au moins 8 caracteres, 1 majuscule, 1 chiffre</string>
     <string name="name_of_the_app_label">Name of the app :</string>
     <string name="descriptionLabel">Description</string>
     <string name="cadre_explanation">Fait dans le cadre du projet SmartCity 2017</string>
@@ -64,4 +64,6 @@
     <string name="phone_number_label">Numéro de téléphone (facultatif)</string>
     <string name="error_format_phoneNumber">Respectez le format 0412345678</string>
     <string name="error_server_encountered">Un problème est survenu du côté du serveur</string>
+    <string name="error400_message">Mauvaise requête, le nom ou l\'email peuvent être déj) pris ou la demande peut avoir expiré</string>
+    <string name="error_parsing_date">erreur de formatage de date</string>
 </resources>

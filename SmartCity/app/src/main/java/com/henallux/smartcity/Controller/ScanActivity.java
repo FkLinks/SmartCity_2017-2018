@@ -38,10 +38,12 @@ public class ScanActivity extends AppCompatActivity {
     private String token;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
-    SurfaceView cameraPreview;
-    TextView txtView;
-    BarcodeDetector barcodeDetector;
-    CameraSource cameraSource;
+    private SurfaceView cameraPreview;
+    private TextView txtView;
+    private BarcodeDetector barcodeDetector;
+    private CameraSource cameraSource;
+    //to avoid spamming scan of a qr code
+    private boolean hasScanned = false;
     final int RequestCameraPermissionID = 1001;
 
     @Override
@@ -93,6 +95,7 @@ public class ScanActivity extends AppCompatActivity {
         @Override
         public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
             cameraSource.stop();
+            hasScanned=false;
         }
     };
 
@@ -126,7 +129,7 @@ public class ScanActivity extends AppCompatActivity {
         @Override
         public void receiveDetections(Detector.Detections<Barcode> detections) {
             final SparseArray<Barcode> qrcodes = detections.getDetectedItems();
-            if(qrcodes.size() != 0){
+            if(qrcodes.size() != 0 && !hasScanned){
                 txtView.post(new Runnable(){
                     @Override
                     public void run(){
@@ -149,6 +152,7 @@ public class ScanActivity extends AppCompatActivity {
                         }
                     }
                 });
+                hasScanned = true;
             }
         }
     };

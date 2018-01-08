@@ -46,8 +46,6 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText password;
     private EditText email;
     private RadioGroup sex;
-    private RadioButton male;
-    private RadioButton female;
     private EditText birthdate;
     private EditText geographicalOrigins;
     private EditText phoneNumber;
@@ -68,8 +66,6 @@ public class RegisterActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.email);
         sex = (RadioGroup) findViewById(R.id.sexChoice);
         sex.check(R.id.male);
-        male = (RadioButton) findViewById(R.id.male);
-        female = (RadioButton) findViewById(R.id.female);
         birthdate = (EditText) findViewById(R.id.birthDate);
         geographicalOrigins = (EditText) findViewById(R.id.whereHeFrom);
         phoneNumber = (EditText) findViewById(R.id.phoneNumber);
@@ -89,28 +85,25 @@ public class RegisterActivity extends AppCompatActivity {
     private View.OnClickListener registerBtnListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            User user;
             activeNetwork = connectivityManager.getActiveNetworkInfo();
             isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
             if(checkValidation()) {
                 if(isConnected) {
-
+                    User user = new User();
                     DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                    Date birthDate = new Date();
-                    try {
-                        birthDate = df.parse(birthdate.getText().toString());
-                    }
-                    catch (ParseException pe){
 
-                    }
+                    try {
                     user = new User(userName.getText().toString(),
                             password.getText().toString(),
                             email.getText().toString(),
-                            birthDate,
+                            df.parse(birthdate.getText().toString()),
                             ((sex.getCheckedRadioButtonId() == R.id.male) ? 'M' : 'F'),
                             (geographicalOrigins.getText().toString().equals("")) ? null : geographicalOrigins.getText().toString(),
                             (phoneNumber.getText().toString().equals("")) ? null : phoneNumber.getText().toString());
-
+                    }
+                    catch (ParseException pe){
+                        Toast.makeText(RegisterActivity.this, R.string.error_parsing_date, Toast.LENGTH_LONG).show();
+                    }
                     new SubmitRegistration().execute(user);
                 }
                 else{
@@ -171,53 +164,75 @@ public class RegisterActivity extends AppCompatActivity {
             super.onPostExecute(tokenReceived);
             JSONObject toSend = new JSONObject();
 
-            TokenReceived tokenReceivedForLog;
-
+            //For the moment the api only send 200 - 400 or 500, not precise codes
             switch (tokenReceived.getCode()){
                 case 200:
                     try {
-                        toSend.put("UserName", userName.getText());
-                        toSend.put("Password", password.getText());
-
-                        tokenReceivedForLog = userDAO.checkUserExist(toSend.toString());
-
-                        if(tokenReceivedForLog.getCode() == 200){
-                            Intent home = new Intent(RegisterActivity.this, HomeActivity.class);
-                            editor.putString("token", tokenReceivedForLog.getToken());
-                            editor.putString("userName", userName.getText().toString());
-                            editor.commit();
-                            startActivity(home);
-
-                            Toast.makeText(RegisterActivity.this, R.string.registerSuccessful, Toast.LENGTH_LONG).show();
-                        }
-                        else{
-                            Toast.makeText(RegisterActivity.this, R.string.connectionError, Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-                    catch (LoginUserException e){
-                        Toast.makeText(RegisterActivity.this, getString(R.string.errorCheckingUser), Toast.LENGTH_LONG).show();
+                        toSend.put("UserName", userName.getText().toString());
+                        toSend.put("Password", password.getText().toString());
                     }
                     catch (JSONException e) {
                         Toast.makeText(RegisterActivity.this, R.string.json_exception_encountered, Toast.LENGTH_LONG).show();
                     }
+
+                    new CheckUser().execute(toSend.toString());
+
                     break;
                 case 400:
-                    Toast.makeText(RegisterActivity.this, R.string.error_registering_user, Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this, R.string.error400_message, Toast.LENGTH_LONG).show();
                     //Toast.makeText(RegisterActivity.this, R.string.error_register_mail_unique, Toast.LENGTH_LONG).show();
                     break;
-                case 408:
+                /*case 408:
                     Toast.makeText(RegisterActivity.this, R.string.expired_request, Toast.LENGTH_LONG).show();
                     break;
                 case 409:
                     Toast.makeText(RegisterActivity.this, R.string.error_register_username_unique, Toast.LENGTH_LONG).show();
-                    break;
+                    break;*/
                 case 500:
                     Toast.makeText(RegisterActivity.this, R.string.error_server_encountered, Toast.LENGTH_LONG).show();
                     break;
                 default:
                     Toast.makeText(RegisterActivity.this, tokenReceived.getErrorException(), Toast.LENGTH_LONG).show();
                     break;
+            }
+        }
+    }
+
+    private class CheckUser extends AsyncTask<String, Void, TokenReceived> {
+        @Override
+        protected TokenReceived doInBackground(String... userParams) {
+            TokenReceived tokenReceived = new TokenReceived();
+
+            try {
+                tokenReceived = userDAO.checkUserExist(userParams[0]);
+
+            }
+            catch (LoginUserException e){
+                tokenReceived.setErrorException(getString(R.string.invalid_username_password));
+            }
+            catch (JSONException e) {
+                tokenReceived.setErrorException(getString(R.string.json_exception_encountered));
+            }
+            return tokenReceived;
+        }
+
+        @Override
+        protected void onPostExecute(TokenReceived tokenReceived) {
+            super.onPostExecute(tokenReceived);
+
+            if(tokenReceived.getErrorException().equals("") && tokenReceived.getCode() == 200) {
+                Intent home = new Intent(RegisterActivity.this, HomeActivity.class);
+                editor.putString("token", tokenReceived.getToken());
+                editor.putString("userName", userName.getText().toString());
+
+                editor.commit();
+
+                startActivity(home);
+
+                Toast.makeText(RegisterActivity.this, getString(R.string.welcomeMessage) + " " + userName.getText().toString(), Toast.LENGTH_LONG).show();
+            }
+            else{
+                Toast.makeText(RegisterActivity.this, tokenReceived.getErrorException(), Toast.LENGTH_LONG).show();
             }
         }
     }

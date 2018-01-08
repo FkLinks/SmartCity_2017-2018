@@ -75,14 +75,12 @@ public class UserProfileActivity extends AppCompatActivity {
 
             if(error.equals("")) {
                 userNameProfile.setText(user.getUserName());
-                sexProfile.setText(user.getSex());
+                sexProfile.setText(""+user.getSex());
                 emailProfile.setText(user.getEmail());
                 originCountryProfile.setText(user.getGeographicOrigins());
 
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                String birthDate = df.format(user.getBirthdate());
-
-                birthDateProfile.setText(birthDate);
+                birthDateProfile.setText(df.format(user.getBirthdate()));
             }
             else{
                 Toast.makeText(UserProfileActivity.this, error, Toast.LENGTH_LONG).show();

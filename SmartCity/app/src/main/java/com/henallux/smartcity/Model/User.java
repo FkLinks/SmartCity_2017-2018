@@ -21,7 +21,7 @@ public class User implements Serializable {
     @SerializedName("sex")
     private char sex;
 
-    @SerializedName("birtdate")
+    @SerializedName("birthdate")
     private Date birthdate;
 
     @Nullable

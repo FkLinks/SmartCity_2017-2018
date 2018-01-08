@@ -41,9 +41,9 @@
     <string name="gardensActivityName">The Gardens</string>
     <string name="infosLabelActivity">Informations</string>
     <string name="RequiredForm">Required</string>
-    <string name="errorMsgFormatEmail">Respect format exemple@ex.com</string>
+    <string name="errorMsgFormatEmail">Respect format example@ex.com</string>
     <string name="errorMsgFormatBirthdate">Respect format yyyy-mm-dd</string>
-    <string name="errorMsgFormatPassword">Must contain at least 6 characters</string>
+    <string name="errorMsgFormatPassword">Must contain at least 8 characters, 1 uppercase and 1 digit</string>
     <string name="name_of_the_app_label">Name of the app :</string>
     <string name="descriptionLabel">Description</string>
     <string name="cadre_explanation">Fait dans le cadre du projet SmartCity 2017</string>
@@ -94,4 +94,6 @@
     <string name="phone_number_label">Phone number (optional)</string>
     <string name="error_format_phoneNumber">Respect format 0412345678</string>
     <string name="error_server_encountered">An error occurred on the server\'s side</string>
+    <string name="error400_message">Bad request, username or email may already be taken or the request may have expired</string>
+    <string name="error_parsing_date">error parsing date</string>
 </resources>

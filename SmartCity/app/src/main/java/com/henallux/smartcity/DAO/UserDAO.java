@@ -2,7 +2,6 @@ package com.henallux.smartcity.DAO;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.henallux.smartcity.Exceptions.LoginUserException;
 import com.henallux.smartcity.Exceptions.RegisterUserException;
 import com.henallux.smartcity.Exceptions.ShowInfosUserException;
@@ -17,13 +16,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
-import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,6 +29,12 @@ import static com.henallux.smartcity.Constants.convertStreamToString;
 import static com.henallux.smartcity.Constants.URL_API_BASE;
 
 public class UserDAO {
+
+    private Gson gsonForUser = new GsonBuilder()
+            .setDateFormat("yyyy-MM-dd")
+            .serializeNulls()
+            .create();
+
     public TokenReceived checkUserExist(String login_password) throws LoginUserException, JSONException {
         TokenReceived tokenReceivedCode =new TokenReceived();
         try{
@@ -114,11 +116,7 @@ public class UserDAO {
             OutputStream outputStream = connection.getOutputStream();
             OutputStreamWriter writer = new OutputStreamWriter(outputStream);
 
-            Gson object = new GsonBuilder()
-                    .setDateFormat("yyyy-MM-dd")
-                    .serializeNulls()
-                    .create();
-            String jsonUser = object.toJson(user);
+            String jsonUser = gsonForUser.toJson(user);
 
             writer.write(jsonUser);
             writer.flush();
@@ -182,9 +180,15 @@ public class UserDAO {
         //String go = (jsonUser.get("geographicOrigins")==null)?null:jsonUser.getString("geographicOrigins");
         //String pn = (jsonUser.get("phoneNumber")==null)?null:jsonUser.getString("phoneNumber");
 
-        Gson object = new GsonBuilder().setDateFormat("yyyy-MM-dd").serializeNulls().create();
         //User user = new User(jsonUser.getString("userName"), jsonUser.getString("passwordHash"), jsonUser.getString("email"), birthDate, jsonUser.getString("sex").charAt(0), go,pn);
-
-        return object.fromJson(jsonUser.toString(), User.class);//user; //
+        /*User user = new User();
+        try {
+            user = gsonForUser.fromJson(jsonUser.toString(), User.class);//
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            e.printStackTrace();
+        }*/
+        return gsonForUser.fromJson(jsonUser.toString(), User.class);//user; //
     }
 }
