@@ -39,7 +39,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD_nlRp5JKykNjDJ2YyZgkO5fwhKjJZjoUs" />
+            android:value="AIzaSyBKAnRRkeDuCn9rBOKjYzoSujpTvAuzGEQ" />
         <meta-data
             android:name="com.google.android.gms.vision.DEPENCIES"
             android:value="barcode" />

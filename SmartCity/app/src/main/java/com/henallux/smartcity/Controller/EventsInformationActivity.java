@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,11 +75,21 @@ public class EventsInformationActivity extends AppCompatActivity {
         websiteEvent = (TextView) findViewById(R.id.websiteEvent);
         if(event.getUrl()!=null){
             websiteEvent.setText(event.getUrl());
+            websiteEvent.setOnClickListener(gotToWebSite);
         }
         else{
             moreInfosEventLabel.setText("");
         }
     }
+
+    private View.OnClickListener gotToWebSite = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Uri uriUrl = Uri.parse(event.getUrl());
+            Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+            startActivity(launchBrowser);
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
