@@ -40,7 +40,7 @@
     <string name="user_origin_country_label">Pays d\'origine :</string>
     <string name="user_birth_date_label">Date de naissance :</string>
     <string name="connection_toast">Connectez-vous pour voir cette page</string>
-    <string name="profileActivityName">Profile</string>
+    <string name="profileActivityName">Profil</string>
     <string name="registerFailed">Enregistrement échoué</string>
     <string name="connectionError">Erreur de connexion</string>
     <string name="registerSuccessful">Enregistrement réussi !</string>

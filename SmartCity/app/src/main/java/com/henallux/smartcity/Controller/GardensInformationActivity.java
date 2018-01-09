@@ -36,7 +36,6 @@ public class GardensInformationActivity extends AppCompatActivity {
     private TextView nameGarden, note, superficie, adress, descr, noPicText;
     private Button audioGuid;
     private MediaPlayer mPlayer = new MediaPlayer();
-    private AudioAttributes audioAttributes;
     private Garden garden;
     private int currentPos = 0;
 

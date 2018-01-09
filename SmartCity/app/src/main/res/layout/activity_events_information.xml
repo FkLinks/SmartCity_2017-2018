@@ -83,5 +83,6 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/moreInfosEventLabel"
         android:layout_below="@+id/moreInfosEventLabel"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:textColor="@color/wallet_link_text_light" />
 </RelativeLayout>
