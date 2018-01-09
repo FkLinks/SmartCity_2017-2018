@@ -15,16 +15,19 @@ import java.util.ArrayList;
 
 public class Custom_Gardens_Adapter extends ArrayAdapter<Garden> {
     public Custom_Gardens_Adapter(@NonNull Context context, @NonNull ArrayList<Garden> list_home_menu) {
-        super(context, R.layout.list_view_home_menu, list_home_menu);
+        super(context, R.layout.list_view_gardens_listing, list_home_menu);
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View view, ViewGroup viewGroup) {
+    public View getView(int position, View view, @NonNull ViewGroup viewGroup) {
         LayoutInflater layout = LayoutInflater.from(getContext());
         View shapeOfList = layout.inflate(R.layout.list_view_gardens_listing, viewGroup, false);
-        Garden line_menu = getItem(position);
-        TextView nameChoice = (TextView) shapeOfList.findViewById(R.id.choiceGardenListView);
-        nameChoice.setText(line_menu.getName());
+        Garden garden = getItem(position);
+
+        TextView nameChoice = shapeOfList.findViewById(R.id.choiceGardenListView);
+        nameChoice.setText(garden.getName());
+
         return shapeOfList;
     }
 }

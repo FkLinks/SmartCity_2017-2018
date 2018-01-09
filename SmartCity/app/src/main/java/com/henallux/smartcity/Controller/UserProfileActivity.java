@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.henallux.smartcity.DAO.UserDAO;
+import com.henallux.smartcity.DAO.UserJSONDAO;
 import com.henallux.smartcity.Exceptions.ShowInfosUserException;
 import com.henallux.smartcity.Model.User;
 import com.henallux.smartcity.R;
@@ -54,7 +55,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private class LoadUser extends AsyncTask<String, Void, User> {
         @Override
         protected User doInBackground(String... strings) {
-            UserDAO userDAO = new UserDAO();
+            UserDAO userDAO = new UserJSONDAO();
             User user = new User();
             try{
                 user = userDAO.getUserByName(userName, token);
@@ -77,9 +78,9 @@ public class UserProfileActivity extends AppCompatActivity {
                 userNameProfile.setText(user.getUserName());
                 sexProfile.setText(""+user.getSex());
                 emailProfile.setText(user.getEmail());
-                originCountryProfile.setText(user.getGeographicOrigins());
+                originCountryProfile.setText((user.getGeographicOrigins()!=null)?user.getGeographicOrigins():getString(R.string.not_stipulated));
 
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat df = new SimpleDateFormat("dd MMMM yyyy");
                 birthDateProfile.setText(df.format(user.getBirthdate()));
             }
             else{

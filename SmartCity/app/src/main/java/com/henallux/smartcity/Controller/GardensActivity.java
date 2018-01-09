@@ -34,6 +34,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.henallux.smartcity.DAO.GardenDAO;
+import com.henallux.smartcity.DAO.GardenJSONDAO;
 import com.henallux.smartcity.Exceptions.GetAllGardensException;
 import com.henallux.smartcity.Model.Custom_Gardens_Adapter;
 import com.henallux.smartcity.Model.Garden;
@@ -101,20 +102,22 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
         tabHost.addTab(spec);
 
         gardenList = (ListView) findViewById(R.id.listGardens);
-        gardenList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent garden = new Intent(GardensActivity.this, GardensInformationActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("garden", (Serializable)gardenList.getItemAtPosition(position));
-                garden.putExtras(bundle);
-                startActivity(garden);
-            }
-        });
+        gardenList.setOnItemClickListener(goToInformationPage);
 
         FragmentManager fragmentManager = getFragmentManager();
         mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.map);
     }
+
+    private AdapterView.OnItemClickListener goToInformationPage = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Intent garden = new Intent(GardensActivity.this, GardensInformationActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("garden", (Serializable)gardenList.getItemAtPosition(position));
+            garden.putExtras(bundle);
+            startActivity(garden);
+        }
+    };
 
     @Override
     protected void onResume() {
@@ -166,27 +169,29 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
                 GardensActivity.this.googleMap = googleMap;
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(50.463335, 4.881568), 10.0f));
                 googleMap.setMyLocationEnabled(true);
+
                 for (Garden garden : listItems) {
                     String[] latLong = garden.getGeographicalCoordinate().split(",");
 
                     googleMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(latLong[0]), Double.parseDouble(latLong[1])))
                             .title(garden.getName()));
-
-                    googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-                        @Override
-                        public void onInfoWindowClick(Marker marker) {
-                            Intent gardenInfos = new Intent(GardensActivity.this, GardensInformationActivity.class);
-                            Bundle bundle = new Bundle();
-                            for(Garden garden : listItems) {
-                                if(marker.getTitle().equals(garden.getName())){
-                                    bundle.putSerializable("garden", garden);
-                                }
-                            }
-                            gardenInfos.putExtras(bundle);
-                            startActivity(gardenInfos);
-                        }
-                    });
                 }
+
+                googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                    @Override
+                    public void onInfoWindowClick(Marker marker) {
+                        Intent gardenInfos = new Intent(GardensActivity.this, GardensInformationActivity.class);
+                        Bundle bundle = new Bundle();
+                        for(Garden garden : listItems) {
+                            if(marker.getTitle().equals(garden.getName())){
+                                bundle.putSerializable("garden", garden);
+                                break;
+                            }
+                        }
+                        gardenInfos.putExtras(bundle);
+                        startActivity(gardenInfos);
+                    }
+                });
             }
         });
     }
@@ -220,18 +225,16 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
     public void onProviderDisabled(String provider) {
 
     }
+    private class LoadGarden extends AsyncTask<Void, Void, ArrayList<Garden>>{
+        private String error = "";
 
-    private class LoadGarden extends AsyncTask<Void, Void, String>{
         @Override
-        protected String doInBackground(Void... strings) {
-            GardenDAO gardenDAO = new GardenDAO();
-            ArrayList<Garden> gardens;
-            String error = "";
+        protected ArrayList<Garden> doInBackground(Void... strings) {
+            GardenDAO gardenDAO = new GardenJSONDAO();
+            ArrayList<Garden> gardens = new ArrayList<>();
+
             try{
                 gardens = gardenDAO.getAllGardens();
-                for(Garden garden:gardens){
-                    listItems.add(garden);
-                }
             }
             catch (GetAllGardensException e){
                 error = getString(R.string.error_get_all_gardens_exception);
@@ -240,14 +243,15 @@ public class GardensActivity extends AppCompatActivity implements LocationListen
                 error = getString(R.string.json_exception_encountered);
             }
 
-            return error;
+            return gardens;
         }
 
         @Override
-        protected void onPostExecute(String error) {
-            super.onPostExecute(error);
+        protected void onPostExecute(ArrayList<Garden> gardens) {
+            super.onPostExecute(gardens);
             if(error.equals("")) {
-                gardenList.setAdapter(new Custom_Gardens_Adapter(GardensActivity.this, listItems));
+                gardenList.setAdapter(new Custom_Gardens_Adapter(GardensActivity.this, gardens));
+                listItems = gardens;
                 verifPermission();
             }
             else{

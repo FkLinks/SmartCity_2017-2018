@@ -17,6 +17,16 @@
         android:layout_marginTop="13dp" />
 
     <TextView
+        android:id="@+id/noPicText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignStart="@id/mainPic"
+        android:layout_alignTop="@id/mainPic"
+        android:layout_alignBottom="@id/mainPic"
+        android:layout_alignEnd="@id/mainPic"
+        android:textAlignment="center" />
+
+    <TextView
         android:id="@+id/nameGarden"
         android:layout_width="wrap_content"
         android:layout_height="37dp"

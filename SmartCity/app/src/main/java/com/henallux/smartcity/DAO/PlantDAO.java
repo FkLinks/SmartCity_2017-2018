@@ -1,17 +1,9 @@
 package com.henallux.smartcity.DAO;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.henallux.smartcity.Model.Plant;
 
-import org.json.JSONObject;
+import org.json.JSONException;
 
-public class PlantDAO {
-    public Plant jsonToPlant(String stringJSON) throws Exception{
-        JSONObject jsonPlant = new JSONObject(stringJSON);
-
-        Gson object = new GsonBuilder().create();
-
-        return object.fromJson(jsonPlant.toString(), Plant.class);
-    }
+public interface PlantDAO {
+    Plant getPlantInfos(String string) throws JSONException;
 }

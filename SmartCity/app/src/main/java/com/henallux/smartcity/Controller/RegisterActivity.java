@@ -19,18 +19,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.henallux.smartcity.DAO.UserDAO;
+import com.henallux.smartcity.DAO.UserJSONDAO;
 import com.henallux.smartcity.Exceptions.LoginUserException;
 import com.henallux.smartcity.Exceptions.RegisterUserException;
 import com.henallux.smartcity.Model.TokenReceived;
 import com.henallux.smartcity.Model.User;
+import com.henallux.smartcity.Model.UserLogin;
 import com.henallux.smartcity.R;
 import com.henallux.smartcity.Validation;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.ParseException;
-import java.util.Date;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -43,12 +43,13 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView goToLogin;
     private EditText userName;
     private EditText password;
+    private EditText validPassword;
     private EditText email;
     private RadioGroup sex;
     private EditText birthdate;
     private EditText geographicalOrigins;
     private EditText phoneNumber;
-    private UserDAO userDAO = new UserDAO();
+    private UserDAO userDAO = new UserJSONDAO();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         userName = (EditText) findViewById(R.id.login);
         password = (EditText) findViewById(R.id.password);
+        validPassword = (EditText) findViewById(R.id.validPassword);
         email = (EditText) findViewById(R.id.email);
         sex = (RadioGroup) findViewById(R.id.sexChoice);
         sex.check(R.id.male);
@@ -115,29 +117,49 @@ public class RegisterActivity extends AppCompatActivity {
         }
     };
 
-    private boolean checkValidation(){
+    private boolean checkValidation() {
         boolean valid = true;
 
         //will display all errors format encountered
-        if(!Validation.isValid(email, getString(R.string.email_regex), getString(R.string.errorMsgFormatEmail), getString(R.string.RequiredForm), true))
+        if (!Validation.isValid(email, getString(R.string.email_regex), getString(R.string.errorMsgFormatEmail), getString(R.string.RequiredForm), true))
             valid = false;
 
-        if(!Validation.isValid(birthdate, getString(R.string.birthdate_regex), getString(R.string.errorMsgFormatBirthdate), getString(R.string.RequiredForm), true))
+        if (!Validation.isValid(birthdate, getString(R.string.birthdate_regex), getString(R.string.errorMsgFormatBirthdate), getString(R.string.RequiredForm), true)) {
+            valid = false;
+        }
+        else{
+            if(validYear()){
+                birthdate.setError(getString(R.string.wrong_date_too_old_error));
+                valid = false;
+            }
+        }
+
+        if (!Validation.hasText(userName, getString(R.string.RequiredForm)))
             valid = false;
 
-        if(!Validation.hasText(userName, getString(R.string.RequiredForm)))
+        if (!Validation.isValid(password, getString(R.string.password_regex), getString(R.string.errorMsgFormatPassword), getString(R.string.RequiredForm), true))
             valid = false;
 
-        if(!Validation.isValid(password, getString(R.string.password_regex), getString(R.string.errorMsgFormatPassword), getString(R.string.RequiredForm), true))
+        if (!Validation.isValid(geographicalOrigins, getString(R.string.geographical_origins_regex), getString(R.string.errorMsgFormatGO), getString(R.string.RequiredForm), false))
             valid = false;
 
-        if(!Validation.isValid(geographicalOrigins, getString(R.string.geographical_origins_regex), getString(R.string.errorMsgFormatGO), getString(R.string.RequiredForm), false))
+        if (!Validation.isValid(phoneNumber, getString(R.string.regex_phoneNumber), getString(R.string.error_format_phoneNumber), getString(R.string.RequiredForm), false))
             valid = false;
 
-        if(!Validation.isValid(phoneNumber, getString(R.string.regex_phoneNumber), getString(R.string.error_format_phoneNumber), getString(R.string.RequiredForm), false))
+        if (passwordsDoNotMatch()) {
+            validPassword.setError(getString(R.string.passwords_doesnt_match_error));
             valid = false;
+        }
 
         return valid;
+    }
+
+    private Boolean passwordsDoNotMatch(){
+        return !password.getText().toString().equals(validPassword.getText().toString());
+    }
+
+    private Boolean validYear(){
+        return Integer.parseInt(birthdate.getText().toString().split("-")[0]) <= 1870;
     }
 
     private class SubmitRegistration extends AsyncTask<User, Void, TokenReceived> {
@@ -161,20 +183,12 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(TokenReceived tokenReceived) {
             super.onPostExecute(tokenReceived);
-            JSONObject toSend = new JSONObject();
 
             //For the moment the api only send 200 - 400 or 500, not precise codes
             switch (tokenReceived.getCode()){
                 case 200:
-                    try {
-                        toSend.put("UserName", userName.getText().toString());
-                        toSend.put("Password", password.getText().toString());
-                    }
-                    catch (JSONException e) {
-                        Toast.makeText(RegisterActivity.this, R.string.json_exception_encountered, Toast.LENGTH_LONG).show();
-                    }
 
-                    new CheckUser().execute(toSend.toString());
+                    new CheckUser().execute(new UserLogin(userName.getText().toString(), password.getText().toString()));
 
                     break;
                 case 400:
@@ -197,9 +211,9 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private class CheckUser extends AsyncTask<String, Void, TokenReceived> {
+    private class CheckUser extends AsyncTask<UserLogin, Void, TokenReceived> {
         @Override
-        protected TokenReceived doInBackground(String... userParams) {
+        protected TokenReceived doInBackground(UserLogin... userParams) {
             TokenReceived tokenReceived = new TokenReceived();
 
             try {
@@ -223,6 +237,7 @@ public class RegisterActivity extends AppCompatActivity {
                 Intent home = new Intent(RegisterActivity.this, HomeActivity.class);
                 editor.putString("token", tokenReceived.getToken());
                 editor.putString("userName", userName.getText().toString());
+                editor.putString("password", "");
 
                 editor.commit();
 

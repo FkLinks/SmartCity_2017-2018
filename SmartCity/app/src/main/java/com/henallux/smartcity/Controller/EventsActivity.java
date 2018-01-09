@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.henallux.smartcity.DAO.EventDAO;
+import com.henallux.smartcity.DAO.EventJSONDAO;
 import com.henallux.smartcity.Exceptions.GetEventsException;
 import com.henallux.smartcity.Model.Custom_Events_Adapter;
 import com.henallux.smartcity.Model.Event;
@@ -38,7 +39,6 @@ public class EventsActivity extends AppCompatActivity {
     private boolean isConnected;
     private ListView eventList;
     private TextView errorMessage;
-    private String error = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,10 +76,12 @@ public class EventsActivity extends AppCompatActivity {
         });
     }
 
-    private class LoadEvent extends AsyncTask<String, Void, ArrayList<Event>> {
+    private class LoadEvent extends AsyncTask<Void, Void, ArrayList<Event>> {
+        private String error = "";
+
         @Override
-        protected ArrayList<Event> doInBackground(String... strings) {
-            EventDAO eventDAO = new EventDAO();
+        protected ArrayList<Event> doInBackground(Void... params) {
+            EventDAO eventDAO = new EventJSONDAO();
             ArrayList<Event> events = new ArrayList<>();
             try{
                 events = eventDAO.getAllEvents();

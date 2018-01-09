@@ -71,7 +71,7 @@ public class EventsInformationActivity extends AppCompatActivity {
 
         moreInfosEventLabel = (TextView) findViewById(R.id.moreInfosEventLabel);
         websiteEvent = (TextView) findViewById(R.id.websiteEvent);
-        if(!event.getUrl().equals("")){
+        if(event.getUrl()!=null){
             websiteEvent.setText(event.getUrl());
         }
         else{

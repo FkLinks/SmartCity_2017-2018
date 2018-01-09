@@ -96,4 +96,11 @@
     <string name="error_server_encountered">An error occurred on the server\'s side</string>
     <string name="error400_message">Bad request, username or email may already be taken or the request may have expired</string>
     <string name="error_parsing_date">error parsing date</string>
+    <string name="not_stipulated">Not stipulated</string>
+    <string name="no_audio_guide">There is no audio guide for the moment for this garden</string>
+    <string name="noPicAvailable">No picture available</string>
+    <string name="valider_mot_de_passe">Validate password</string>
+    <string name="passwords_doesnt_match_error">Passwords doesn\'t match</string>
+    <string name="wrong_date_too_old_error">Is it really possible to be that old ?</string>
+    <string name="error_camera">A problem occurred with the camera</string>
 </resources>

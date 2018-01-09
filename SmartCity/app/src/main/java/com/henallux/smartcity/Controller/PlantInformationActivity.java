@@ -46,7 +46,7 @@ public class PlantInformationActivity extends AppCompatActivity {
         picture = (ImageView) findViewById(R.id.picturePlant);
         Picasso
                 .with(this)
-                .load("http://res.cloudinary.com/vnckcloud/image/upload/v1513530594/Graines-de-tournesol_nzp4gx.jpg")
+                .load(plant.getUrlPicture())
                 .into(picture);
 
         namePlant = (TextView) findViewById(R.id.namePlant);

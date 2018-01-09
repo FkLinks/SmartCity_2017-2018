@@ -17,15 +17,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.henallux.smartcity.DAO.UserDAO;
+import com.henallux.smartcity.DAO.UserJSONDAO;
 import com.henallux.smartcity.Exceptions.LoginUserException;
 import com.henallux.smartcity.Model.TokenReceived;
+import com.henallux.smartcity.Model.UserLogin;
 import com.henallux.smartcity.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity {
     private SharedPreferences preferences;
@@ -40,8 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText userName;
     private EditText password;
     private CheckBox rememberMe;
-    private UserDAO userDAO = new UserDAO();
-    private JSONObject toSend = new JSONObject();
+    private UserJSONDAO userJSONDAO = new UserJSONDAO();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,15 +88,15 @@ public class LoginActivity extends AppCompatActivity {
                 activeNetwork = connectivityManager.getActiveNetworkInfo();
                 isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
                 if (isConnected) {
-                    try {
+                    /*try {
                         toSend.put("UserName", userName.getText().toString());
                         toSend.put("Password", password.getText().toString());
                     }
                     catch (JSONException e) {
                         Toast.makeText(LoginActivity.this, R.string.json_exception_encountered, Toast.LENGTH_LONG).show();
-                    }
+                    }*/
 
-                    new CheckUser().execute(toSend.toString());
+                    new CheckUser().execute(new UserLogin(userName.getText().toString(), password.getText().toString()));
 
                 } else {
                     Toast.makeText(LoginActivity.this, R.string.errorMissInternetCo, Toast.LENGTH_LONG).show();
@@ -110,13 +108,13 @@ public class LoginActivity extends AppCompatActivity {
         }
     };
 
-    private class CheckUser extends AsyncTask<String, Void, TokenReceived> {
+    private class CheckUser extends AsyncTask<UserLogin, Void, TokenReceived> {
         @Override
-        protected TokenReceived doInBackground(String... userParams) {
+        protected TokenReceived doInBackground(UserLogin... userParams) {
             TokenReceived tokenReceived = new TokenReceived();
 
             try {
-                tokenReceived = userDAO.checkUserExist(userParams[0]);
+                tokenReceived = userJSONDAO.checkUserExist(userParams[0]);
 
             }
             catch (LoginUserException e){

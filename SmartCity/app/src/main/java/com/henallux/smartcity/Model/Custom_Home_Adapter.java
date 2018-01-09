@@ -17,13 +17,15 @@ public class Custom_Home_Adapter extends ArrayAdapter<String> {
     public Custom_Home_Adapter(@NonNull Context context, @NonNull ArrayList<String> list_home_menu) {
         super(context, R.layout.list_view_home_menu, list_home_menu);
     }
+
+    @NonNull
     @Override
-    public View getView(int position, View view, ViewGroup viewGroup) {
+    public View getView(int position, View view, @NonNull ViewGroup viewGroup) {
         LayoutInflater layout = LayoutInflater.from(getContext());
         View shapeOfList = layout.inflate(R.layout.list_view_home_menu, viewGroup, false);
-        String line_menu = getItem(position);
-        TextView nameChoice = (TextView) shapeOfList.findViewById(R.id.txtChoixListView);
-        nameChoice.setText(line_menu);
+        String choice = getItem(position);
+        TextView nameChoice = shapeOfList.findViewById(R.id.txtChoixListView);
+        nameChoice.setText(choice);
         return shapeOfList;
     }
 }

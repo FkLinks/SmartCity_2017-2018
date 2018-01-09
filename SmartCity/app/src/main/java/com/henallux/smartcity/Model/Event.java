@@ -1,12 +1,27 @@
 package com.henallux.smartcity.Model;
 
+import android.support.annotation.Nullable;
+
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class Event implements Serializable {
+    @SerializedName("name")
     private String name;
+
+    @SerializedName("description")
     private String description;
+
+    @SerializedName("startTime")
     private String startTime;
+
+    @Nullable
+    @SerializedName("endTime")
     private String endTime;
+
+    @Nullable
+    @SerializedName("url")
     private String url;
 
     public Event() {
@@ -44,19 +59,21 @@ public class Event implements Serializable {
         this.startTime = startTime;
     }
 
+    @Nullable
     public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(@Nullable String endTime) {
         this.endTime = endTime;
     }
 
+    @Nullable
     public String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
+    public void setUrl(@Nullable String url) {
         this.url = url;
     }
 }

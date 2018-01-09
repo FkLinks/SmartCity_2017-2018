@@ -33,7 +33,7 @@ public class GardensInformationActivity extends AppCompatActivity {
     private NetworkInfo activeNetwork;
     private boolean isConnected;
     private ImageView picture;
-    private TextView nameGarden, note, superficie, adress, descr;
+    private TextView nameGarden, note, superficie, adress, descr, noPicText;
     private Button audioGuid;
     private MediaPlayer mPlayer = new MediaPlayer();
     private AudioAttributes audioAttributes;
@@ -55,16 +55,20 @@ public class GardensInformationActivity extends AppCompatActivity {
         garden = (Garden)bundle.getSerializable("garden");
 
         picture = (ImageView) findViewById(R.id.mainPic);
-        Picasso
-                .with(this)
-                .load(garden.getUrlImg())//"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Vue_statue_jardin_des_plantes_le_mans.JPG/1200px-Vue_statue_jardin_des_plantes_le_mans.JPG")
-                .into(picture);
-
+        if(garden.getUrlImg()!=null) {
+            Picasso .with(this)
+                    .load(garden.getUrlImg())
+                    .into(picture);
+        }
+        else{
+            noPicText = (TextView) findViewById(R.id.noPicText);
+            noPicText.setText(R.string.noPicAvailable);
+        }
         nameGarden = (TextView) findViewById(R.id.nameGarden);
         nameGarden.setText(garden.getName());
 
         note = (TextView) findViewById(R.id.note);
-        note.setText(""+garden.getNote());
+        note.setText((garden.getNote()!=null)?""+garden.getNote():"0");
 
         superficie = (TextView) findViewById(R.id.superficie);
         superficie.setText(""+garden.getSuperficie());
@@ -76,13 +80,18 @@ public class GardensInformationActivity extends AppCompatActivity {
         descr.setText(garden.getDescription());
 
         audioGuid = (Button) findViewById(R.id.audioGuidBtn);
-        audioGuid.setOnClickListener(launchStopAudioClickListener);
-        String url = garden.getUrlAudio();
-        try {
-            mPlayer.setDataSource(url);
-            mPlayer.prepare();
-        } catch (IOException e) {
-            e.printStackTrace();
+        String urlAudio = garden.getUrlAudio();
+        if(urlAudio!=null) {
+            audioGuid.setOnClickListener(launchStopAudioClickListener);
+            try {
+                mPlayer.setDataSource(urlAudio);
+                mPlayer.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            audioGuid.setOnClickListener(noAudioGuidPrevent);
         }
     }
 
@@ -100,6 +109,13 @@ public class GardensInformationActivity extends AppCompatActivity {
                 mPlayer.seekTo(currentPos);
                 mPlayer.start();
             }
+        }
+    };
+
+    private View.OnClickListener noAudioGuidPrevent = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(GardensInformationActivity.this, R.string.no_audio_guide, Toast.LENGTH_LONG).show();
         }
     };
 

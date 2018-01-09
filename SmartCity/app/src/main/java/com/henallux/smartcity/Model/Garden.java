@@ -1,21 +1,43 @@
 package com.henallux.smartcity.Model;
 
+import android.support.annotation.Nullable;
+
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class Garden implements Serializable {
+    @SerializedName("name")
     private String name;
+
+    @SerializedName("superficie")
     private double superficie;
+
+    @SerializedName("street")
     private String street;
+
+    @SerializedName("numStreet")
     private int numStreet;
+
+    @SerializedName("description")
     private String description;
-    private double note;
+
+    @Nullable
+    @SerializedName("note")
+    private Double note;
+
+    @SerializedName("geographicalCoordinate")
     private String geographicalCoordinate;
+
+    @Nullable
+    @SerializedName("urlImg")
     private String urlImg;
+
+    @Nullable
+    @SerializedName("urlAudio")
     private String urlAudio;
-    //garden = new Garden(jsonGarden.getString("name"), jsonGarden.getDouble("superficie"), jsonGarden.getString("street"),
-    // jsonGarden.getInt("numStreet"), jsonGarden.getString("description"),
-    // jsonGarden.getDouble("note"), jsonGarden.getString("geographicalCoordinate"), jsonGarden.getString("urlImg"),jsonGarden.getString("urlAudio"));
-    public Garden(String name, double superficie, String street, int numStreet, String description, double note, String geographicalCoordinate, String urlImg, String urlAudio) {
+
+    public Garden(String name, double superficie, String street, int numStreet, String description, Double note, String geographicalCoordinate, String urlImg, String urlAudio) {
         setName(name);
         setSuperficie(superficie);
         setStreet(street);
@@ -47,7 +69,8 @@ public class Garden implements Serializable {
         return description;
     }
 
-    public double getNote() {
+    @Nullable
+    public Double getNote() {
         return note;
     }
 
@@ -75,7 +98,7 @@ public class Garden implements Serializable {
         this.description = description;
     }
 
-    public void setNote(double note) {
+    public void setNote(@Nullable Double note) {
         this.note = note;
     }
 
@@ -83,19 +106,21 @@ public class Garden implements Serializable {
         this.geographicalCoordinate = geographicalCoordinate;
     }
 
+    @Nullable
     public String getUrlImg() {
         return urlImg;
     }
 
-    public void setUrlImg(String urlImg) {
+    public void setUrlImg(@Nullable String urlImg) {
         this.urlImg = urlImg;
     }
 
+    @Nullable
     public String getUrlAudio() {
         return urlAudio;
     }
 
-    public void setUrlAudio(String urlAudio) {
+    public void setUrlAudio(@Nullable String urlAudio) {
         this.urlAudio = urlAudio;
     }
 }

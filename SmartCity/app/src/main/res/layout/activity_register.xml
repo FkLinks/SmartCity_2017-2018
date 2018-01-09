@@ -12,137 +12,148 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-    <EditText
-        android:id="@+id/login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="@string/login"
-        tools:layout_editor_absoluteY="64dp"
-        tools:layout_editor_absoluteX="85dp"
-        android:layout_marginTop="20dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+            <EditText
+                android:id="@+id/login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="@string/login"
+                tools:layout_editor_absoluteY="64dp"
+                tools:layout_editor_absoluteX="85dp"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:hint="@string/password"
-        tools:layout_editor_absoluteY="143dp"
-        tools:layout_editor_absoluteX="94dp"
-        android:layout_marginTop="24dp"
-        android:layout_below="@+id/login"
-        android:layout_alignStart="@+id/login" />
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="@string/password"
+                tools:layout_editor_absoluteY="143dp"
+                tools:layout_editor_absoluteX="94dp"
+                android:layout_marginTop="24dp"
+                android:layout_below="@+id/login"
+                android:layout_alignStart="@+id/login" />
 
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/password"
-        android:layout_below="@+id/password"
-        android:layout_marginTop="28dp"
-        android:ems="10"
-        android:hint="@string/enter_your_e_mail_adress"
-        android:inputType="textEmailAddress"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="64dp" />
+            <EditText
+                android:id="@+id/validPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="@string/valider_mot_de_passe"
+                android:layout_below="@id/password"
+                android:layout_alignStart="@id/password"
+                android:layout_marginTop="24dp"/>
 
-    <EditText
-        android:id="@+id/birthDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="date"
-        android:hint="@string/enter_your_birth_date"
-        tools:layout_editor_absoluteY="64dp"
-        tools:layout_editor_absoluteX="85dp"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/sexChoice"
-        android:layout_alignStart="@+id/sexChoice" />
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/validPassword"
+                android:layout_below="@+id/validPassword"
+                android:layout_marginTop="28dp"
+                android:ems="10"
+                android:hint="@string/enter_your_e_mail_adress"
+                android:inputType="textEmailAddress"
+                tools:layout_editor_absoluteX="85dp"
+                tools:layout_editor_absoluteY="64dp" />
 
-    <Button
-        android:id="@+id/register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/register"
-        android:layout_marginTop="14dp"
-        android:layout_below="@+id/phoneNumber"
-        android:layout_alignStart="@+id/phoneNumber"
-        android:layout_alignEnd="@+id/phoneNumber" />
+            <EditText
+                android:id="@+id/birthDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="date"
+                android:hint="@string/enter_your_birth_date"
+                tools:layout_editor_absoluteY="64dp"
+                tools:layout_editor_absoluteX="85dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/sexChoice"
+                android:layout_alignStart="@+id/sexChoice" />
 
-
-    <EditText
-        android:id="@+id/whereHeFrom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPostalAddress"
-        android:hint="@string/where_are_you_from"
-        android:layout_below="@+id/birthDate"
-        android:layout_alignStart="@+id/birthDate"
-        android:layout_marginTop="27dp" />
-
-        <EditText
-            android:id="@+id/phoneNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="phone"
-            android:hint="@string/phone_number_label"
-            android:layout_below="@+id/whereHeFrom"
-            android:layout_alignStart="@+id/whereHeFrom"
-            android:layout_marginTop="27dp"/>
-
-    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/sexChoice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/email"
-        android:layout_alignStart="@+id/email"
-        android:layout_alignEnd="@+id/email">
-
-        <RadioButton
-            android:id="@+id/male"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/male" />
-
-        <RadioButton
-            android:id="@+id/female"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="66dp"
-            android:text="@string/female" />
-    </RadioGroup>
+            <Button
+                android:id="@+id/register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register"
+                android:layout_marginTop="14dp"
+                android:layout_below="@+id/phoneNumber"
+                android:layout_alignStart="@+id/phoneNumber"
+                android:layout_alignEnd="@+id/phoneNumber" />
 
 
-    <TextView
-        android:id="@+id/sign_inLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/you_have_already_an_account_sign_in"
-        android:layout_marginEnd="35dp"
-        android:layout_below="@+id/register"
-        android:layout_alignEnd="@+id/register"
-        android:layout_marginTop="20dp" />
+            <EditText
+                android:id="@+id/whereHeFrom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPostalAddress"
+                android:hint="@string/where_are_you_from"
+                android:layout_below="@+id/birthDate"
+                android:layout_alignStart="@+id/birthDate"
+                android:layout_marginTop="27dp" />
 
-    <TextView
-        android:id="@+id/sign_in"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sign_in"
-        android:textColor="@color/wallet_holo_blue_light"
-        android:layout_alignBaseline="@+id/sign_inLabel"
-        android:layout_alignBottom="@+id/sign_inLabel"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="70dp" />
+            <EditText
+                android:id="@+id/phoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="phone"
+                android:hint="@string/phone_number_label"
+                android:layout_below="@+id/whereHeFrom"
+                android:layout_alignStart="@+id/whereHeFrom"
+                android:layout_marginTop="27dp"/>
+
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/sexChoice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/email"
+                android:layout_alignStart="@+id/email"
+                android:layout_alignEnd="@+id/email">
+
+                <RadioButton
+                    android:id="@+id/male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/male" />
+
+                <RadioButton
+                    android:id="@+id/female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="66dp"
+                    android:text="@string/female" />
+            </RadioGroup>
+
+
+            <TextView
+                android:id="@+id/sign_inLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/you_have_already_an_account_sign_in"
+                android:layout_marginEnd="35dp"
+                android:layout_below="@+id/register"
+                android:layout_alignEnd="@+id/register"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:id="@+id/sign_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_in"
+                android:textColor="@color/wallet_holo_blue_light"
+                android:layout_alignBaseline="@+id/sign_inLabel"
+                android:layout_alignBottom="@+id/sign_inLabel"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="70dp" />
 
         </RelativeLayout>
 

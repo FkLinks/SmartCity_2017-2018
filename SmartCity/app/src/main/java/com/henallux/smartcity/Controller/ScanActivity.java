@@ -31,8 +31,11 @@ import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.henallux.smartcity.DAO.PlantDAO;
+import com.henallux.smartcity.DAO.PlantJSONDAO;
 import com.henallux.smartcity.Model.Plant;
 import com.henallux.smartcity.R;
+
+import org.json.JSONException;
 
 import java.io.IOException;
 
@@ -119,7 +122,7 @@ public class ScanActivity extends AppCompatActivity {
                     try {
                         cameraSource.start(cameraPreview.getHolder());
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Toast.makeText(ScanActivity.this, R.string.error_camera, Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -141,7 +144,7 @@ public class ScanActivity extends AppCompatActivity {
                 txtView.post(new Runnable(){
                     @Override
                     public void run(){
-                        PlantDAO plantDAO = new PlantDAO();
+                        PlantDAO plantDAO = new PlantJSONDAO();
 
                         //Create vibrate
                         Vibrator vibrator = (Vibrator)getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
@@ -149,14 +152,14 @@ public class ScanActivity extends AppCompatActivity {
 
                         try {
                             Intent plantInfo = new Intent(ScanActivity.this, PlantInformationActivity.class);
-                            Plant plant = plantDAO.jsonToPlant(qrcodes.valueAt(0).displayValue);
+                            Plant plant = plantDAO.getPlantInfos(qrcodes.valueAt(0).displayValue);
                             Bundle bundle = new Bundle();
                             bundle.putSerializable("plant", plant);
                             plantInfo.putExtras(bundle);
                             startActivity(plantInfo);
                         }
-                        catch (Exception e) {
-                            e.printStackTrace();
+                        catch (JSONException e) {
+                            Toast.makeText(ScanActivity.this, R.string.json_exception_encountered, Toast.LENGTH_LONG).show();
                         }
                     }
                 });
