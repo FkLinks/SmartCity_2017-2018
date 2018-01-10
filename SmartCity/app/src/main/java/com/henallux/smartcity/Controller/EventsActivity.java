@@ -64,17 +64,19 @@ public class EventsActivity extends AppCompatActivity {
         token = preferences.getString("token", "");
         editor=preferences.edit();
 
-        eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent event = new Intent(EventsActivity.this, EventsInformationActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("event", (Serializable)eventList.getItemAtPosition(position));
-                event.putExtras(bundle);
-                startActivity(event);
-            }
-        });
+        eventList.setOnItemClickListener(goToInfosEvent);
     }
+
+    private AdapterView.OnItemClickListener goToInfosEvent = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Intent event = new Intent(EventsActivity.this, EventsInformationActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("event", (Serializable)eventList.getItemAtPosition(position));
+            event.putExtras(bundle);
+            startActivity(event);
+        }
+    };
 
     private class LoadEvent extends AsyncTask<Void, Void, ArrayList<Event>> {
         private String error = "";

@@ -187,7 +187,6 @@ public class RegisterActivity extends AppCompatActivity {
             //For the moment the api only send 200 - 400 or 500, not precise codes
             switch (tokenReceived.getCode()){
                 case 200:
-
                     new CheckUser().execute(new UserLogin(userName.getText().toString(), password.getText().toString()));
 
                     break;
@@ -237,7 +236,7 @@ public class RegisterActivity extends AppCompatActivity {
                 Intent home = new Intent(RegisterActivity.this, HomeActivity.class);
                 editor.putString("token", tokenReceived.getToken());
                 editor.putString("userName", userName.getText().toString());
-                editor.putString("password", "");
+                editor.putString("password", password.getText().toString());
 
                 editor.commit();
 

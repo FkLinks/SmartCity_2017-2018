@@ -88,13 +88,6 @@ public class LoginActivity extends AppCompatActivity {
                 activeNetwork = connectivityManager.getActiveNetworkInfo();
                 isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
                 if (isConnected) {
-                    /*try {
-                        toSend.put("UserName", userName.getText().toString());
-                        toSend.put("Password", password.getText().toString());
-                    }
-                    catch (JSONException e) {
-                        Toast.makeText(LoginActivity.this, R.string.json_exception_encountered, Toast.LENGTH_LONG).show();
-                    }*/
 
                     new CheckUser().execute(new UserLogin(userName.getText().toString(), password.getText().toString()));
 
